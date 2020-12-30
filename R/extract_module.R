@@ -21,12 +21,8 @@ extract_module <- function(graph, selected_vertices, vertices_subset=NULL, verti
   V(dm)$subnet_id <- clusters(dm)$membership
   V(dm)$subnet_size <- clusters(dm)$csize[clusters(dm)$membership]
 
-  #only connected genes
-  #cat("connected: ", dmfind::round(sum(V(dm)$subnet_size > 1) / length(selected_vertices), 2), "; ", sum(V(dm)$subnet_size > 1), "out of", length(selected_vertices), "\n")
-
   #plot
   dm_components <- induced_subgraph(dm, V(dm)$name[V(dm)$subnet_size >= min_subnet_size])
-
 
   #shape
   V(dm_components)$shape <- rep('circle', length(V(dm_components)))
@@ -38,7 +34,8 @@ extract_module <- function(graph, selected_vertices, vertices_subset=NULL, verti
     idx <- match(V(dm_components)$name, names(vertices_weight))
     if(any(is.na(idx)))
       stop('vertices weights do not exist for every vertex')
-    V(dm_components)$color <- RColorBrewer::brewer.pal(9, 'Greens')[dmfind::round(linear_map(vertices_weight[idx], 1, 9))]
+    color_values <- cut(vertices_weight[match(V(dm_components)$name, names(vertices_weight))], 9)
+    V(dm_components)$color <- RColorBrewer::brewer.pal(9, "Purples")[as.numeric(color_values)]
   }
   #label
   if(length(vertices_label) >0){
@@ -52,10 +49,10 @@ extract_module <- function(graph, selected_vertices, vertices_subset=NULL, verti
     lo <- layout.fruchterman.reingold(dm_components)
 
     jpeg(plot_outfile, width = 200, height = 200, units='mm', res=300)
-    par(mar=c(1, 1, 5, 1))
+    par(mar=c(1, 1, 1, 1))
     plot.igraph(dm_components, layout=lo, ...)
     if(length(vertices_weight) >= length(V(dm_components))){
-      legend('bottomright', legend = c(dmfind::round(sort(vertices_weight)[1]), rep(NA, 3), dmfind::round(median(vertices_weight)), rep(NA, 3), dmfind::round(sort(vertices_weight)[length(vertices_weight)])), pch=22, pt.bg=RColorBrewer::brewer.pal(9, 'Greens'), col='black', xpd = TRUE, bty = 'n', cex=0.8)
+      legend("bottomright", levels(factor(color_values, levels=sort(unique(color_values)))), col=RColorBrewer::brewer.pal(9, "Purples"), pch=16, bty="n", cex=0.6)
     }
     dev.off()
   }
