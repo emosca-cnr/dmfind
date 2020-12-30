@@ -1,0 +1,21 @@
+dmfind v1.0 (Release date: 2020-04-14)
+- calc_adjND enable the return of the full permutations
+
+dmfind v1.0 (Release date: 2017-10-26)
+
+dmfind beta v0.1 (Release date: 2017-08-09)
+
+dmfind (development version) v0.0.1 (Release date: 2017-07-11)
+- calc_Sp replaced by calc_adjND
+- calc_p is not in the UI
+- check_eps replaced with a novel version
+
+dmfind (development version) v0.0.0.9003 (Release date: 2016-11-28)
+- check_eps: fixed a bug
+
+dmfind (development version) v0.0.0.9002 (Release date: 2016-08-10)
+- omega: now correctly keep names of input vector
+- calc_Sp: added Xs and eps to output list
+
+dmfind (development version) v0.0.0.9001 (Release date: 2016-08-09)
+- calc_Sp and nsi accept more than one value of eps

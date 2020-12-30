@@ -1,0 +1,26 @@
+Package: dmfind
+Type: Package
+Title: Network diffusion-based analysis of omics data
+Version: 1.1
+Date: 2020-04-14
+Authors@R: c(person("Ettore", "Mosca", role = c("aut", "cre"),
+		     email = "ettore.mosca@itb.cnr.it"),
+		    person("Matteo", "Bersanelli", role = "aut"),
+	      person("Luciano", "Milanesi", role = "aut"))
+Author: Ettore Mosca [aut, cre],
+    Matteo Bersanelli[aut],
+    Luciano Milanesi[aut]
+Maintainer: Ettore Mosca <ettore.mosca@itb.cnr.it>
+Description: Network diffusion-based analysis of omics for the identifcation of differentially enriched modules.
+License: GPL-3
+LazyData: TRUE
+Imports:
+    parallel,
+    igraph,
+    RColorBrewer
+Depends:
+    R (>= 3.2.1)
+RoxygenNote: 7.1.0
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
