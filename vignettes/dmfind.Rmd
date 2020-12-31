@@ -20,7 +20,7 @@ library(dmfind)
 ```
 
 ##Input data
-The package requires an adjacency matrix and one or more input vectors. Let's create a simulated input dataset, including: a normalized adjacency matrix (W), a 1-column matrix (X0) with a vector representing omics-derived statistics:
+The package requires an adjacency matrix and one or more input vectors. Let's consider a toy input dataset, including: a normalized adjacency matrix (W), a 1-column matrix (X0) with a vector representing omics-derived statistics:
 
 ```{r, eval=TRUE, message=FALSE}
 library(igraph)
@@ -31,7 +31,7 @@ summary(g400esm)
 head(X0)
 
 ```
-Now, we need to explore a bit the possible values of the $\epsilon$ value. Let's apply network diffusion to our input vector:
+Note that the function $normalize_adj_mat$ is available to normalize an adjacency matrix. Back to the toy model, we need to explore a bit the possible values of the $\epsilon$ value. Let's apply network diffusion to our input vector:
 ```{r, eval=TRUE, message=FALSE}
 library(dmfind)
 Xs <- ND(X0, W)$Xs

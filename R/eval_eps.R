@@ -5,6 +5,7 @@
 #' @param G matrix with epsilon values (rows) for each column of X0, Xs
 #' @param top matrix with epsilon values (rows) for each column of X0, Xs
 #' @return list with sn_g and sn_summary elements
+#' @import Bolstad2
 #' @export
 #'
 
@@ -36,7 +37,10 @@ eval_eps <- function(X0, Xs, eps=NULL, G, top=min(300, nrow(X0))){
 
   }
 
-  out <- list(S=nsi_eps, csX0=csX0, csXs=csXs)
+  aucX0 <- unlist(lapply(out$csX0, function(x) Bolstad2::sintegral(x = 1:top, fx = x)$int))
+  aucXs <- unlist(lapply(out$csXs, function(x) Bolstad2::sintegral(x = 1:top, fx = x)$int))
+
+  out <- list(S=nsi_eps, csX0=csX0, csXs=csXs, aucX0=aucX0, aucXs=aucXs)
 
   return(out)
 

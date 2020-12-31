@@ -2,7 +2,7 @@
 % Please edit documentation in R/find_sign_conn_comp.R
 \name{find_sign_conn_comp}
 \alias{find_sign_conn_comp}
-\title{Finding significant sonnected components}
+\title{Finding significant connected components}
 \usage{
 find_sign_conn_comp(NR_summary, NR_p_thr = 0.05, min_rank = 50, max_rank = 300)
 }
@@ -16,5 +16,5 @@ find_sign_conn_comp(NR_summary, NR_p_thr = 0.05, min_rank = 50, max_rank = 300)
 \item{max_rank}{maximum rank}
 }
 \description{
-Finding significant sonnected components
+Finding significant connected components
 }

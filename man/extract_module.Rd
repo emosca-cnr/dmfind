@@ -4,36 +4,14 @@
 \alias{extract_module}
 \title{Extraction and plotting of connected subnetworks from a graph and a set of selected vertices}
 \usage{
-extract_module(
-  graph,
-  selected_vertices,
-  vertices_subset = NULL,
-  vertices_weight = NULL,
-  vertices_label = NULL,
-  min_subnet_size = 2,
-  plot_flag = TRUE,
-  plot_outfile = "graph.jpg",
-  ...
-)
+extract_module(graph, selected_vertices, X0 = NULL, min_subnet_size = 2)
 }
 \arguments{
 \item{graph}{igraph object}
 
 \item{selected_vertices}{subset of vertices}
 
-\item{vertices_subset}{a subset of selected_vertices (optional)}
-
-\item{vertices_weight}{weights (optional)}
-
-\item{vertices_label}{labels (optional)}
-
 \item{min_subnet_size}{minimum size of subnetwork}
-
-\item{plot_flag}{whether to plot or not the network}
-
-\item{plot_outfile}{output file}
-
-\item{...}{additional arguments}
 }
 \description{
 Extraction and plotting of connected subnetworks from a graph and a set of selected vertices
