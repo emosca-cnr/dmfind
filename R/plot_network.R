@@ -12,7 +12,7 @@
 #' @import igraph
 #' @import RColorBrewer
 
-plot_network <- function(graph, color_by=NULL, color_quant=TRUE, label_by="name", pal=NULL, plot_outfile='graph.jpg', community=NULL, comm_w_in=100, comm_w_b=1, ...){
+plot_network <- function(graph, color_by=NULL, color_quant=TRUE, label_by="name", pal=NULL, plot_outfile='graph.jpg', community=NULL, comm_w_in=2, comm_w_b=1, lo=NULL, ...){
 
 
   color_values <- get.vertex.attribute(graph, color_by)
@@ -33,9 +33,9 @@ plot_network <- function(graph, color_by=NULL, color_quant=TRUE, label_by="name"
     ew <- edge_weights(community, graph, weight.within = comm_w_in, weight.between = comm_w_b)
   }
 
-
-  lo <- layout_with_fr(graph, weights = ew)
-
+  if(is.null(lo)){
+    lo <- layout_with_fr(graph, weights = ew)
+  }
   jpeg(plot_outfile, width = 200, height = 200, units='mm', res=300)
   par(mar=c(1, 1, 1, 1))
 
@@ -44,5 +44,7 @@ plot_network <- function(graph, color_by=NULL, color_quant=TRUE, label_by="name"
   legend("bottomright", levels(factor(color_values, levels=sort(unique(color_values)))), col=pal, pch=16, bty="n", cex=0.6)
 
   dev.off()
+
+  return(lo)
 
 }

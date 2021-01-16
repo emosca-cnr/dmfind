@@ -37,8 +37,8 @@ eval_eps <- function(X0, Xs, eps=NULL, G, top=min(300, nrow(X0))){
 
   }
 
-  aucX0 <- unlist(lapply(out$csX0, function(x) Bolstad2::sintegral(x = 1:top, fx = x)$int))
-  aucXs <- unlist(lapply(out$csXs, function(x) Bolstad2::sintegral(x = 1:top, fx = x)$int))
+  aucX0 <- unlist(lapply(csX0, function(x) Bolstad2::sintegral(x = 1:top, fx = x)$int))
+  aucXs <- unlist(lapply(csXs, function(x) Bolstad2::sintegral(x = 1:top, fx = x)$int))
 
   out <- list(S=nsi_eps, csX0=csX0, csXs=csXs, aucX0=aucX0, aucXs=aucXs)
 
