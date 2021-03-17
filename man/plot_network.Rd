@@ -12,8 +12,9 @@ plot_network(
   pal = NULL,
   plot_outfile = "graph.jpg",
   community = NULL,
-  comm_w_in = 100,
+  comm_w_in = 2,
   comm_w_b = 1,
+  lo = NULL,
   ...
 )
 }

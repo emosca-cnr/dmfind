@@ -2,6 +2,7 @@
 
 export(ND)
 export(NR)
+export(assess_centrality)
 export(calc_adjND)
 export(calc_dS)
 export(calc_p)

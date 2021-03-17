@@ -1,7 +1,8 @@
 #' Calculation of omega function
-#' @param G gene x gene undirected interaction graph
-#' @param u ranked named list; names have to be those in V(G)$name
+#' @param G igraph object; only the vertices in names(u) will be considered
+#' @param u ranked named list; names must correspond to V(G)$name
 #' @import igraph
+#' @export
 
 
 omega <- function(G, u) {
