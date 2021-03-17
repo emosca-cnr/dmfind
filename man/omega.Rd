@@ -7,9 +7,9 @@
 omega(G, u)
 }
 \arguments{
-\item{G}{gene x gene undirected interaction graph}
+\item{G}{igraph object; only the vertices in names(u) will be considered}
 
-\item{u}{ranked named list; names have to be those in V(G)$name}
+\item{u}{ranked named list; names must correspond to V(G)$name}
 }
 \description{
 Calculation of omega function
