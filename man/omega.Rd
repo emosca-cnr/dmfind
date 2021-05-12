@@ -4,7 +4,7 @@
 \alias{omega}
 \title{Calculation of omega function}
 \usage{
-omega(G, u)
+omega(G, u, norm = FALSE)
 }
 \arguments{
 \item{G}{igraph object; only the vertices in names(u) will be considered}
