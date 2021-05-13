@@ -120,27 +120,6 @@ for(i in sample(2:99, 40)){
 }
 lines(out_nr$NR_summary$omega, col="red")
 plot(log10(out_nr$NR_summary$p), xlab="rank", ylab="log10(p)", type="b", pch=16)
-
-out_nr <- NR(g400esm, ranked_vector = as.array(sort(out$Sp[, 1], decreasing = T))[1:30], k = 99, null_model = "S")
-par(mfrow=c(1, 2))
-par(mar=c(4, 4, 1, 1))
-plot(out_nr$omega_perm[, 1], xlab="rank", ylab="omega", type="l", col="gray", ylim = c(0, max(c(out_nr$NR_summary$omega, unlist(out_nr$omega_perm)))), lty=2, lwd=2)
-for(i in sample(2:99, 40)){
-  lines(out_nr$omega_perm[, i], col="gray", lty=2)  
-}
-lines(out_nr$NR_summary$omega, col="red")
-plot(log10(out_nr$NR_summary$p), xlab="rank", ylab="log10(p)", type="b", pch=16)
-
-out_nr <- NR(g400esm, ranked_vector = as.array(sort(out$Sp[, 1], decreasing = T))[1:30], k = 99, null_model = "SA")
-par(mfrow=c(1, 2))
-par(mar=c(4, 4, 1, 1))
-plot(out_nr$omega_perm[, 1], xlab="rank", ylab="omega", type="l", col="gray", ylim = c(0, max(c(out_nr$NR_summary$omega, unlist(out_nr$omega_perm)))), lty=2, lwd=2)
-for(i in sample(2:99, 40)){
-  lines(out_nr$omega_perm[, i], col="gray", lty=2)  
-}
-lines(out_nr$NR_summary$omega, col="red")
-plot(log10(out_nr$NR_summary$p), xlab="rank", ylab="log10(p)", type="b", pch=16)
-
 ```
 
 The variation of the empirical $p$-value with gene rank suggests modules with high scores in network proximity. Note that this procedure is designed to focus on the top of a gene list, in this small example the top 30 genes out of a network of 61.
