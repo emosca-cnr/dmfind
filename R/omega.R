@@ -16,6 +16,7 @@ omega <- function(G, u, norm=FALSE) {
   omega_vect <-  U %*% t(U)
   omega_vect <- omega_vect * Ai
   omega_vect[upper.tri(omega_vect)] <- 0
+
   #omega_vect <- 2*cumsum(rowSums(omega_vect))
   omega_vect <- cumsum(rowSums(omega_vect))
 

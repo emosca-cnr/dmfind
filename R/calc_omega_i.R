@@ -2,13 +2,19 @@
 #' @param idx index
 #' @param Ai matrix
 #' @param dSprod matrix with products of delta S
-calc_omega_i <- function(idx, Ai, dSprod){
+calc_omega_i <- function(idx, Ai, dSprod, norm=FALSE){
 
   Ai.idx <- match(names(idx), rownames(Ai)) #order the matrix as idx
   Ai_perm <- Ai[Ai.idx, Ai.idx]
 
   omega_vect_i <- dSprod[1:length(idx), 1:length(idx)] * Ai_perm
-  omega_vect_i <- sum(omega_vect_i)
+  omega_vect_i <- sum(omega_vect_i) / 2
+
+  if(norm & (omega_vect_i > 0)){
+    Ai_perm[upper.tri(Ai_perm)] <- 0
+    nE <- sum(Ai_perm)
+    omega_vect_i <- omega_vect_i / nE
+  }
 
   return(omega_vect_i)
 
