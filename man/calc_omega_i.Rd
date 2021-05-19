@@ -4,7 +4,7 @@
 \alias{calc_omega_i}
 \title{Calculation of omega i (internal)}
 \usage{
-calc_omega_i(idx, Ai, dSprod, norm = FALSE)
+calc_omega_i(idx, Ai, dSprod, norm = c("n", "l", "v"))
 }
 \arguments{
 \item{idx}{index}
@@ -12,6 +12,8 @@ calc_omega_i(idx, Ai, dSprod, norm = FALSE)
 \item{Ai}{matrix}
 
 \item{dSprod}{matrix with products of delta S}
+
+\item{norm}{normalize by number of links (l), number or vertices (v) or do not normalize (n)}
 }
 \description{
 Calculation of omega i (internal)

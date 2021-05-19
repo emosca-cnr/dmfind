@@ -4,7 +4,7 @@
 \alias{plot_NR}
 \title{Plot the results of eval_eps}
 \usage{
-plot_NR(nr_res = NULL, sign_comp_table = NULL, file = "NR.jpg", all = FALSE)
+plot_NR(nr_res = NULL, sign_comp_table = NULL, file = "NR.jpg")
 }
 \description{
 Plot the results of eval_eps

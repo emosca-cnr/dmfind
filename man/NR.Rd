@@ -4,7 +4,7 @@
 \alias{NR}
 \title{Local Monte Carlo p values}
 \usage{
-NR(G, ranked_vector, k = 99, mc.cores = 1, null_model = "A", norm = FALSE)
+NR(G, ranked_vector, k = 99, mc.cores = 1, null_model = "A", norm = "n")
 }
 \arguments{
 \item{G}{gene x gene undirected interaction graph}

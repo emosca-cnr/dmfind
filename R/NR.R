@@ -8,7 +8,7 @@
 #' @import parallel
 
 
-NR <- function(G, ranked_vector, k=99, mc.cores=1, null_model="A", norm=FALSE) {
+NR <- function(G, ranked_vector, k=99, mc.cores=1, null_model="A", norm="n") {
 
   null_model <- match.arg(null_model)
 

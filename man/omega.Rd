@@ -4,12 +4,14 @@
 \alias{omega}
 \title{Calculation of omega function}
 \usage{
-omega(G, u, norm = FALSE)
+omega(G, u, norm = c("n", "l", "v"))
 }
 \arguments{
 \item{G}{igraph object; only the vertices in names(u) will be considered}
 
 \item{u}{ranked named list; names must correspond to V(G)$name}
+
+\item{norm}{normalize by number of links (l), number or vertices (v) or do not normalize (n)}
 }
 \description{
 Calculation of omega function

@@ -4,7 +4,7 @@
 \alias{omega_perm}
 \title{Calculation of permuted omega function}
 \usage{
-omega_perm(idx, G, dS, null_model = "A", norm = FALSE)
+omega_perm(idx, G, dS, null_model = "A", norm = "n")
 }
 \arguments{
 \item{idx}{vector of randomly resampled dS scores; the names must be the same as dS's}

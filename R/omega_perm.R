@@ -6,7 +6,7 @@
 #' @import igraph
 
 
-omega_perm <- function(idx, G, dS, null_model="A", norm=FALSE) {
+omega_perm <- function(idx, G, dS, null_model="A", norm="n") {
 
 
   #subnetwork among the considered nodes

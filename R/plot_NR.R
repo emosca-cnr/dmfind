@@ -2,7 +2,7 @@
 #'
 #' @export
 
-plot_NR <- function(nr_res=NULL, sign_comp_table=NULL, file="NR.jpg", all=FALSE){
+plot_NR <- function(nr_res=NULL, sign_comp_table=NULL, file="NR.jpg"){
 
 
   if(!is.null(sign_comp_table)){
@@ -14,8 +14,7 @@ plot_NR <- function(nr_res=NULL, sign_comp_table=NULL, file="NR.jpg", all=FALSE)
   par(mfrow=c(1, 2))
   par(mar=c(4, 4, 1, 1))
   plot(nr_res$omega_perm[, 1], xlab="rank", ylab="omega", type="l", col="gray", ylim = c(0, max(c(nr_res$NR_summary$omega, unlist(nr_res$omega_perm)))), lty=2, lwd=2)
-  #for(i in sample(2:ncol(nr_res$omega_perm), min(ncol(nr_res$omega_perm), 50))){
-  for(i in 1:ncol(nr_res$omega_perm)){
+  for(i in 1:min(100, ncol(nr_res$omega_perm))){
     lines(nr_res$omega_perm[, i], col="gray", lty=2)
   }
   lines(nr_res$NR_summary$omega, col="red")

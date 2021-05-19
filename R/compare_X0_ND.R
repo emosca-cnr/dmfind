@@ -15,7 +15,7 @@ compare_X0_ND <- function(G=NULL, X0_ranked_by_ND=NULL, X0_ranked_by_X0=NULL, no
     omega_X0=omega(G, u=X0_ranked_by_ND, norm=norm),
     CCF_X0=calculate_ccf(G, names(X0_ranked_by_X0)),
     CCF=calculate_ccf(G, names(X0_ranked_by_ND)),
-    row.names = names(X0_ranked_by_ND)
+    row.names = 1:length(X0_ranked_by_ND)
   )
 
 
