@@ -1,6 +1,7 @@
 dmfind v1.2.3 (Release date: 2021-05-19)
 - comparison between omega and CCF
 - added network enrichment assessment
+- minor extension to plot networks
 
 dmfind v1.2.2 (Release date: 2021-05-12)
 - omega normalization

@@ -14,6 +14,21 @@ assess_enrichment(
   file = "top_net_enrichment.jpg"
 )
 }
+\arguments{
+\item{G}{igraph object}
+
+\item{top_list}{ranked list of vertex names}
+
+\item{ranks}{ranks of top_list that will be assessed}
+
+\item{ranked_vector_X0}{ranked vector by X0}
+
+\item{do.plot}{whether to plot or not}
+
+\item{critical}{a possible rank to draw in the plot}
+
+\item{file}{output file name}
+}
 \description{
 assess enrichment of the top networks
 }

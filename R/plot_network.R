@@ -15,12 +15,13 @@
 plot_network <- function(graph, color_by=NULL, color_quant=TRUE, label_by="name", pal=NULL, plot_outfile='graph.jpg', community=NULL, comm_w_in=2, comm_w_b=1, lo=NULL, ...){
 
 
-  color_values <- get.vertex.attribute(graph, color_by)
-  if(color_quant){
-    color_values <- cut(color_values, length(pal))
+  if(!is.null(color_by)){
+    color_values <- get.vertex.attribute(graph, color_by)
+    if(color_quant){
+      color_values <- cut(color_values, length(pal), dig.lab = 1)
+    }
+    V(graph)$color <- pal[as.numeric(color_values)]
   }
-  V(graph)$color <- pal[as.numeric(color_values)]
-
   if(label_by == ""){
     vertex_labels <- ""
   }else{
@@ -36,12 +37,18 @@ plot_network <- function(graph, color_by=NULL, color_quant=TRUE, label_by="name"
   if(is.null(lo)){
     lo <- layout_with_fr(graph, weights = ew)
   }
-  jpeg(plot_outfile, width = 200, height = 200, units='mm', res=300)
+  jpeg(plot_outfile, width = 210, height = 200, units='mm', res=300)
+  if(!is.null(color_by)){
+    layout(matrix(c(1, 2), ncol = 2), widths = c(0.9, 0.2))
+  }
   par(mar=c(1, 1, 1, 1))
 
   plot.igraph(graph, vertex.labels=vertex_labels, layout=lo, ...)
 
-  legend("bottomright", levels(factor(color_values, levels=sort(unique(color_values)))), col=pal, pch=16, bty="n", cex=0.6)
+  if(!is.null(color_by)){
+    plot.new()
+    legend("bottomright", levels(factor(color_values, levels=sort(unique(color_values)))), col=pal, pch=16, bty="n", cex=0.6)
+  }
 
   dev.off()
 
