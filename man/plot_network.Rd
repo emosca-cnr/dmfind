@@ -15,6 +15,7 @@ plot_network(
   comm_w_in = 2,
   comm_w_b = 1,
   lo = NULL,
+  legend.off = FALSE,
   ...
 )
 }

@@ -2,7 +2,7 @@ Package: dmfind
 Type: Package
 Title: Network diffusion-based analysis of omics data
 Version: 1.2.4
-Date: 2021-06-22
+Date: 2021-10-25
 Authors@R: c(person("Ettore", "Mosca", role = c("aut", "cre"),
 		     email = "ettore.mosca@itb.cnr.it"),
 		    person("Matteo", "Bersanelli", role = "aut"),
@@ -18,10 +18,12 @@ Imports:
     parallel,
     igraph,
     RColorBrewer,
-    Bolstad2
+    Bolstad2,
+    brainGraph,
+    plotrix
 Depends:
     R (>= 3.5.0)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr
