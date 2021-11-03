@@ -150,7 +150,7 @@ pc_wmz <- function(top_network, all_names = FALSE, extreme_points = FALSE, choos
 
       text(c(0.03, 0.60, 0.78, 1.02, 0.28, 0.73, 1.02), c(h_cut, h_cut, h_cut, h_cut, max_zscore+0.2, max_zscore+0.2, max_zscore+0.2), paste0("R", 1:7), cex=0.6, font=2, pos=1)
 
-      if(any(v_labl != "")){
+      if(any(v_labl!="")){
         plotrix::thigmophobe.labels(pc, wm_z, v_labl[match(names(pc), V(top_network)$name)], cex=0.8)
       }
 
@@ -161,5 +161,7 @@ pc_wmz <- function(top_network, all_names = FALSE, extreme_points = FALSE, choos
   }
 
   return(df)
+  
+  # changes
 
 }
