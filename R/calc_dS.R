@@ -1,4 +1,6 @@
 #' Calculation of delta network smoothing indexes
+#' 
+#' @description Calculation of delta network smoothing indexes
 #' @param X0 input matrix
 #' @param A adjancency matrix
 #' @param classes numeric vector of \{1,2\}
@@ -15,7 +17,7 @@ calc_dS <- function(X0, A, classes, eps=1, ...){
   cat("calculation of dS\n")
   dS <- vector('list', 2)
 
-  dS_df <- dS(X0, Xs, classes = classes, eps=eps)
+  dS_df <- dS(X0, Xs, classes=classes, eps=eps)
 
   return(dS_df)
 

@@ -1,4 +1,6 @@
 #' Network Diffusion using
+#' 
+#' @description Network Diffusion using
 #' @param X0 vector or matrix composed of column vectors with initial distribution of information
 #' @param W symmetrically normalized adjacency matrix W = D^-1 A D^-1, see normalize_adj_mat function
 #' @param alpha numeric, the smothing factor
@@ -17,54 +19,55 @@
 #' @export
 #'
 
-ND <- function(X0, W, alpha=0.7, nMax=1e4, eps=1e-6, final.smooth=FALSE, all.steps=FALSE, verbose=FALSE){
+ND <- function(X0, W, alpha=0.7, nMax=1e4, eps=1e-6, final.smooth=FALSE, 
+               all.steps=FALSE, verbose=FALSE){
 
-  Xs <- X0
-  Fprev <- X0
-
-  if(all.steps){
-    Xs.all <- list()
-    Xs.all[[1]] <- X0
-  }
-
-  #X0 and A multiplied by their weight
-  X0a <- (1 - alpha) * X0
-  Wa <- alpha * W
-
-  for(i in 2:nMax){
-
-    if(i %% 5 == 0 & verbose)
-      cat(i, " ")
-
-    #current iteration
-    Xs <- Wa %*%  Fprev + X0a
+    Xs <- X0
+    Fprev <- X0
 
     if(all.steps){
-      Xs.all[[i]] <- Xs
+        Xs.all <- list()
+        Xs.all[[1]] <- X0
     }
 
-    max.abs.diff <- max(abs(Xs-Fprev))
+    #X0 and A multiplied by their weight
+    X0a <- (1 - alpha) * X0
+    Wa <- alpha * W
 
-    #update Fprev for next iteration
-    Fprev <- Xs
+    for(i in 2:nMax){
 
-    if(max.abs.diff < eps){
-      if(final.smooth){
-        Xs <- Wa %*%  Fprev
-      }
-      break
+        if(i %% 5 == 0 & verbose) {
+            cat(i, " ")            
+        }
+
+        #current iteration
+        Xs <- Wa %*%  Fprev + X0a
+
+        if(all.steps){
+            Xs.all[[i]] <- Xs
+        }
+
+        max.abs.diff <- max(abs(Xs-Fprev))
+
+        #update Fprev for next iteration
+        Fprev <- Xs
+
+        if(max.abs.diff < eps){
+            if(final.smooth){
+                Xs <- Wa %*% Fprev
+            }
+            break
+        }
     }
+    
+    if(verbose)
+        cat('\n')
 
-  }
-
-  if(verbose)
-    cat('\n')
-
-  if(all.steps){
-    return(list(Xs=Xs, eps=eps, max.abs.diff=max.abs.diff, Xs.all=Xs.all))
-  }else{
-    return(list(Xs=Xs, eps=eps, max.abs.diff=max.abs.diff))
-  }
+    if(all.steps){
+        return(list(Xs=Xs, eps=eps, max.abs.diff=max.abs.diff, Xs.all=Xs.all))
+    }else{
+        return(list(Xs=Xs, eps=eps, max.abs.diff=max.abs.diff))
+    }
 }
 
 

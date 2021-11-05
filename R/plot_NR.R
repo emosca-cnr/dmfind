@@ -1,5 +1,9 @@
 #' Plot the results of eval_eps
-#'
+#' 
+#' @description Plot the results of eval_eps
+#' @param nr_res network resampling result
+#' @param sign_comp_table ?
+#' @param file filename
 #' @export
 
 plot_NR <- function(nr_res=NULL, sign_comp_table=NULL, file="NR.jpg"){
