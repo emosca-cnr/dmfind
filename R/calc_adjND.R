@@ -20,8 +20,8 @@ calc_adjND <- function(X0, W, eps=rep(1, ncol(X0)), k=99, mode=c("S", "Xs"),
     allX0 <- c(list(X0), lapply(1:k, function(x) matrix(as.numeric(X0), 
                                 ncol=ncol(X0), dimnames = 
                                 list(sample(rownames(X0), nrow(X0))))))
-    allX0 <- BiocParallel::bplapply(allX0, function(x) x[match(rownames(W), rownames(x)), 
-                                           , drop=F ])
+    allX0 <- BiocParallel::bplapply(allX0, function(x) 
+        x[match(rownames(W), rownames(x)), , drop=FALSE ])
 
     cat("network propagation\n")
     if(mc.cores==1){

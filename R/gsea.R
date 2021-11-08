@@ -7,7 +7,7 @@
 #' @param ordMode ordering mode: -1 -> descending; 1 ascending; must be of lenght equal to ncol(rl)
 #' @param mcCoresPath number of cores to use for parallel calculation of gene set lists; the total number of cpu used will be mcCoresPath x mcCoresPerm
 #' @param mcCoresPerm number of cores to use for parallel calculation of ranked list permutations; the total number of cpu used will be mcCoresPath x mcCoresPerm
-#' @import parallel
+#' @import BiocParallel
 #' @return data.frame with es, nes, p-value, adjusted p-value and FDR q-value
 #' @export
 
@@ -43,7 +43,7 @@ gsea <- function(rl, gsl, k=100, ordMode=-1,
     #realEs <- do.call(rbind, realEs)
 
     realEsData <- lapply(gsl, function(x) 
-        lapply(rll, function(y) es(which(names(y) %in% x), y, le=T)))
+        lapply(rll, function(y) es(which(names(y) %in% x), y, le=TRUE)))
     realEs <- do.call(rbind, 
                        lapply(realEsData, 
                               function(x) unlist(lapply(x, function(y) y$es))))
@@ -70,7 +70,7 @@ gsea <- function(rl, gsl, k=100, ordMode=-1,
             #res <- lapply(gsl, function(x) unlist(mclapply(xPerm, 
             #function(y) calc_gs_perm(rl, y, x), mc.cores=mcCoresPerm)))
             res <- lapply(gsl, function(x) 
-                    do.call(rbind, parallel::mclapply(xPerm, function(y) 
+                    do.call(rbind, BiocParallel::bplapply(xPerm, function(y) 
                         calc_gs_perm(rll, y, x), mc.cores=mcCoresPerm)))
         }
     }else{
@@ -89,7 +89,7 @@ gsea <- function(rl, gsl, k=100, ordMode=-1,
             #calc_gs_perm(rl, y, x), mc.cores=mcCoresPerm)), 
             #mc.cores = mcCoresPath)
             res <- parallel::mclapply(gsl, function(x) 
-                    do.call(rbind, parallel::mclapply(xPerm, function(y) 
+                    do.call(rbind, BiocParallel::bplapply(xPerm, function(y) 
                     calc_gs_perm(rll, y, x), mc.cores=mcCoresPerm)), 
                     mc.cores = mcCoresPath)
         }

@@ -5,6 +5,7 @@
 #' @description Function for assess centrality measures to the top network.
 #' @usage assess_centrality(subnetwork, graph)
 #' @example assess_centrality(subnetwork, graph)
+#' @eval randomvalue
 #' @export
 #' @import igraph
 
@@ -20,7 +21,7 @@ assess_centrality <- function(subnetwork, graph){
             v=V(graph)$name[match(V(subnetwork)$name, V(graph)$name)]),
             closeness_b=igraph::closeness(graph,
             v=V(graph)$name[match(V(subnetwork)$name, V(graph)$name)]),
-            stringsAsFactors=F)
+            stringsAsFactors=FALSE)
 
     return(ans)
 }

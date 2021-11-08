@@ -10,6 +10,7 @@
 #' @description Perform enrichment analysis of the top network based on a ranked vector 
 #' @usage assess_enrichment(G, topList, ranks, rankedVectorX0, doPlot=FALSE, critical, file="outfile.jpg")
 #' @example assess_enrichment(G, topList, ranks, rankedVectorX0, doPlot=FALSE, critical, file="outfile.jpg")
+#' @value randomvalue
 #' @export
 
 assess_enrichment <- function(G=NULL, topList=NULL, ranks=NULL, 

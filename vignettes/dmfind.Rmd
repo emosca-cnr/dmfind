@@ -1,125 +1,182 @@
 ---
-title: "Network diffusion-based analysis of omics"
-author: "Ettore Mosca"
-date: "`r Sys.Date()`"
-output: 
-  rmarkdown::html_vignette:
-    fig_width: 7
-    fig_heigth: 7
+title: "dmfind Vignettes"
+author: "Valentina Nale"
+date: "2/11/2021"
+output: BiocStyle::html_document
 vignette: >
-  %\VignetteIndexEntry{Network diffusion-based analysis of omics}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+%\VignetteIndexEntry{Network diffusion-based analysis of omics}
+%\VignetteEngine{knitr::rmarkdown}
 ---
 
-## Installation
-The package can be installed from within R:
-```{r, eval=FALSE}
-install.packages("/path_to_package/dmfind_xxx.tar.gz", repos = NULL)
-library(dmfind)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
-##Input data
+# Introduction
+```{r loadlib, echo=TRUE, warning=FALSE, results='hide', message=F}
+library(dmfind)
+library(igraph)
+```
+
+# Setup
 The package requires an adjacency matrix and one or more input vectors. Let's consider a toy input dataset, including: a normalized adjacency matrix (W), a 1-column matrix (X0) with a vector representing omics-derived statistics:
 
-```{r, eval=TRUE, message=FALSE}
-library(igraph)
-library(dmfind)
+Note that the function $normalizeAdjMat$ is available to normalize an adjacency matrix. Back to the toy model, we need to explore a bit the possible values of the $\epsilon$ value. Let's apply network diffusion to our input vector:
+%%---------------------------
+
+For this pipeline we need a named vector of omic data called 
+X0 and a normalized adjacency matrix W.
+In X0 we have scores and their relative names are gene ids. 
+X0 names and row names from adjacency matrix W must match.
+Then, we create a graph for the adjacency matrix W.
+
+# Network diffusion
+```{r dmfind, plot, include=TRUE, results='hide'}
+Xs <- dmfind::ND(X0, W)$Xs
 data(g400esm, W, X0, package="dmfind")
-
-summary(g400esm)
-head(X0)
-
-```
-Note that the function $normalize_adj_mat$ is available to normalize an adjacency matrix. Back to the toy model, we need to explore a bit the possible values of the $\epsilon$ value. Let's apply network diffusion to our input vector:
-```{r, eval=TRUE, message=FALSE}
-library(dmfind)
-Xs <- ND(X0, W)$Xs
-rank_X0 <- rank(-X0, ties.method = "min")
-rank_Xs <- rank(-Xs, ties.method = "min")
-par(mar=c(4, 4, 2, 1))
-par(mfrow=c(1, 2))
-L <- layout_nicely(g400esm)
-plot(X0[, 1], Xs[, 1], pch=16)
-text(X0[, 1], Xs[, 1], V(g400esm)$label[match(rownames(X0), V(g400esm)$name)], pos = 1, cex=0.8)
-V(g400esm)$shape <- ifelse(rank(-X0[match(V(g400esm)$name, rownames(Xs)), 1])<=6, "square", "circle")
-V(g400esm)$color <- heat.colors(nrow(Xs))[rank_Xs[match(V(g400esm)$name, rownames(X0))]]
-par(mar=c(0.1, 0.1, 0.1, 0.1))
-plot(g400esm, vertex.size=8, vertex.label.cex=0.5,
-     edge.width=1.5, edge.color="hotpink",
-     vertex.label=rank_Xs[match(V(g400esm)$name, rownames(X0))],
-     vertex.label.cex=1.3,
-     layout=L
-)
+g <- g400esm
+plot(X0, Xs, xlab="X0", ylab = "Xs")
 
 ```
+
+# Epsilon choice to optimize Omega score
+
 As expected, network based scores prioritize genes in network proximity to high $X_0$ values. The initial and final state of the system are comapred by means of the network smoothing index $S$, which require a tuning parameter $\epsilon$. Briefly, low $\epsilon$ highliths genes with the highest gain, while for $\epsilon \to \inf$ the same gene ranking is obtained by $S$ and $X_s$. We ca explore the realtion between $\epsilon$ and $S$ with `eval_eps` function.
-```{r, eval=TRUE, message=FALSE}
-eps <- matrix(c(0.01, 0.1, 1), ncol=1)
-out <- eval_eps(X0, Xs, eps, g400esm, top=20)
 
-par(mfrow=c(1, 2))
-eps_text <- format(eps, digits = 2)
+It's useful to check the $\Omega$ function calculated on $X_0$ and $X_s$ values using the ranking determined by $S(\epsilon)$.
+
+```{r dmfind, include=TRUE, results='hide'}
+#### CHOICE OF EPSILON
+eps <- matrix(c(0.1, 1, 2, 3, 5, 10), ncol=1)
+out <- dmfind::eval_eps(X0, Xs, eps, g)
+dmfind::plot_omega_eps(out)
+# eps = 1
+
+jpeg("eval_eps_X0.jpg", width = 180, height = 240, units="mm", res=300)
+par(mfrow=c(3, 2))
 for(i in 1:nrow(eps)){
-  rank_Si <- rank(-out$S[[i]], ties.method = "min")
-  par(mar=c(4, 4, 3, 3))
-  plot(X0[, 1], out$S[[i]][, 1], xlab="X0", ylab="S", main=eps_text[i], pch=16)
-  text(X0[, 1], out$S[[i]][, 1], V(g400esm)$label[match(rownames(X0), V(g400esm)$name)], pos = 1, cex=0.8)
-  V(g400esm)$color <- heat.colors(nrow(out$S[[i]]))[rank_Si[match(V(g400esm)$name, rownames(out$S[[i]]))]]
-  par(mar=c(0.1, 0.1, 0.1, 0.1))
-  plot(g400esm, vertex.size=8, vertex.label.cex=0.5,
-       edge.width=1.5, edge.color="hotpink",
-       layout=L
-  )
+  plot(X0[, 1], out$S[[i]][, 1], xlab="X0", ylab="S", main = eps[i, ], pch=".")
+  top_n <- which(rank(-out$S[[i]][, 1]) <= 300)
+  points(X0[top_n, 1], out$S[[i]][top_n, 1], col="red", pch=16, cex=0.7)
 }
+dev.off()                                        
 ```
-It's useful to check the $\Omega$ function calcualed on $X_0$ and $X_s$ values using the ranking determined by $S(\epsilon)$.
-```{r, eval=TRUE, message=FALSE}
-par(mfrow=c(1, 2))
-par(mar=c(4, 4, 3, 3))
-plot(out$csX0[[1]][, 1], type='l', xlab="rank", ylab="omega(X0) ranked by S", ylim=c(0, max(unlist(lapply(out$csX0, function(x) x[, 1])))), col=1, lty=2)
-for(i in 2:nrow(eps)){
-  lines(out$csX0[[i]][, 1], col=i, lty=2)
-}
-legend("topleft", legend = format(eps[, 1], digits = 2), lty=1, col=1:nrow(eps), xpd=NA, cex=0.5)
-plot(out$csXs[[1]][, 1], type='l', xlab="rank", ylab="omega(Xs) ranked by S", ylim=c(0, max(unlist(lapply(out$csXs, function(x) x[, 1])))), col=1, lty=2)
-for(i in 2:nrow(eps)){
-  lines(out$csXs[[i]][, 1], col=i, lty=2)
-}
-legend("topleft", legend = format(eps[, 1], digits = 2), lty=1, col=1:nrow(eps), xpd=NA, cex=0.5)
+```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show'} 
+knitr::include_graphics("/home/bioinformatics/vnale/eval_eps_X0.jpg")
+```
+```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show'} 
+knitr::include_graphics("/home/bioinformatics/vnale/eval_eps_X0_omega.jpg")
+```
 
-```
+
+# NSI calculation
+
 We can see that, considering the given initial conditions $(X_0, W)$, $\epsilon=0.01$ determines a gene ranking with lower $\Omega$ both in relation at $X_0$ and $X_s$, while higher $\Omega$ can be obtained using higher $\epsilon$ values. For this tutorial we will therefore use $\epsilon=0.1$.
 
 We can assess the statistical significance of $S$ using empirical $p$-values.
-```{r, eval=TRUE, message=FALSE}
-out <- calc_adjND(X0, W, eps = 0.1, k = 99)
-rank_Sp <- rank(-out$Sp)
-par(mfrow=c(1, 2))
-par(mar=c(4, 4, 1, 1))
-#plot(out$S, -log10(out$p), xlab="S", ylab="-log10(p)", pch=16)
-plot(X0, out$Sp, xlab="X0", ylab="Sp", pch=16)
-text(X0, out$Sp, V(g400esm)$label[match(rownames(X0), V(g400esm)$name)], pos = 1, cex=0.8)
 
-V(g400esm)$color <- heat.colors(nrow(out$Sp))[rank_Sp[match(V(g400esm)$name, rownames(out$Sp))]]
-par(mar=c(0.1, 0.1, 0.1, 0.1))
-plot(g400esm, vertex.size=8, vertex.label.cex=0.5,
-     edge.width=1.5, edge.color="hotpink",
-     layout=L
-)
+```{r include=TRUE, message=FALSE, results='hide'}
+resS <- calc_adjND(X0 = X0, W = W, eps = 1, k = 49, mode = "S", mc.cores = 2)
+
+scores <- merge(X0, resS$Sp, by=0, sort=F, all.y = TRUE)
+rownames(scores) <- scores$Row.names
+scores$Row.names <- NULL
+names(scores) <- c("X0", "Sp")
+
+init_sig_genes <- scores[order(-scores$X0), ]
+
+dmfind::plot_S(resS, X0, init_sig_genes = init_sig_genes)
 ```
+# Network resampling
 
 Network resampling can be used to asses the presence of significantly connected modules. 
-```{r, eval=TRUE, message=FALSE}
-out_nr <- NR(g400esm, ranked_vector = as.array(sort(out$Sp[, 1], decreasing = T))[1:30], k = 99, null_model = "A")
-par(mfrow=c(1, 2))
-par(mar=c(4, 4, 1, 1))
-plot(out_nr$omega_perm[, 1], xlab="rank", ylab="omega", type="l", col="gray", ylim = c(0, max(c(out_nr$NR_summary$omega, unlist(out_nr$omega_perm)))), lty=2, lwd=2)
-for(i in sample(2:99, 40)){
-  lines(out_nr$omega_perm[, i], col="gray", lty=2)  
-}
-lines(out_nr$NR_summary$omega, col="red")
-plot(log10(out_nr$NR_summary$p), xlab="rank", ylab="log10(p)", type="b", pch=16)
+
+```{r include=TRUE, message=FALSE, warning=FALSE, results='hide'}
+nr_res <- NR(g, sort(resS$Sp[, 1], decreasing = T), k = 99,
+          mc.cores = 2)
+sigcomp <- find_sign_conn_comp(NR_summary = nr_res$NR_summary, NR_p_thr = 0.2)
+plot_NR(nr_res, sign_comp_table = sigcomp$sign_comp_table)
+```
+```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show'} 
+knitr::include_graphics("/home/bioinformatics/vnale/NR.jpg")
 ```
 
 The variation of the empirical $p$-value with gene rank suggests modules with high scores in network proximity. Note that this procedure is designed to focus on the top of a gene list, in this small example the top 30 genes out of a network of 61.
+
+# Enrichment analysis
+
+Sorting the genes by the initial score $X0$ we can see the enrichment level in the first $N$-ordered genes.
+
+```{r include=TRUE, message=FALSE, warning=FALSE, results='hide'}
+scores <- scores[order(-scores$X0), ]
+compare_X0_ND(g, X0_ranked_by_ND = setNames(scores$X0, rownames(scores)),
+              X0_ranked_by_X0 = sort(setNames(scores$X0, rownames(scores)), 
+              decreasing = T), do.plot = T, file = "cmp_X0_ND.jpg", norm = "n")
+
+ae_res <- assess_enrichment(G=g, top_list = rownames(scores), 
+          ranked_vector_X0 = sort(setNames(scores$X0, rownames(scores)), 
+          decreasing = T), do.plot = T, critical = sigcomp$critical,
+          file="top_net_enrichment.jpg")
+```
+```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show'} 
+knitr::include_graphics("/home/bioinformatics/vnale/cmp_X0_ND.jpg")
+```
+```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show'} 
+knitr::include_graphics("/home/bioinformatics/vnale/top_net_enrichment.jpg")
+```
+
+# Top network definition
+
+Based on the enrichment score, we define a subnetwork (top network) composed by the first $N$-ordered enriched genes.
+
+```{r include=TRUE, message=FALSE, warning=FALSE, results='hide'}
+top_network <- extract_module(graph = g, selected_vertices =
+               nr_res$NR_summary$id, X0 = X0, 
+               min_subnet_size = 2)
+```
+
+# Communities and topological analysis
+
+We can also assess a topological analysis of our network.
+```{r include=TRUE, message=FALSE, warning=FALSE}
+
+res_comm <- dmfind::find_communities(top_network)
+res_comm$info
+res_comm$info$algorithm[which.max(res_comm$info$modularity)]
+```
+```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show'} 
+knitr::include_graphics("/home/bioinformatics/vnale/graph.jpg")
+```
+
+# Define nodes roles based on partecipation coefficient and z-score
+Each gene can be spatial represented. To define the role of each node we need to calculate the participation coefficient (pc) and the within module z-score (wmz). Then, based on those two parameters, we can define regions (and roles).
+
+With this definition the space is divided in two categories: hubs and non-hubs.
+To define who is a hub we cut the space on the y-axis, proportionally to the maximum value of z-score.
+Then, we define regions accordingly to participation coefficient.
+
+For “non-hub” nodes: 
+
+R1 – ultra peripheral nodes: nodes with all their links within their module (pc <= 0.05);
+
+R2 – peripheral nodes: nodes with most links within their module (0.05 < pc <= 0.62);
+
+R3 – non-hubs connector nodes: nodes with many links to other modules (0.62 < pc <= 0.8)
+
+R4 – non-hubs kinless nodes: nodes with links homogeneously distributed among all modules (pc > 0.8).
+
+For the “hub” nodes:
+
+R5 – provincial nodes: hub nodes with the vast majority of links within their module (pc <= 0.3);
+
+R6 – connector hubs: hubs with many links to most of the other modules (0.30 < pc <= 0.75);
+
+R7 – kinless hubs: hubs with links homogeneously distributed among all modules (pc > 0.75).
+
+
+
+```{r include=TRUE}
+V(top_network)$comm_id <- res_comm$comm[[res_comm$info$algorithm[which.max(res_comm$info$modularity)]]]$membership[match(V(top_network)$name, res_comm$comm[[res_comm$info$algorithm[which.max(res_comm$info$modularity)]]]$names)]
+V(top_network)$label <- " "
+dmfind::pc_wmz(top_network, do_plot=F)
+```

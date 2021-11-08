@@ -11,7 +11,7 @@ nsi <- function(X0, Xs, eps=rep(1, ncol(X0))){
         stop('rownames(X0) and rownames(Xs) are not identicail\n')     
     }
 
-    eps <- matrix(eps, nrow=nrow(X0), ncol=ncol(X0), byrow=T)
+    eps <- matrix(eps, nrow=nrow(X0), ncol=ncol(X0), byrow=TRUE)
     S <-  Xs / (X0 + eps)
     return(S)
 }

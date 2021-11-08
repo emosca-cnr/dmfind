@@ -41,7 +41,7 @@ compare_X0_ND <- function(G=NULL, X0rankedByND=NULL, X0rankedByX0=NULL,
         lines(ans$CCF, lwd=2)
 
         plot.new()
-        legend("right", lty=c(1, 2), legend=c("ND", "X0"), cex=0.6, xpd=T)
+        legend("right", lty=c(1, 2), legend=c("ND", "X0"), cex=0.6, xpd=TRUE)
 
         dev.off()
 

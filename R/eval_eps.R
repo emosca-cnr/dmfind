@@ -21,7 +21,7 @@ eval_eps <- function(X0, Xs, eps=NULL, G, top=min(300, nrow(X0))){
     csX0 <- nsiEps
     csXs <- nsiEps
     for(i in 1:nrow(eps)){
-        tempEps <- matrix(eps[i, ], ncol=ncol(X0), nrow = nrow(X0), byrow = T)
+        tempEps <- matrix(eps[i, ], ncol=ncol(X0), nrow=nrow(X0), byrow=TRUE)
         #NSI
         nsiEps[[i]] <- Xs / (X0 + tempEps)
         #order by current NSI

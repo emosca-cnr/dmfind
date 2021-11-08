@@ -3,10 +3,11 @@
 #' @description function to calculate the enrichment score
 #' @param idx vector of indices a subset of elements of x
 #' @param x named vector, ranked list
+#' @param le TRUE/FALSE
 #' @return enrichment score
 #' @export
 #'
-es <- function(idx, x, le=F){
+es <- function(idx, x, le=FALSE){
 
     #idx: indexes of a subset of elements of x
     #x: array of elements
@@ -68,7 +69,7 @@ es <- function(idx, x, le=F){
                     lea=data.frame(tags=tags, tagsPerc=tagsPerc, 
                     listTop=listTop, listTopPerc=listTopPerc, 
                     leadEdge=leadEdge, leadEdgeSubset=leadEdgeSubset, 
-                    stringsAsFactors = F)))
+                    stringsAsFactors = FALSE)))
     }else{
         return(es)
     }

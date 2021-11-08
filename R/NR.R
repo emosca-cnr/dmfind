@@ -5,7 +5,7 @@
 #' @param mc.cores number of cores
 #' @param nullModel null model type
 #' @export
-#' @import parallel
+#' @import BiocParallel
 
 
 NR <- function(G, rankedVector, k=99, mc.cores=1, nullModel="A", norm="n") {
@@ -18,12 +18,16 @@ NR <- function(G, rankedVector, k=99, mc.cores=1, nullModel="A", norm="n") {
   omegaVect <- omega(G, rankedVectorNorm, norm = norm)
 
   #permutations of rankedVectorNorm: named vector of indices
-  idxPerm <- lapply(1:k, function(x) array(sample(1:length(rankedVectorNorm)), dimnames = list(names(rankedVectorNorm))))
+  idxPerm <- lapply(1:k, function(x) array(sample(1:length(rankedVectorNorm)), 
+             dimnames = list(names(rankedVectorNorm))))
 
   if(mc.cores > 1){
-    res <- BiocParallel::bplapply(idxPerm, omega_perm, G=G, dS=rankedVectorNorm, mc.cores = mc.cores, nullModel=nullModel, norm=norm)
+    res <- BiocParallel::bplapply(idxPerm, omega_perm, G=G, 
+                                  dS=rankedVectorNorm, mc.cores = mc.cores, 
+                                  nullModel=nullModel, norm=norm)
   }else{
-    res <- lapply(idxPerm, omega_perm, G=G, dS=rankedVectorNorm, nullModel=nullModel, norm=norm)
+    res <- lapply(idxPerm, omega_perm, G=G, dS=rankedVectorNorm, 
+                  nullModel=nullModel, norm=norm)
   }
 
   #n-by-k matrix
@@ -34,7 +38,11 @@ NR <- function(G, rankedVector, k=99, mc.cores=1, nullModel="A", norm="n") {
   out <- rowSums(out)
   out <- (out + 1) / (k+1)
 
-  return(list(NRsummary=data.frame(id=names(out), rank=1:length(rankedVectorNorm), rankingScore=rankedVectorNorm, omega=omegaVect, p=out, stringsAsFactors = FALSE), omegaPerm=res))
+  return(list(NRsummary=data.frame(id=names(out), 
+                                   rank=1:length(rankedVectorNorm), 
+                                   rankingScore=rankedVectorNorm, 
+                                   omega=omegaVect, p=out, 
+                                   stringsAsFactors = FALSE), omegaPerm=res))
 
 }
 

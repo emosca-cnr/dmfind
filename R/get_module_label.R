@@ -14,10 +14,10 @@ get_module_label <- function(xy=NULL, f=NULL, labs=NULL){
     }
 
     #create a unique df
-    ans <- cbind(data.frame(id=1:nrow(xy), xy), f=f, stringsAsFactors = F)
+    ans <- cbind(data.frame(id=1:nrow(xy), xy), f=f, stringsAsFactors = FALSE)
     colnames(ans)[2:3] <- c("xx", "yy")
 
-    ans <- merge(ans, labs, by.x="f", by.y=0, sort=F)
+    ans <- merge(ans, labs, by.x="f", by.y=0, sort=FALSE)
     colnames(ans)[ncol(ans)] <- "lab"
     ans$lab <- as.character(ans$lab)
 

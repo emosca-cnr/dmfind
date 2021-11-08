@@ -13,14 +13,14 @@ check_eps <- function (X0, Xs, x=NA, eps = c(0.1, 0.25, 0.5, 1),
                        top = 250, sortX0=FALSE){
     #res <- data.frame(eps = eps, oi = 0, stringsAsFactors = F)
     Seps <- lapply(eps, function(xx) nsi(X0, Xs, eps = xx))
-    Seps <- lapply(Seps, function(xx) xx[order(-xx[, 1])[1:top], , drop = F])
+    Seps <- lapply(Seps, function(xx) xx[order(-xx[, 1])[1:top], , drop=FALSE])
 
     #sort X0
     X0sorted <- X0
     if(sortX0){
-        X0sorted <- X0sorted[order(-X0sorted[, 1]), , drop = F]
+        X0sorted <- X0sorted[order(-X0sorted[, 1]), , drop=FALSE]
     }
-    X0sorted <- X0sorted[1:top, , drop=F]
+    X0sorted <- X0sorted[1:top, , drop=FALSE]
     NposX0 <- sum(X0sorted>0)
     #intersection
     res <- vector("list", length(eps))

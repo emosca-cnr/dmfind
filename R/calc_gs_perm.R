@@ -6,10 +6,10 @@
 #' @param gs gene set
 calc_gs_perm <- function(rll, perm, gs){
 
-  #out <- es(which(perm %in% gs), array(rl, dimnames=list(perm)))
-  out <- unlist(lapply(rll, function(x) es(which(perm %in% gs), 
-                array(x, dimnames=list(perm)))))
+    #out <- es(which(perm %in% gs), array(rl, dimnames=list(perm)))
+    out <- unlist(lapply(rll, function(x) es(which(perm %in% gs), 
+                    array(x, dimnames=list(perm)))))
 
-  return(out)
+    return(out)
 
 }

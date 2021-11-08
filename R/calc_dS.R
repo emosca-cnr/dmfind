@@ -11,14 +11,14 @@
 #'
 calc_dS <- function(X0, A, classes, eps=1, ...){
 
-  cat("network propagation\n")
-  Xs <- ND(X0, A, ...)$Xs
+    cat("network propagation\n")
+    Xs <- ND(X0, A, ...)$Xs
 
-  cat("calculation of dS\n")
-  dS <- vector('list', 2)
+    cat("calculation of dS\n")
+    dS <- vector('list', 2)
 
-  dS_df <- dS(X0, Xs, classes=classes, eps=eps)
+    dS_df <- dS(X0, Xs, classes=classes, eps=eps)
 
-  return(dS_df)
+    return(dS_df)
 
 }

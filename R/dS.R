@@ -12,10 +12,10 @@ dS <- function(X0, Xs, classes, eps=1){
     if(!(identical(rownames(X0), rownames(Xs))))
         stop('rownames(X0) and rownames(Xs) are not identicail\n')
 
-    X01 <- X0[, classes==1, drop=F]
-    X02 <- X0[, classes==2, drop=F]
-    Xs1 <- Xs[, classes==1, drop=F]
-    Xs2 <- Xs[, classes==2, drop=F]
+    X01 <- X0[, classes==1, drop=FALSE]
+    X02 <- X0[, classes==2, drop=FALSE]
+    Xs1 <- Xs[, classes==1, drop=FALSE]
+    Xs2 <- Xs[, classes==2, drop=FALSE]
 
     nsi2 <- nsi(X02, Xs2, eps=eps)
     nsi1 <- nsi(X01, Xs1, eps=eps)

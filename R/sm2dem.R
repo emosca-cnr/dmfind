@@ -20,28 +20,44 @@
 #' @param plotFlag whether to plot or not the network
 #' @param vectorMode TRUE/FALSE
 #' @param ... further arguments to igraph.plot
-#' @import parallel
+#' @import BiocParallel
 #' @export
 #'
 
-sm2dem <- function(X0, Xs, G, classes, eps=1, useExp=FALSE, median=FALSE, classesPerm=NULL, mc.cores=2, rankingType=c("dR", "dS", "dXs", "dX0"), NRpThr=0.05, NRk=100, minModuleSizeFinal=10, minRank=100, maxRank=500, NRmaxRank=600, minSubnetSize=2, plotFlag=FALSE, plotOutfile="graph.jpg", vectorMode=FALSE, ...){
+sm2dem <- function(X0, Xs, G, classes, eps=1, useExp=FALSE, median=FALSE, 
+                   classesPerm=NULL, mc.cores=2, 
+                   rankingType=c("dR", "dS", "dXs", "dX0"), 
+                   NRpThr=0.05, NRk=100, minModuleSizeFinal=10, 
+                   minRank=100, maxRank=500, NRmaxRank=600, minSubnetSize=2, 
+                   plotFlag=FALSE, plotOutfile="graph.jpg", 
+                   vectorMode=FALSE, ...){
 
     rankingType <- match.arg(rankingType)
 
     cat('calc_dS\n')
-    calcdSres <- calc_dS(X0, Xs, classes, eps=eps, useExp=useExp, median=median, classesPerm=classesPerm, mc.cores=mc.cores, vectorMode=vectorMode)
+    calcdSres <- calc_dS(X0, Xs, classes, eps=eps, useExp=useExp, 
+                         median=median, classesPerm=classesPerm, 
+                         mc.cores=mc.cores, vectorMode=vectorMode)
 
     if(rankingType == 'dR'){
-        rankedVector <- sort(array(calcdSres$dR, dimnames = list(calcdSres$id)), decreasing = TRUE)[1:NRmaxRank]
+        rankedVector <- sort(array(calcdSres$dR, 
+                             dimnames = list(calcdSres$id)), 
+                             decreasing = TRUE)[1:NRmaxRank]
     }
     if(rankingType == 'dS'){
-        rankedVector <- sort(array(calcdSres$dS, dimnames = list(calcdSres$id)), decreasing = TRUE)[1:NRmaxRank]
+        rankedVector <- sort(array(calcdSres$dS, 
+                             dimnames = list(calcdSres$id)), 
+                             decreasing = TRUE)[1:NRmaxRank]
     }
     if(rankingType == 'dX0'){
-        rankedVector <- sort(array(calcdSres$dX0, dimnames = list(calcdSres$id)), decreasing = TRUE)[1:NRmaxRank]
+        rankedVector <- sort(array(calcdSres$dX0, 
+                             dimnames = list(calcdSres$id)), 
+                             decreasing = TRUE)[1:NRmaxRank]
     }
     if(rankingType == 'dXs'){
-        rankedVector <- sort(array(calcdSres$dXs, dimnames = list(calcdSres$id)), decreasing = TRUE)[1:NRmaxRank]
+        rankedVector <- sort(array(calcdSres$dXs, 
+                             dimnames = list(calcdSres$id)), 
+                             decreasing = TRUE)[1:NRmaxRank]
     }
 
     cat('NR\n')

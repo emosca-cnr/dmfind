@@ -16,7 +16,7 @@ plot_NR <- function(nrRes=NULL, signCompTable=NULL, file="NR.jpg"){
 
     par(mfrow=c(1, 2))
     par(mar=c(4, 4, 1, 1))
-    plot(nrRes$omegaPerm[, 1], xlab="rank", ylab="omega", type="l", col="gray", 
+    plot(nrRes$omegaPerm[, 1], xlab="rank", ylab="omega", type="l", col="gray",
          ylim = c(0, max(c(nrRes$NRsummary$omega, unlist(nrRes$omegaPerm)))), 
          lty=2, lwd=2)
     for(i in 1:min(100, ncol(nrRes$omegaPerm))){
