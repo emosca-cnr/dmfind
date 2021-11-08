@@ -10,10 +10,10 @@ classes_perm <- function(z, N){
 
     N2 <- length(which(z == 2))
 
-    z.perms <- lapply(1:N, function(x) rep(1, length(z)))
-    z.perms <- lapply(z.perms, function(x) 
+    zPerms <- lapply(1:N, function(x) rep(1, length(z)))
+    zPerms <- lapply(zPerms, function(x) 
         replace(x, sample(1:length(x), N2), 2))
 
-    return(z.perms)
+    return(zPerms)
 
 }

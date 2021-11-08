@@ -21,7 +21,7 @@ es <- function(idx, x, le=F){
     hits[idx] <- x[idx]
     misses <- rep(1, length(x))
     misses[idx] <- 0
-    hits.cumsum <- cumsum(abs(hits))
+    hitsCumsum <- cumsum(abs(hits))
     Nr <- sum(abs(hits)) #equal to sum(abs(x[idx]))
 
     if(Nr==0){   #nothing to do
@@ -29,16 +29,16 @@ es <- function(idx, x, le=F){
         if(le){
             deviation <- 0
             tags <- 0
-            tags_perc <- 0
-            list_top <- 0
-            list_top_perc <- 0
-            lead_edge <- 0
-            lead_edge_subset <- 0
+            tagsPerc <- 0
+            listTop <- 0
+            listTopPerc <- 0
+            leadEdge <- 0
+            leadEdgeSubset <- 0
         }
     }else{
-        misses.cumsum <- cumsum(misses)
-        Phits <- hits.cumsum / Nr
-        Pmiss <- misses.cumsum / (N - Nh)
+        missesCumsum <- cumsum(misses)
+        Phits <- hitsCumsum / Nr
+        Pmiss <- missesCumsum / (N - Nh)
         deviation <- Phits - Pmiss
         wm <- which.max(abs(deviation))
 
@@ -48,26 +48,26 @@ es <- function(idx, x, le=F){
         if(le){
             if(es >=0){
                 tags <- sum(idx <= wm)
-                list_top <- wm
-                lead_edge_subset <- paste0(names(x)[intersect(1:wm, idx)], 
+                listTop <- wm
+                leadEdgeSubset <- paste0(names(x)[intersect(1:wm, idx)], 
                                            collapse = ";")
             }else{
                 tags <- sum(idx > wm)
-                list_top <- N - wm
-                lead_edge_subset <- paste0(names(x)[intersect(wm:N, idx)], 
+                listTop <- N - wm
+                leadEdgeSubset <- paste0(names(x)[intersect(wm:N, idx)], 
                                            collapse = ";")
             }
-            tags_perc <- tags / length(idx)
-            list_top_perc <- list_top / length(x)
+            tagsPerc <- tags / length(idx)
+            listTopPerc <- listTop / length(x)
         }
     }
 
     if(le){
-        lead_edge <- tags_perc * (1-list_top_perc) * N / (N - Nh)
+        leadEdge <- tagsPerc * (1-listTopPerc) * N / (N - Nh)
         return(list(es=es, deviation=deviation, 
-                    lea=data.frame(tags=tags, tags_perc=tags_perc, 
-                    list_top=list_top, list_top_perc=list_top_perc, 
-                    lead_edge=lead_edge, lead_edge_subset=lead_edge_subset, 
+                    lea=data.frame(tags=tags, tagsPerc=tagsPerc, 
+                    listTop=listTop, listTopPerc=listTopPerc, 
+                    leadEdge=leadEdge, leadEdgeSubset=leadEdgeSubset, 
                     stringsAsFactors = F)))
     }else{
         return(es)

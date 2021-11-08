@@ -1,40 +1,40 @@
 #' Local Monte Carlo p values
 #' @param G gene x gene undirected interaction graph
-#' @param ranked_vector scores vector; it must have the same names and size of the vertices of G
+#' @param rankedVector scores vector; it must have the same names and size of the vertices of G
 #' @param k number of permutations
 #' @param mc.cores number of cores
-#' @param null_model null model type
+#' @param nullModel null model type
 #' @export
 #' @import parallel
 
 
-NR <- function(G, ranked_vector, k=99, mc.cores=1, null_model="A", norm="n") {
+NR <- function(G, rankedVector, k=99, mc.cores=1, nullModel="A", norm="n") {
 
-  null_model <- match.arg(null_model)
+  nullModel <- match.arg(nullModel)
 
   #real values
-  ranked_vector_norm <- ranked_vector / max(ranked_vector)
+  rankedVectorNorm <- rankedVector / max(rankedVector)
 
-  omega_vect <- omega(G, ranked_vector_norm, norm = norm)
+  omegaVect <- omega(G, rankedVectorNorm, norm = norm)
 
-  #permutations of ranked_vector_norm: named vector of indices
-  idx.perm <- lapply(1:k, function(x) array(sample(1:length(ranked_vector_norm)), dimnames = list(names(ranked_vector_norm))))
+  #permutations of rankedVectorNorm: named vector of indices
+  idxPerm <- lapply(1:k, function(x) array(sample(1:length(rankedVectorNorm)), dimnames = list(names(rankedVectorNorm))))
 
   if(mc.cores > 1){
-    res <- parallel::mclapply(idx.perm, omega_perm, G=G, dS=ranked_vector_norm, mc.cores = mc.cores, null_model=null_model, norm=norm)
+    res <- BiocParallel::bplapply(idxPerm, omega_perm, G=G, dS=rankedVectorNorm, mc.cores = mc.cores, nullModel=nullModel, norm=norm)
   }else{
-    res <- lapply(idx.perm, omega_perm, G=G, dS=ranked_vector_norm, null_model=null_model, norm=norm)
+    res <- lapply(idxPerm, omega_perm, G=G, dS=rankedVectorNorm, nullModel=nullModel, norm=norm)
   }
 
   #n-by-k matrix
   res <- t(do.call(rbind, res))
 
   #LMC p values
-  out <- apply(res, 2, function(x) sign(x >= omega_vect))
+  out <- apply(res, 2, function(x) sign(x >= omegaVect))
   out <- rowSums(out)
   out <- (out + 1) / (k+1)
 
-  return(list(NR_summary=data.frame(id=names(out), rank=1:length(ranked_vector_norm), ranking_score=ranked_vector_norm, omega=omega_vect, p=out, stringsAsFactors = FALSE), omega_perm=res))
+  return(list(NRsummary=data.frame(id=names(out), rank=1:length(rankedVectorNorm), rankingScore=rankedVectorNorm, omega=omegaVect, p=out, stringsAsFactors = FALSE), omegaPerm=res))
 
 }
 

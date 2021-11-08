@@ -7,22 +7,19 @@ Authors@R: c(person("Ettore", "Mosca", role = c("aut", "cre"),
 		     email = "ettore.mosca@itb.cnr.it"),
 		    person("Matteo", "Bersanelli", role = "aut"),
 	      person("Luciano", "Milanesi", role = "aut"))
-Author: Ettore Mosca [aut, cre],
-    Matteo Bersanelli[aut],
-    Luciano Milanesi[aut]
-Maintainer: Ettore Mosca <ettore.mosca@itb.cnr.it>
 Description: Network diffusion-based analysis of omics for the identifcation of differentially enriched modules.
 License: GPL-3
-LazyData: TRUE
+LazyData: FALSE
+biocViews: Software - SystemsBiology
 Imports:
-    parallel,
+    BiocParallel,
     igraph,
     RColorBrewer,
     Bolstad2,
     brainGraph,
     plotrix
 Depends:
-    R (>= 3.5.0)
+    R (>= 4.1.0)
 RoxygenNote: 7.1.2
 Suggests: knitr,
     rmarkdown

@@ -1,8 +1,10 @@
 #' assess centrality measure to the top network
 #' 
 #' @param subnetwork portion of graph, top network
-#' @param graph total graph
+#' @param graph igraph object, total graph
 #' @description Function for assess centrality measures to the top network.
+#' @usage assess_centrality(subnetwork, graph)
+#' @example assess_centrality(subnetwork, graph)
 #' @export
 #' @import igraph
 

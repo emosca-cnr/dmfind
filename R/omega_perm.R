@@ -14,17 +14,17 @@ omega_perm <- function(idx, G, dS, null_model="A", norm="n") {
     Ai <- as.matrix(get.adjacency(Gi))
 
     #n-1 lists: from 2:n elements of idx sorted according to random indices idx
-    idx_2_n <- lapply(2:length(dS), function(x) 
+    idx2n <- lapply(2:length(dS), function(x) 
         sort(idx[names(idx) %in% names(dS)[1:x]]))
 
     #  if(null_model=="A"){
 
     #cross product of correct values
-    omega_vect <- dS %*% t(dS)
+    omegaVect <- dS %*% t(dS)
 
     #from 2:n calculate omega
-    omega_vect <- c(0, unlist(lapply(idx_2_n, calc_omega_i, 
-                                     Ai=Ai, dSprod=omega_vect, norm=norm)))
+    omegaVect <- c(0, unlist(lapply(idx2n, calc_omega_i, 
+                                     Ai=Ai, dSprod=omegaVect, norm=norm)))
 
     #  }
     
@@ -34,7 +34,7 @@ omega_perm <- function(idx, G, dS, null_model="A", norm="n") {
     #   colnames(Aperm) <- rownames(Aperm) <- rownames(Ai)
     #   Gperm <- graph.adjacency(Aperm, mode = "undirected")
     #   #cross product of correct values
-    #   omega_vect <- omega(Gperm, u = dS)
+    #   omegaVect <- omega(Gperm, u = dS)
     #
     # }
     #
@@ -42,20 +42,20 @@ omega_perm <- function(idx, G, dS, null_model="A", norm="n") {
     # if(null_model=="S"){
     #
     #   #matrix dS*dS' * Ai with random dS
-    #   omega_vect <- (dS[idx] %*% t(dS[idx])) * Ai
+    #   omegaVect <- (dS[idx] %*% t(dS[idx])) * Ai
     #   #progressive omega
-    #   omega_vect <- sapply(1:length(dS), function(i) sum(omega_vect[1:i, 1:i]))
+    #   omegaVect <- sapply(1:length(dS), function(i) sum(omegaVect[1:i, 1:i]))
     #
     # }
     # if(null_model=="SA"){
     #
     #   #matrix dS*dS' * Ai with random dS
-    #   omega_vect <- (dS[idx] %*% t(dS[idx])) * Ai[idx, idx]
+    #   omegaVect <- (dS[idx] %*% t(dS[idx])) * Ai[idx, idx]
     #   #progressive omega
-    #   omega_vect <- sapply(1:length(dS), function(i) sum(omega_vect[1:i, 1:i]))
+    #   omegaVect <- sapply(1:length(dS), function(i) sum(omegaVect[1:i, 1:i]))
     #
     # }
     
-    return(omega_vect)
+    return(omegaVect)
 
 }

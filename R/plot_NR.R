@@ -1,41 +1,43 @@
 #' Plot the results of eval_eps
 #' 
 #' @description Plot the results of eval_eps
-#' @param nr_res network resampling result
-#' @param sign_comp_table ?
+#' @param nrRes network resampling result
+#' @param signCompTable ?
 #' @param file filename
 #' @export
 
-plot_NR <- function(nr_res=NULL, sign_comp_table=NULL, file="NR.jpg"){
+plot_NR <- function(nrRes=NULL, signCompTable=NULL, file="NR.jpg"){
 
+    if(!is.null(signCompTable)){
+        selectedRanks <- max(signCompTable$rank[signCompTable$selected==1])
+    }
 
-  if(!is.null(sign_comp_table)){
-    selected_ranks <- max(sign_comp_table$rank[sign_comp_table$selected==1])
-  }
+    jpeg(file, width = 180, height = 90, units="mm", res=300)
 
-  jpeg(file, width = 180, height = 90, units="mm", res=300)
+    par(mfrow=c(1, 2))
+    par(mar=c(4, 4, 1, 1))
+    plot(nrRes$omegaPerm[, 1], xlab="rank", ylab="omega", type="l", col="gray", 
+         ylim = c(0, max(c(nrRes$NRsummary$omega, unlist(nrRes$omegaPerm)))), 
+         lty=2, lwd=2)
+    for(i in 1:min(100, ncol(nrRes$omegaPerm))){
+        lines(nrRes$omegaPerm[, i], col="gray", lty=2)
+    }
+    lines(nrRes$NRsummary$omega, col="red")
 
-  par(mfrow=c(1, 2))
-  par(mar=c(4, 4, 1, 1))
-  plot(nr_res$omega_perm[, 1], xlab="rank", ylab="omega", type="l", col="gray", ylim = c(0, max(c(nr_res$NR_summary$omega, unlist(nr_res$omega_perm)))), lty=2, lwd=2)
-  for(i in 1:min(100, ncol(nr_res$omega_perm))){
-    lines(nr_res$omega_perm[, i], col="gray", lty=2)
-  }
-  lines(nr_res$NR_summary$omega, col="red")
+    if(!is.null(signCompTable)){
+        abline(v=selectedRanks, col="purple", lty=2, lwd=1)
+    }
 
-  if(!is.null(sign_comp_table)){
-    abline(v=selected_ranks, col="purple", lty=2, lwd=1)
-  }
+    plot(log10(nrRes$NRsummary$p), xlab="rank", ylab="log10(p)", type="l")
+    points(log10(nrRes$NRsummary$p), pch=16, cex=0.5)
+    if(!is.null(signCompTable)){
+        idxCritical <- which(signCompTable$critical==1)
+        points(nrRes$NRsummary$rank[idxCritical], 
+               log10(nrRes$NRsummary$p[idxCritical]), pch=16, 
+               cex=0.5, col="purple")
+        abline(v=selectedRanks, col="purple", lty=2, lwd=1)
+    }
 
-
-  plot(log10(nr_res$NR_summary$p), xlab="rank", ylab="log10(p)", type="l")
-  points(log10(nr_res$NR_summary$p), pch=16, cex=0.5)
-  if(!is.null(sign_comp_table)){
-    idx_critical <- which(sign_comp_table$critical==1)
-    points(nr_res$NR_summary$rank[idx_critical], log10(nr_res$NR_summary$p[idx_critical]), pch=16, cex=0.5, col="purple")
-    abline(v=selected_ranks, col="purple", lty=2, lwd=1)
-  }
-
-  dev.off()
+    dev.off()
 
 }

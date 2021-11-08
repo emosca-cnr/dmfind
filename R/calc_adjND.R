@@ -9,7 +9,7 @@
 #' @param ... additional parameteres of ND
 #' @description Calculation of permutation-adjusted network smoothing index
 #' @return \code{data.frame} with X0, Xs, S, p and Sp
-#' @import parallel
+#' @import BiocParallel
 #' @export
 #'
 calc_adjND <- function(X0, W, eps=rep(1, ncol(X0)), k=99, mode=c("S", "Xs"), 
@@ -17,17 +17,17 @@ calc_adjND <- function(X0, W, eps=rep(1, ncol(X0)), k=99, mode=c("S", "Xs"),
 
     mode <- match.arg(mode)
 
-    all_X0 <- c(list(X0), lapply(1:k, function(x) matrix(as.numeric(X0), 
+    allX0 <- c(list(X0), lapply(1:k, function(x) matrix(as.numeric(X0), 
                                 ncol=ncol(X0), dimnames = 
                                 list(sample(rownames(X0), nrow(X0))))))
-    all_X0 <- lapply(all_X0, function(x) x[match(rownames(W), rownames(x)), 
+    allX0 <- BiocParallel::bplapply(allX0, function(x) x[match(rownames(W), rownames(x)), 
                                            , drop=F ])
 
     cat("network propagation\n")
     if(mc.cores==1){
-        all_Xs <- lapply(all_X0, function(x) ND(x, W, ...)$Xs)
+        allXS <- lapply(allX0, function(x) ND(x, W, ...)$Xs)
     }else{
-        all_Xs <- parallel::mclapply(all_X0, function(x) 
+        allXS <- BiocParallel::bplapply(allX0, function(x) 
           ND(x, W, ...)$Xs, mc.cores=mc.cores)
     }
 
@@ -35,35 +35,35 @@ calc_adjND <- function(X0, W, eps=rep(1, ncol(X0)), k=99, mode=c("S", "Xs"),
     if(mode=="S"){
         cat("calculation of Sp\n")
         #S
-        all_S <- lapply(1:(k+1), function(i) nsi(all_X0[[i]], 
-                                                 all_Xs[[i]], eps=eps))
-        Xs <- all_Xs[[1]]
+        all_S <- lapply(1:(k+1), function(i) nsi(allX0[[i]], 
+                                                 allXS[[i]], eps=eps))
+        Xs <- allXS[[1]]
     }else{
-        all_S <- all_Xs
+        all_S <- allXS
     }
 
     ## trash all permutations
     if(!return.perm){
-        rm(all_X0, all_Xs)
+        rm(allX0, allXS)
     }
 
     #p
-    est_p <- calc_p(all_S)
+    estP <- calc_p(all_S)
     S <- all_S[[1]]
 
     if(mode=="S"){
         if(return.perm){
-            out <- list(Xs=Xs, eps=eps, S=S, p=est_p, Sp= S * -log10(est_p),
-                        all_X0=all_X0, all_Xs=all_Xs)
+            out <- list(Xs=Xs, eps=eps, S=S, p=estP, Sp= S * -log10(estP),
+                        allX0=allX0, allXS=allXS)
         }else{
-            out <- list(Xs=Xs, eps=eps, S=S, p=est_p, Sp= S * -log10(est_p))
+            out <- list(Xs=Xs, eps=eps, S=S, p=estP, Sp= S * -log10(estP))
         }
     }else{
         if(return.perm){
-            out <- list(Xs=S, eps=eps, p=est_p, Xsp= S * -log10(est_p), 
-                        all_X0=all_X0, all_Xs=all_Xs)
+            out <- list(Xs=S, eps=eps, p=estP, Xsp= S * -log10(estP), 
+                        allX0=allX0, allXS=allXS)
         }else{
-            out <- list(Xs=S, eps=eps, p=est_p, Xsp= S * -log10(est_p))
+            out <- list(Xs=S, eps=eps, p=estP, Xsp= S * -log10(estP))
         }
     }
     rm(all_S) ## trash all permutations

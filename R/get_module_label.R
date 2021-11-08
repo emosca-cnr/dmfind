@@ -22,25 +22,25 @@ get_module_label <- function(xy=NULL, f=NULL, labs=NULL){
     ans$lab <- as.character(ans$lab)
 
     #find "centroids"
-    xy_centers <- cbind(tapply(ans$xx, ans$f, mean), 
+    xyCenters <- cbind(tapply(ans$xx, ans$f, mean), 
                         tapply(ans$yy, ans$f, mean))
 
     #find vertices close to centroids
-    ans <- merge(ans, xy_centers, by.x="f", by.y=0)
+    ans <- merge(ans, xyCenters, by.x="f", by.y=0)
     ans$dx <- (ans$V1 - ans$xx)^2
     ans$dy <- (ans$V2 - ans$yy)^2
     ans$d <- apply(ans[, c("dx", "dy")], 1, function(x) sum(x))
-    ans_is.min <- tapply(ans$d, ans$f, min)
+    ansIsMin <- tapply(ans$d, ans$f, min)
 
-    ans <- merge(ans, ans_is.min, by.x="f", by.y=0)
+    ans <- merge(ans, ansIsMin, by.x="f", by.y=0)
     colnames(ans)[ncol(ans)] <- "isMin"
 
     ans$isMin <- ans$isMin  == ans$d
-    ans$f_lab <- apply(ans[, c("f", "lab")], 1, paste0, collapse="_")
+    ans$fLab <- apply(ans[, c("f", "lab")], 1, paste0, collapse="_")
 
     #keep labels onyl for centroids
-    ans$lab[!ans$isMin] <- ans$f_lab[!ans$isMin] <- ""
-    ans$lab[duplicated(ans$f_lab)] <- ""
+    ans$lab[!ans$isMin] <- ans$fLab[!ans$isMin] <- ""
+    ans$lab[duplicated(ans$fLab)] <- ""
 
     return(ans[order(ans$id), c("f", "xx", "yy", "lab")])
 
