@@ -6,6 +6,8 @@
 #' @param classes numeric vector of \{1,2\}
 #' @param eps numeric value
 #' @param ... additional parameteres of ND
+#' @usage calc_dS(X0, A, classes, eps=1)
+#' @examples calc_dS(X0, A, classes, eps=1)
 #' @return \code{data.frame} with delta gene network smoothing indexes
 #' @export
 #'

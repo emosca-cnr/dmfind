@@ -7,6 +7,9 @@
 #' @param eps values to check
 #' @param top number of top genes on which the comparison has to be done
 #' @param sortX0 whether to sort (TRUE) or not (FALSE) X0 in decreasing order
+#' @usage check_eps(X0, Xs, x, eps, top = 250, sortX0=FALSE)
+#' @return optimal epsilon value
+#' @examples check_eps(X0, Xs, x, eps, top = 250, sortX0=FALSE)
 #' @export
 #'
 check_eps <- function (X0, Xs, x=NA, eps = c(0.1, 0.25, 0.5, 1), 

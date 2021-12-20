@@ -9,6 +9,8 @@
 #' @param mcCoresPerm number of cores to use for parallel calculation of ranked list permutations; the total number of cpu used will be mcCoresPath x mcCoresPerm
 #' @import BiocParallel
 #' @return data.frame with es, nes, p-value, adjusted p-value and FDR q-value
+#' @examples gsea(rl, gsl, k=100, ordMode=-1, mcCoresPath=1, mcCoresPerm=1)
+#' @usage gsea(rl, gsl, k=100, ordMode=-1, mcCoresPath=1, mcCoresPerm=1)
 #' @export
 
 gsea <- function(rl, gsl, k=100, ordMode=-1, 

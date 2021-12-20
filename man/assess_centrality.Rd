@@ -2,10 +2,21 @@
 % Please edit documentation in R/assess_centrality.R
 \name{assess_centrality}
 \alias{assess_centrality}
-\title{assess_centrality}
+\title{assess centrality measure to the top network}
 \usage{
 assess_centrality(subnetwork, graph)
 }
+\arguments{
+\item{subnetwork}{portion of graph, top network}
+
+\item{graph}{igraph object, total graph}
+}
+\value{
+dataframe with centrality measures
+}
 \description{
-assess_centrality
+Function for assess centrality measures to the top network.
+}
+\examples{
+assess_centrality(subnetwork, graph)
 }

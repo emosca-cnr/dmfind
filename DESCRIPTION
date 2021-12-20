@@ -3,12 +3,12 @@ Type: Package
 Title: Network diffusion-based analysis of omics data
 Version: 1.2.4
 Date: 2021-10-25
-Authors@R: c(person("Valentina", "Nale", role = c("aut", "cre"),
-		     email = "valentina.nale@itb.cnr.it"),
+Authors@R: c(person("Ettore", "Mosca", role = c("aut", "cre"),
+		     email = "ettore.mosca@itb.cnr.it"),
 		     person("Ettore", "Mosca", role = "aut"),
 		    person("Matteo", "Bersanelli", role = "aut"),
 	      person("Luciano", "Milanesi", role = "aut"))
-Description: Network diffusion-based analysis of omics for the identifcation of differentially enriched modules.
+Description: Network diffusion-based analysis of omics for the identification of differentially enriched modules. This package provide also functions for the manipulation of biological networks.
 License: GPL-3
 LazyData: FALSE
 biocViews: SystemsBiology, Network

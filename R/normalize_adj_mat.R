@@ -3,6 +3,9 @@
 #' @export
 #' @param A adjacency matrix
 #' @return normalized adjacency matrix
+#' @usage normalize_adj_mat(A)
+#' @examples normalize_adj_mat(A)
+#' 
 normalize_adj_mat <- function(A){
 
   #dii = degree(i)

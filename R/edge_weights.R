@@ -6,6 +6,8 @@
 #' @param weightWithin value to weight the attraction between two vertices of the same community
 #' @param weightBetween value to weight the attraction between two vertices of two disntict communities
 #' @return vector of edge weights
+#' @usage edge_weights(community, network, weightWithin=100, weightBetween=1)
+#' @examples edge_weights(community, network, weightWithin=100, weightBetween=1)
 #' @import igraph
 #' @export
 #'

@@ -4,6 +4,9 @@
 #' @param nrRes network resampling result
 #' @param signCompTable ?
 #' @param file filename
+#' @return plot
+#' @examples plot_NR(nrRes=NULL, signCompTable=NULL, file="NR.jpg")
+#' @usage plot_NR(nrRes=NULL, signCompTable=NULL, file="NR.jpg")
 #' @export
 
 plot_NR <- function(nrRes=NULL, signCompTable=NULL, file="NR.jpg"){

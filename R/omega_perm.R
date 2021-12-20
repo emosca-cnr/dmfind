@@ -3,6 +3,9 @@
 #' @param dS scores vector; it must have the same names and size of the vertices of G
 #' @param idx vector of randomly resampled dS scores; the names must be the same as dS's
 #' @param null_model null model type to be used
+#' @return vector of permuted omega
+#' @usage omega_perm(idx, G, dS, null_model="A", norm="n")
+#' @examples omega_perm(idx, G, dS, null_model="A", norm="n")
 #' @import igraph
 
 

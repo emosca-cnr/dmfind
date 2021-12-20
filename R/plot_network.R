@@ -10,6 +10,9 @@
 #' @param plotOutfile output file
 #' @param plotFlag whether to plot or not the network
 #' @param ... additional arguments
+#' @return plot network
+#' @usage plot_network(graph, colorBy=NULL, colorQuant=TRUE, labelBy="name", pal=NULL, plotOutfile="graph.jpg", community=NULL, commWin=2, commWb=1, lo=NULL, legendOff=FALSE)
+#' @examples plot_network(graph, colorBy=NULL, colorQuant=TRUE, labelBy="name", pal=NULL, plotOutfile="graph.jpg", community=NULL, commWin=2, commWb=1, lo=NULL, legendOff=FALSE)
 #' @export
 #' @import igraph
 #' @import RColorBrewer

@@ -2,6 +2,9 @@
 #' @description Plot S
 #' @param evalEpsRes Epsilon evaluation
 #' @param file filename
+#' @return plot
+#' @examples plot_S(calcAdjNDres=NULL, X0, initSigGenes=NULL, file="S.jpg")
+#' @usage plot_S(calcAdjNDres=NULL, X0, initSigGenes=NULL, file="S.jpg")
 #' @export
 
 plot_S <- function(calcAdjNDres=NULL, X0, initSigGenes=NULL, file="S.jpg"){

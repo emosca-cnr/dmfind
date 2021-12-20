@@ -5,8 +5,9 @@
 #' @param Ai matrix
 #' @param dSprod matrix with products of delta S
 #' @param norm normalize by number of links (l), number or vertices (v) or do not normalize (n)
+#' @return n
 
-calc_omega_i <- function(idx, Ai, dSprod, norm=c("n", "l", "v")){
+.calc_omega_i <- function(idx, Ai, dSprod, norm=c("n", "l", "v")){
 
     norm <- match.arg(norm, c("n", "l", "v"))
 

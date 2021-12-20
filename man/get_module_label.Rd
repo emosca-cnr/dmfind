@@ -4,7 +4,7 @@
 \alias{get_module_label}
 \title{Get module label}
 \usage{
-get_module_label(xy = NULL, f = NULL, labs = NULL)
+get_module_label(xy, f, labs)
 }
 \arguments{
 \item{xy}{layout coordinates}
@@ -13,6 +13,12 @@ get_module_label(xy = NULL, f = NULL, labs = NULL)
 
 \item{labs}{name vector of labels. Names  must be equal to unique values of f.}
 }
+\value{
+data
+}
 \description{
 Get module label
+}
+\examples{
+get_module_label(xy, f, labs)
 }

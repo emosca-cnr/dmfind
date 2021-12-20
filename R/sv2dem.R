@@ -12,6 +12,9 @@
 #' @param NR_max_rank network resampling will be applied from 1 to NR_max_rank
 #' @param plot_flag whether to plot or not the network
 #' @param ... further arguments to igraph.plot
+#' @return list of values
+#' @examples sv2dem(X, G, mc.cores=2, NR_p_thr=0.05, NR_k=100, min_module_size_final=10, min_rank=100, max_rank=500, NR_max_rank=600, min_subnet_size=2, plot_flag=FALSE, plot_outfile="graph.jpg")
+#' @usage sv2dem(X, G, mc.cores=2, NR_p_thr=0.05, NR_k=100, min_module_size_final=10, min_rank=100, max_rank=500, NR_max_rank=600, min_subnet_size=2, plot_flag=FALSE, plot_outfile="graph.jpg")
 #' @import parallel
 #' @export
 #'
@@ -36,11 +39,11 @@ sv2dem <- function(X, G, mc.cores=2, NR_p_thr=0.05, NR_k=100,
   }
 
   cat('assembling smoothed scores\n')
-  smoothed_scores <- data.frame(id=names(X), X=X, stringsAsFactors = FALSE)
+  smoothed_scores <- data.frame(id=names(X), X=X, stringsAsFactors=FALSE)
 
   ranked_vector <- sort(array(smoothed_scores$X, 
-                        dimnames = list(smoothed_scores$id)), 
-                        decreasing = TRUE)[1:NR_max_rank]
+                        dimnames=list(smoothed_scores$id)), 
+                        decreasing=TRUE)[1:NR_max_rank]
 
   cat('NR\n')
   NR_res <- NR(G, ranked_vector, NR_k, mc.cores)

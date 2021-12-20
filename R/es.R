@@ -5,6 +5,8 @@
 #' @param x named vector, ranked list
 #' @param le TRUE/FALSE
 #' @return enrichment score
+#' @usage es(idx, x, le=FALSE)
+#' @example es(idx, x, le=FALSE) 
 #' @export
 #'
 es <- function(idx, x, le=FALSE){

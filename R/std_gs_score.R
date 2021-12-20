@@ -5,6 +5,8 @@
 #' @param scalingEps numeric value
 #' @param mc.cores number of cores
 #' @return matrix of scaled pathway scores
+#' @examples std_gs_score(x, gsList, useMedian=FALSE, scalingEps=1, mc.cores=1)
+#' @usage std_gs_score(x, gsList, useMedian=FALSE, scalingEps=1, mc.cores=1)
 #' @export
 #'
 std_gs_score <- function(x, gsList, useMedian=FALSE, scalingEps=1, mc.cores=1){

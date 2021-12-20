@@ -4,16 +4,18 @@
 \alias{es}
 \title{Enrichment Score}
 \usage{
-es(idx, x, le = F)
+es(idx, x, le=FALSE)
 }
 \arguments{
 \item{idx}{vector of indices a subset of elements of x}
 
 \item{x}{named vector, ranked list}
+
+\item{le}{TRUE/FALSE}
 }
 \value{
 enrichment score
 }
 \description{
-Enrichment Score
+function to calculate the enrichment score
 }

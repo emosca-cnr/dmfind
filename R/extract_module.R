@@ -4,6 +4,9 @@
 #' @param graph igraph object
 #' @param selectedVertices subset of vertices
 #' @param minSubnetSize minimum size of subnetwork
+#' @return subnetwork 
+#' @usage extract_module(graph, selectedVertices, X0=NULL, minSubnetSize=2)
+#' @examples extract_module(graph, selectedVertices, X0=NULL, minSubnetSize=2)
 #' @export
 #' @import igraph
 

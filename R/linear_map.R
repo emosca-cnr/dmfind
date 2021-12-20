@@ -4,6 +4,9 @@
 #' @param x numeric vector
 #' @param yMin min value of the new distribution
 #' @param yMax max value of the new distribution
+#' @return linear map y
+#' @usage linear_map(x, yMin, yMax)
+#' @examples linear_map(x, yMin, yMax)
 #' @export
 
 linear_map <- function (x, yMin, yMax){

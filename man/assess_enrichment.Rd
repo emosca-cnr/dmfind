@@ -4,31 +4,29 @@
 \alias{assess_enrichment}
 \title{assess enrichment of the top networks}
 \usage{
-assess_enrichment(
-  G = NULL,
-  top_list = NULL,
-  ranks = NULL,
-  ranked_vector_X0 = NULL,
-  do.plot = FALSE,
-  critical = NULL,
-  file = "top_net_enrichment.jpg"
-)
+assess_enrichment(G, topList, ranks, rankedVectorX0, doPlot=FALSE, critical, file="outfile.jpg")
 }
 \arguments{
 \item{G}{igraph object}
 
-\item{top_list}{ranked list of vertex names}
+\item{topList}{ranked list of vertex names}
 
-\item{ranks}{ranks of top_list that will be assessed}
+\item{ranks}{ranks of topList that will be assessed}
 
-\item{ranked_vector_X0}{ranked vector by X0}
-
-\item{do.plot}{whether to plot or not}
+\item{rankedVectorX0}{ranked vector by X0}
 
 \item{critical}{a possible rank to draw in the plot}
 
 \item{file}{output file name}
+
+\item{do.plot}{whether to plot or not}
+}
+\value{
+list of values
 }
 \description{
-assess enrichment of the top networks
+Perform enrichment analysis of the top network based on a ranked vector
+}
+\examples{
+assess_enrichment(G, topList, ranks, rankedVectorX0, doPlot=FALSE, critical, file="outfile.jpg")
 }

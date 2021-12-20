@@ -6,6 +6,8 @@
 #' @param classes vector of classes, values must be equal to 1 or 2
 #' @param eps numeric value
 #' @return named vector of delta smoothing indexes
+#' @usage dS(X0, Xs, classes, eps=1)
+#' @examples dS(X0, Xs, classes, eps=1)
 #'
 dS <- function(X0, Xs, classes, eps=1){
     

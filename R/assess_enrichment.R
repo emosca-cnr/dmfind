@@ -9,8 +9,8 @@
 #' @param file output file name
 #' @description Perform enrichment analysis of the top network based on a ranked vector 
 #' @usage assess_enrichment(G, topList, ranks, rankedVectorX0, doPlot=FALSE, critical, file="outfile.jpg")
-#' @example assess_enrichment(G, topList, ranks, rankedVectorX0, doPlot=FALSE, critical, file="outfile.jpg")
-#' @value randomvalue
+#' @examples assess_enrichment(G, topList, ranks, rankedVectorX0, doPlot=FALSE, critical, file="outfile.jpg")
+#' @return list of values
 #' @export
 
 assess_enrichment <- function(G=NULL, topList=NULL, ranks=NULL, 
@@ -31,7 +31,7 @@ assess_enrichment <- function(G=NULL, topList=NULL, ranks=NULL,
                                          dimnames = list(names(rankedVectorX0), "X0")), 
                                          list(topNet=V(netCcf[[i]])$name))
         }else{
-            warning("No positive elments for ", ranks[i], "\n")
+            warning("No positive elements for ", ranks[i], "\n")
             gseaRes[[i]] <- list(gsTable=list(X0=data.frame(id=1, 
                                   es=0, pVal=1, adjpVal=1, nes=0, FDRq=1, 
                                   stringsAsFactors=FALSE)))

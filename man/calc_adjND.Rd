@@ -4,16 +4,7 @@
 \alias{calc_adjND}
 \title{Calculation of permutation-adjusted network smoothing index}
 \usage{
-calc_adjND(
-  X0,
-  W,
-  eps = rep(1, ncol(X0)),
-  k = 99,
-  mode = c("S", "Xs"),
-  mc.cores = 1,
-  return.perm = FALSE,
-  ...
-)
+calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), mc.cores=1, return.perm=FALSE)
 }
 \arguments{
 \item{X0}{input matrix}
@@ -35,4 +26,7 @@ calc_adjND(
 }
 \description{
 Calculation of permutation-adjusted network smoothing index
+}
+\examples{
+calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), mc.cores=1, return.perm=FALSE)
 }

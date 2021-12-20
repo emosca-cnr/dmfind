@@ -3,8 +3,10 @@
 #' @description Help function
 #' @param perms list of permuted statistics
 #' @param real vector of real statistics
+#' @return n
+#'
 #' 
-calc_MCp <- function(perms, real){
+.calc_MCp <- function(perms, real){
 
     check_extremes <- function(xxx, yyy){
         #xxx real

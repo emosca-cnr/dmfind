@@ -1,4 +1,11 @@
 #' Calculate ccf
+#' 
+#' @description Calculate ccf
+#' @param G igraph object
+#' @param rankedVectorNames ranked vector of names
+#' @return cff
+#' @usage calculate_ccf(G, rankedVectorNames)
+#' @examples calculate_ccf(G, rankedVectorNames)
 #' @export
 
 calculate_ccf <- function(G=NULL, rankedVectorNames=NULL){

@@ -3,6 +3,9 @@
 #' @description scientific approximation
 #' @param x numeric
 #' @param y number of digits
+#' @return truncated output
+#' @examples round(x,y)
+#' @usage round(x,y)
 #' @export
 
 round <- function(x, y=0){

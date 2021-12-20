@@ -4,20 +4,23 @@
 \alias{edge_weights}
 \title{Function for the assignment of edges weights in order to better visualize the communities}
 \usage{
-edge_weights(community, network, weight.within = 100, weight.between = 1)
+edge_weights(community, network, weightWithin=100, weightBetween=1)
 }
 \arguments{
 \item{community}{list with the mandatory field "membership"}
 
 \item{network}{pathway network}
 
-\item{weight.within}{value to weight the attraction between two vertices of the same community}
+\item{weightWithin}{value to weight the attraction between two vertices of the same community}
 
-\item{weight.between}{value to weight the attraction between two vertices of two disntict communities}
+\item{weightBetween}{value to weight the attraction between two vertices of two disntict communities}
 }
 \value{
 vector of edge weights
 }
 \description{
 Function for the assignment of edges weights in order to better visualize the communities
+}
+\examples{
+edge_weights(community, network, weightWithin=100, weightBetween=1)
 }

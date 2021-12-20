@@ -2,6 +2,8 @@
 #' 
 #' @description Estimation of p values
 #' @param X list of matrices, where the first is the one obtained with real data
+#' @return p
+#' @examples calc_p(x)
 #' @export
 #'
 calc_p <- function(X){

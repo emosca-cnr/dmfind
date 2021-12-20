@@ -4,9 +4,11 @@
 #' @param X0 initial condition matrix
 #' @param Xs network smoothing result
 #' @param eps matrix with epsilon values (rows) for each column of X0, Xs
-#' @param G matrix with epsilon values (rows) for each column of X0, Xs
-#' @param top matrix with epsilon values (rows) for each column of X0, Xs
+#' @param G igraph object
+#' @param top top genes to consider
 #' @return list with sn_g and sn_summary elements
+#' @usage eval_eps(X0, Xs, eps=NULL, G, top)
+#' @examples eval_eps(X0, Xs, eps=NULL, G, top)
 #' @import Bolstad2
 #' @export
 #'

@@ -3,6 +3,9 @@
 #' @description Plot the results of eval_eps
 #' @param evalEpsRes Epsilon evaluation
 #' @param file filename
+#' @examples plot_omega_eps(evalEpsRes, file="eval_eps_X0_omega.jpg")
+#' @usage plot_omega_eps(evalEpsRes, file="eval_eps_X0_omega.jpg")
+#' @return plot
 #' @export
 
 plot_omega_eps <- function(evalEpsRes, file="eval_eps_X0_omega.jpg"){

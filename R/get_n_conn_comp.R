@@ -4,6 +4,9 @@
 #' @param x network
 #' @param n size of connected component 
 #' @param verbose TRUE/FALSE
+#' @return subgraph
+#' @usage get_n_conn_comp(x,n)
+#' @examples get_n_conn_comp(x,n)
 #' @export
 
 get_n_conn_comp <- function(x, n){

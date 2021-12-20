@@ -4,6 +4,8 @@
 #' @param z binary vector with values in \{1, 2\}
 #' @param N number of permutations
 #' @return list of N permutations
+#' @examples classes_perm(z,N)
+#' @usage classes_perm(z,N)
 #' @export
 #' 
 classes_perm <- function(z, N){

@@ -9,6 +9,8 @@
 #' @param finalSmooth TRUE/FALSE, whether to do the final step of smoothing
 #' @param allSteps, TRUE/FALSE, whether to store all steps
 #' @param verbose, TRUE/FALSE
+#' @usage ND(X0, W, alpha=0.7, nMax=1e4, eps=1e-6, finalSmooth=FALSE, allSteps=FALSE, verbose=FALSE)
+#' @examples ND(X0, W, alpha=0.7, nMax=1e4, eps=1e-6, finalSmooth=FALSE, allSteps=FALSE, verbose=FALSE)
 #' @return a list with:
 #' \itemize{
 #' \item{\code{Xt}}{ the smoothed matrix;}

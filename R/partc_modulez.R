@@ -5,10 +5,13 @@
 #' @param allNames TRUE/FALSE. Used to plot all gene names.
 #' @param extremePoints TRUE/FALSE. Used to plot extreme poits of the plot, such as the gene with max and min participation coefficient and z-score.
 #' @param chooseYourGenes Vector of names (matching with "label" of network). Used to plot genes name of your choice.
+#' @return dataframe with pc, wmz, region, description and role
+#' @examples pc_wmz(topNetwork, allNames = FALSE, extremePoints = FALSE, chooseYourGenes = NULL, outFile="pc_wmz.jpg", doPlot=TRUE)
+#' @usage pc_wmz(topNetwork, allNames = FALSE, extremePoints = FALSE, chooseYourGenes = NULL, outFile="pc_wmz.jpg", doPlot=TRUE)
 #' @import brainGraph plotrix
 #' @export
 
-pc_wmz <- function(topNetwork, allNames = FALSE, extremePoints = FALSE, chooseYourGenes = NULL, outFile="pc_wmz.jpg", doPlot=TRUE) {
+pc_wmz <- function(topNetwork, allNames=FALSE, extremePoints=FALSE, chooseYourGenes=NULL, outFile="pc_wmz.jpg", doPlot=TRUE) {
 
     # partecipation coefficient
     pc <- brainGraph::part_coeff(topNetwork, V(topNetwork)$comm_id)
@@ -20,7 +23,7 @@ pc_wmz <- function(topNetwork, allNames = FALSE, extremePoints = FALSE, chooseYo
     # cbind pc and wmZ (x and y coordinates)
     df <- data.frame(name=names(pc), label=V(topNetwork)$label[match(names(pc), 
                     V(topNetwork)$name)], comm_id=V(topNetwork)$comm_id[match(names(pc),
-                    V(topNetwork)$name)], pc=pc, wmZ=wmZ, stringsAsFactors = F)
+                    V(topNetwork)$name)], pc=pc, wmZ=wmZ, stringsAsFactors = FALSE)
 
     maxZscore <- max(wmZ)
     hCut <- (maxZscore * 2.5) / 8

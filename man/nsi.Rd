@@ -4,7 +4,7 @@
 \alias{nsi}
 \title{Network Smoothing Index}
 \usage{
-nsi(X0, Xs, eps = rep(1, ncol(X0)))
+nsi(X0, Xs, eps=rep(1, ncol(X0)))
 }
 \arguments{
 \item{X0}{input matrix/vector}
@@ -13,6 +13,12 @@ nsi(X0, Xs, eps = rep(1, ncol(X0)))
 
 \item{eps}{numeric value}
 }
+\value{
+network smoothing index S
+}
 \description{
 Network Smoothing Index
+}
+\examples{
+nsi(X0, Xs, eps=rep(1, ncol(X0)))
 }

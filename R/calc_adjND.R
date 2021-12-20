@@ -8,6 +8,8 @@
 #' @param mode whether to use network smoothing index (S) or network smoothing values (Xs)
 #' @param ... additional parameteres of ND
 #' @description Calculation of permutation-adjusted network smoothing index
+#' @usage calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), mc.cores=1, return.perm=FALSE)
+#' @examples calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), mc.cores=1, return.perm=FALSE)
 #' @return \code{data.frame} with X0, Xs, S, p and Sp
 #' @import BiocParallel
 #' @export

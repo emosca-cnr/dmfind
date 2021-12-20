@@ -7,6 +7,8 @@
 #' @param norm FALSE
 #' @param do.plot FALSE
 #' @return Comparison plot between X0 and ND
+#' @examples compare_X0_ND(G, X0rankedByND, X0rankedByX0, norm, do.plot=FALSE, file="./compare_X0_ND.jpg")
+#' @usage compare_X0_ND(G, X0rankedByND, X0rankedByX0, norm, do.plot=FALSE, file="./compare_X0_ND.jpg")
 #' @export
 #'
 
@@ -27,7 +29,7 @@ compare_X0_ND <- function(G=NULL, X0rankedByND=NULL, X0rankedByX0=NULL,
     if(do.plot){
 
         jpeg(file, width=100, height=100, res=300, units="mm")
-        layout(matrix(c(1, 3, 2, 3), nrow=2, byrow=T), widths=c(0.8, 0.2))
+        layout(matrix(c(1, 3, 2, 3), nrow=2, byrow=TRUE), widths=c(0.8, 0.2))
         par(mar=c(2.5, 3, 1, 1))
         par(mgp=c(1.5, 0.5, 0))
 

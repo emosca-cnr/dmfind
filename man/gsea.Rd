@@ -2,9 +2,9 @@
 % Please edit documentation in R/gsea.R
 \name{gsea}
 \alias{gsea}
-\title{Gene Sert Enrichment Analysis}
+\title{Gene Set Enrichment Analysis}
 \usage{
-gsea(rl, gsl, k = 100, ord.mode = -1, mc_cores_path = 1, mc_cores_perm = 1)
+gsea(rl, gsl, k=100, ordMode=-1, mcCoresPath=1, mcCoresPerm=1)
 }
 \arguments{
 \item{rl}{numeric matrix of genes-by-ranking criteria; each column contains numeric values; rownames are mandatory}
@@ -13,15 +13,18 @@ gsea(rl, gsl, k = 100, ord.mode = -1, mc_cores_path = 1, mc_cores_perm = 1)
 
 \item{k}{integer, number of permutations}
 
-\item{ord.mode}{ordering mode: -1 -> descending; 1 ascending; must be of lenght equal to ncol(rl)}
+\item{ordMode}{ordering mode: -1 -> descending; 1 ascending; must be of lenght equal to ncol(rl)}
 
-\item{mc_cores_path}{number of cores to use for parallel calculation of gene set lists; the total number of cpu used will be mc_cores_path x mc_cores_perm}
+\item{mcCoresPath}{number of cores to use for parallel calculation of gene set lists; the total number of cpu used will be mcCoresPath x mcCoresPerm}
 
-\item{mc_cores_perm}{number of cores to use for parallel calculation of ranked list permutations; the total number of cpu used will be mc_cores_path x mc_cores_perm}
+\item{mcCoresPerm}{number of cores to use for parallel calculation of ranked list permutations; the total number of cpu used will be mcCoresPath x mcCoresPerm}
 }
 \value{
 data.frame with es, nes, p-value, adjusted p-value and FDR q-value
 }
 \description{
-Gene Sert Enrichment Analysis
+Gene Set Enrichment Analysis
+}
+\examples{
+gsea(rl, gsl, k=100, ordMode=-1, mcCoresPath=1, mcCoresPerm=1)
 }
