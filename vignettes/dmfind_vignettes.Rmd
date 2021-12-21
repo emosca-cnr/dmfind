@@ -93,10 +93,17 @@ for(i in 1:nrow(eps)){
 
 ```
 ```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
+<<<<<<< HEAD
 knitr::include_graphics("/home/bioinformatics/vnale/dmfind2/vignettes/imgs/eval_eps_X0.jpg")
 ```
 ```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
 knitr::include_graphics("/home/bioinformatics/vnale/dmfind2/vignettes/imgs/eval_eps_X0_omega.jpg")
+=======
+knitr::include_graphics("eval_eps_X0.jpg")
+```
+```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
+knitr::include_graphics("eval_eps_X0_omega.jpg")
+>>>>>>> dfcecfb081c703df0617790cce39211836145a13
 ```
 
 
@@ -126,7 +133,11 @@ sigcomp <- find_sign_conn_comp(NR_summary = nr_res$NR_summary, NR_p_thr = 0.2)
 plot_NR(nr_res, sign_comp_table = sigcomp$sign_comp_table)
 ```
 ```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
+<<<<<<< HEAD
 knitr::include_graphics("/home/bioinformatics/vnale/dmfind2/vignettes/imgs/NR.jpg")
+=======
+knitr::include_graphics("NR.jpg")
+>>>>>>> dfcecfb081c703df0617790cce39211836145a13
 ```
 
 The variation of the empirical $p$-value with gene rank suggests modules with high scores in network proximity. Note that this procedure is designed to focus on the top of a gene list, in this small example the top 30 genes out of a network of 61.
@@ -145,10 +156,17 @@ ae_res <- assess_enrichment(G=g, top_list = rownames(scores),
           file="top_net_enrichment.jpg")
 ```
 ```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
+<<<<<<< HEAD
 knitr::include_graphics("/home/bioinformatics/vnale/dmfind2/vignettes/imgs/cmp_X0_ND.jpg")
 ```
 ```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
 knitr::include_graphics("/home/bioinformatics/vnale/dmfind2/vignettes/imgs/top_net_enrichment.jpg")
+=======
+knitr::include_graphics("cmp_X0_ND.jpg")
+```
+```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
+knitr::include_graphics("top_net_enrichment.jpg")
+>>>>>>> dfcecfb081c703df0617790cce39211836145a13
 ```
 
 ## Top network definition
@@ -170,7 +188,11 @@ res_comm$info$algorithm[which.max(res_comm$info$modularity)]
 ```
 
 ```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
+<<<<<<< HEAD
 knitr::include_graphics("/home/bioinformatics/vnale/dmfind2/vignettes/imgs/graph.jpg")
+=======
+knitr::include_graphics("graph.jpg")
+>>>>>>> dfcecfb081c703df0617790cce39211836145a13
 ```
 
 ## Define nodes roles based on partecipation coefficient and z-score
@@ -202,7 +224,11 @@ R7 – kinless hubs: hubs with links homogeneously distributed among all modules
 pc_wmz(top_network, do_plot=TRUE)
 ```
 ```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
+<<<<<<< HEAD
 knitr::include_graphics("/home/bioinformatics/vnale/dmfind2/vignettes/imgs/pc_wmz.jpg")
+=======
+knitr::include_graphics("pc_wmz.jpg")
+>>>>>>> dfcecfb081c703df0617790cce39211836145a13
 ```
 
 # Session Info {- .smaller}

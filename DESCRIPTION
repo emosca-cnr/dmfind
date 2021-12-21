@@ -1,8 +1,8 @@
 Package: dmfind2
 Type: Package
 Title: Network diffusion-based analysis of omics data
-Version: 1.2.4
-Date: 2021-10-25
+Version: 1.9.0
+Date: 2021-12-20
 Authors@R: c(person("Ettore", "Mosca", role = c("aut", "cre"),
 		     email = "ettore.mosca@itb.cnr.it"),
 		     person("Ettore", "Mosca", role = "aut"),
