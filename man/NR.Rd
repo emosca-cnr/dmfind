@@ -23,3 +23,6 @@ list of values
 \description{
 Local Monte Carlo p values
 }
+\examples{
+NR(G, rankedVector, k=99, mc.cores=1, nullModel="A", norm="n")
+}

@@ -6,7 +6,7 @@
 #' @param nullModel null model type
 #' @return list of values
 #' @usage NR(G, rankedVector, k=99, mc.cores=1, nullModel="A", norm="n")
-#' @example NR(G, rankedVector, k=99, mc.cores=1, nullModel="A", norm="n")
+#' @examples NR(G, rankedVector, k=99, mc.cores=1, nullModel="A", norm="n")
 #' @export
 #' @import BiocParallel
 

@@ -1,4 +1,4 @@
-Package: dmfind
+Package: dmfind2
 Type: Package
 Title: Network diffusion-based analysis of omics data
 Version: 1.2.4
