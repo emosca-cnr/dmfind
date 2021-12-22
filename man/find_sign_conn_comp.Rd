@@ -4,17 +4,23 @@
 \alias{find_sign_conn_comp}
 \title{Finding significant connected components}
 \usage{
-find_sign_conn_comp(NR_summary, NR_p_thr = 0.05, min_rank = 50, max_rank = 300)
+find_sign_conn_comp(NRsummary, NRpThr=0.05, minRank=50, maxRank=300)
 }
 \arguments{
-\item{NR_summary}{data.frame with NR_summary}
+\item{NRsummary}{data.frame with NRsummary}
 
-\item{NR_p_thr}{threshold for NR p value}
+\item{NRpThr}{threshold for NR p value}
 
-\item{min_rank}{minimum rank}
+\item{minRank}{minimum rank}
 
-\item{max_rank}{maximum rank}
+\item{maxRank}{maximum rank}
+}
+\value{
+significant connected component
 }
 \description{
 Finding significant connected components
+}
+\examples{
+find_sign_conn_comp(NRsummary, NRpThr=0.05, minRank=50, maxRank=300)
 }

@@ -4,8 +4,21 @@
 \alias{plot_NR}
 \title{Plot the results of eval_eps}
 \usage{
-plot_NR(nr_res = NULL, sign_comp_table = NULL, file = "NR.jpg")
+plot_NR(nrRes=NULL, signCompTable=NULL, file="NR.jpg")
+}
+\arguments{
+\item{nrRes}{network resampling result}
+
+\item{signCompTable}{?}
+
+\item{file}{filename}
+}
+\value{
+plot
 }
 \description{
 Plot the results of eval_eps
+}
+\examples{
+plot_NR(nrRes=NULL, signCompTable=NULL, file="NR.jpg")
 }

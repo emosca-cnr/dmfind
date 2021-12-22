@@ -9,6 +9,12 @@ calc_p(X)
 \arguments{
 \item{X}{list of matrices, where the first is the one obtained with real data}
 }
+\value{
+p
+}
 \description{
 Estimation of p values
+}
+\examples{
+calc_p(x)
 }

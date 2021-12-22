@@ -4,16 +4,16 @@
 \alias{std_gs_score}
 \title{Calculation of pathway score matrix}
 \usage{
-std_gs_score(x, gs_list, use_median = FALSE, scaling_eps = 1, mc.cores = 1)
+std_gs_score(x, gsList, useMedian=FALSE, scalingEps=1, mc.cores=1)
 }
 \arguments{
 \item{x}{input matrix}
 
-\item{gs_list}{gene set list}
+\item{gsList}{gene set list}
 
-\item{use_median}{whether to use median (TRUE) or mean (FALSE)}
+\item{useMedian}{whether to use median (TRUE) or mean (FALSE)}
 
-\item{scaling_eps}{numeric value}
+\item{scalingEps}{numeric value}
 
 \item{mc.cores}{number of cores}
 }
@@ -22,4 +22,7 @@ matrix of scaled pathway scores
 }
 \description{
 Calculation of pathway score matrix
+}
+\examples{
+std_gs_score(x, gsList, useMedian=FALSE, scalingEps=1, mc.cores=1)
 }

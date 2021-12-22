@@ -4,28 +4,25 @@
 \alias{find_communities}
 \title{Find topological communities}
 \usage{
-find_communities(
-  g,
-  e.weights = NULL,
-  v.weights = NULL,
-  verbose = TRUE,
-  methods = c("fastgreedy", "labprop", "walktrap", "eigen", "multilev", "infomap")
-)
+find_communities(g, eWeights=NULL, vWeights=NULL, verbose=TRUE, methods=c("fastgreedy", "labprop", "walktrap", "eigen", "multilev", "infomap"))
 }
 \arguments{
 \item{g}{graph}
 
-\item{e.weights}{edge weights}
+\item{eWeights}{edge weights}
 
-\item{v.weights}{vertex weights}
+\item{vWeights}{vertex weights}
 
 \item{verbose}{TRUE/FALSE}
 
-\item{methods}{one or more of cfastgreedy", "labprop", "walktrap", "eigen", "multilev", "infomap"}
+\item{methods}{one or more of "fastgreedy", "labprop", "walktrap", "eigen", "multilev", "infomap"}
 }
 \value{
 list od community objects
 }
 \description{
 Find topological communities
+}
+\examples{
+ find_communities(g, eWeights=NULL, vWeights=NULL, verbose=TRUE, methods=c("fastgreedy", "labprop", "walktrap", "eigen", "multilev", "infomap"))
 }

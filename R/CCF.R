@@ -6,5 +6,4 @@ CCF <- function(x){
 	
 	return(ans)
 	
-	
 }

@@ -4,7 +4,7 @@
 \alias{omega}
 \title{Calculation of omega function}
 \usage{
-omega(G, u, norm = c("n", "l", "v"))
+omega(G, u, norm=c("n", "l", "v"))
 }
 \arguments{
 \item{G}{igraph object; only the vertices in names(u) will be considered}
@@ -13,6 +13,12 @@ omega(G, u, norm = c("n", "l", "v"))
 
 \item{norm}{normalize by number of links (l), number or vertices (v) or do not normalize (n)}
 }
+\value{
+omega
+}
 \description{
 Calculation of omega function
+}
+\examples{
+omega(G, u, norm=c("n", "l", "v"))
 }

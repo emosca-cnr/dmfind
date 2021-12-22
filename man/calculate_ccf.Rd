@@ -4,8 +4,19 @@
 \alias{calculate_ccf}
 \title{Calculate ccf}
 \usage{
-calculate_ccf(G = NULL, ranked_vector_names = NULL)
+calculate_ccf(G, rankedVectorNames)
+}
+\arguments{
+\item{G}{igraph object}
+
+\item{rankedVectorNames}{ranked vector of names}
+}
+\value{
+cff
 }
 \description{
 Calculate ccf
+}
+\examples{
+calculate_ccf(G, rankedVectorNames)
 }

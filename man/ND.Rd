@@ -4,16 +4,7 @@
 \alias{ND}
 \title{Network Diffusion using}
 \usage{
-ND(
-  X0,
-  W,
-  alpha = 0.7,
-  nMax = 10000,
-  eps = 1e-06,
-  final.smooth = FALSE,
-  all.steps = FALSE,
-  verbose = FALSE
-)
+ND(X0, W, alpha=0.7, nMax=1e4, eps=1e-6, finalSmooth=FALSE, allSteps=FALSE, verbose=FALSE)
 }
 \arguments{
 \item{X0}{vector or matrix composed of column vectors with initial distribution of information}
@@ -26,9 +17,9 @@ ND(
 
 \item{eps}{numeric, the iteration will stop when the maximum difference between matrix Xs between two consecutive iteraction is smaller than \code{eps}}
 
-\item{final.smooth}{TRUE/FALSE, whether to do the final step of smoothing}
+\item{finalSmooth}{TRUE/FALSE, whether to do the final step of smoothing}
 
-\item{all.steps, }{TRUE/FALSE, whether to store all steps}
+\item{allSteps, }{TRUE/FALSE, whether to store all steps}
 
 \item{verbose, }{TRUE/FALSE}
 }
@@ -37,10 +28,13 @@ a list with:
 \itemize{
 \item{\code{Xt}}{ the smoothed matrix;}
 \item{\code{eps}}{ see above;}
-\item{\code{max.abs.diff}}{ max(abs(F_t) - abs(F_{t-1}));}
-\item{\code{Xs.all}}{ transient Xs matrices.}
+\item{\code{maxAbsDiff}}{ max(abs(F_t) - abs(F_{t-1}));}
+\item{\code{XsAll}}{ transient Xs matrices.}
 }
 }
 \description{
 Network Diffusion using
+}
+\examples{
+ND(X0, W, alpha=0.7, nMax=1e4, eps=1e-6, finalSmooth=FALSE, allSteps=FALSE, verbose=FALSE)
 }

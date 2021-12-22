@@ -1,0 +1,237 @@
+---
+title: > 
+    "The dmfind User's Guide"
+author: 
+- name: "Valentina Nale"
+  affiliation: 
+  - Institute of Biomedical Technologies, National Research Council (ITB-CNR)
+  email: valentina.nale@itb.cnr.it
+date: "`r BiocStyle::doc_date()`"
+output: 
+    BiocStyle::html_document:
+        toc_float: TRUE
+vignette: >
+  %\VignetteIndexEntry{The dmfind User's Guide}
+  %\VignetteEncoding{UTF-8}  
+  %\VignettePackage{Gdmfind}
+  %\VignetteKeywords{Network, OmicsData, Visualization, MultiOmics, SystemsBiology}
+  %\VignetteEngine{knitr::rmarkdown}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment  = "#>",
+  error    = FALSE,
+  warning  = FALSE,
+  eval     = FALSE,
+  message  = FALSE,
+  fig.width = 10
+)
+options(width = 100)
+stopifnot(requireNamespace("htmltools"))
+htmltools::tagList(rmarkdown::html_dependency_font_awesome())
+```
+
+---
+
+# Introduction {#introduction}
+
+This vignette describes how to use the `r BiocStyle::Biocpkg("dmfind")` package for the network diffusion-based analysis of omics data for the identification of differently enriched modules.
+
+If you use this package please cite: 
+Bersanelli, M., Mosca, E., Remondini, D. et al. Network diffusion-based analysis of high-throughput data for the detection of differentially enriched modules. Sci Rep 6, 34841 (2016). <https://doi.org/10.1038/srep34841> 
+
+
+# Getting started {#gettingstarted}
+
+To install this package, start R and enter:
+
+```{r install, eval=FALSE}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+BiocManager::install("dmfind")
+```
+
+Import the package and load the input data avalilable to perform a general analysis with dmfind.
+
+
+The package requires an adjacency matrix and one or more input vectors. 
+
+Let's consider an example input dataset, including: a normalized adjacency matrix (W), a named vector (X0) - X0 names and W rownames must match - representing omics-derived statistics and a graph retrieved from the adjacency matrix:
+
+```{r loadlib}
+library(dmfind)
+data(X0, W, g400esm)
+g <- g400esm
+```
+Note that the function `normalizeAdjMat` is available to normalize an adjacency matrix. 
+
+# General workflow
+## Network diffusion
+```{r dmfind, plot, include=TRUE, results='hide'}
+Xs <- ND(X0, W)$Xs
+plot(X0, Xs, xlab="X0", ylab = "Xs")
+
+```
+
+## Epsilon choice to optimize Omega score
+As expected, network based scores prioritize genes in network proximity to high $X_0$ values. The initial and final state of the system are comapred by means of the network smoothing index $S$, which require a tuning parameter $\epsilon$. Briefly, low $\epsilon$ highliths genes with the highest gain, while for $\epsilon \to \inf$ the same gene ranking is obtained by $S$ and $X_s$. We can explore the relation between $\epsilon$ and $S$ with `eval_eps` function.
+
+It's useful to check the $\Omega$ function calculated on $X_0$ and $X_s$ values using the ranking determined by $S(\epsilon)$.
+
+```{r dmfind, include=TRUE, results='hide'}
+eps <- matrix(c(0.1, 1, 10, 100), ncol=1)
+out <- eval_eps(X0, Xs, eps, g)
+plot_omega_eps(out)
+
+for(i in 1:nrow(eps)){
+  plot(X0[, 1], out$S[[i]][, 1], xlab="X0", ylab="S", main = eps[i, ], pch=".")
+  top_n <- which(rank(-out$S[[i]][, 1]) <= 300)
+  points(X0[top_n, 1], out$S[[i]][top_n, 1], col="red", pch=16, cex=0.7)
+}
+
+```
+```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
+<<<<<<< HEAD
+knitr::include_graphics("/home/bioinformatics/vnale/dmfind2/vignettes/imgs/eval_eps_X0.jpg")
+```
+```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
+knitr::include_graphics("/home/bioinformatics/vnale/dmfind2/vignettes/imgs/eval_eps_X0_omega.jpg")
+=======
+knitr::include_graphics("eval_eps_X0.jpg")
+```
+```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
+knitr::include_graphics("eval_eps_X0_omega.jpg")
+>>>>>>> dfcecfb081c703df0617790cce39211836145a13
+```
+
+
+## NSI calculation
+We can see that, considering the given initial conditions $(X_0, W)$, $\epsilon=1$ determines a gene ranking with lower $\Omega$ both in relation at $X_0$ and $X_s$, while higher $\Omega$ can be obtained using higher $\epsilon$ values. For this tutorial we will therefore use $\epsilon=1$.
+
+We can assess the statistical significance of $S$ using empirical $p$-values.
+```{r include=TRUE, message=FALSE, results='hide'}
+resS <- calc_adjND(X0 = X0, W = W, eps = 1, k = 49, mode = "S", mc.cores = 2)
+
+scores <- merge(X0, resS$Sp, by=0, sort=F, all.y = TRUE)
+rownames(scores) <- scores$Row.names
+scores$Row.names <- NULL
+names(scores) <- c("X0", "Sp")
+
+init_sig_genes <- scores[order(-scores$X0), ]
+
+dmfind::plot_S(resS, X0, init_sig_genes = init_sig_genes)
+```
+
+## Network resampling
+Network resampling can be used to asses the presence of significantly connected modules. 
+```{r include=TRUE, message=FALSE, warning=FALSE, results='hide'}
+nr_res <- NR(g, sort(resS$Sp[, 1], decreasing = T), k = 99,
+          mc.cores = 2)
+sigcomp <- find_sign_conn_comp(NR_summary = nr_res$NR_summary, NR_p_thr = 0.2)
+plot_NR(nr_res, sign_comp_table = sigcomp$sign_comp_table)
+```
+```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
+<<<<<<< HEAD
+knitr::include_graphics("/home/bioinformatics/vnale/dmfind2/vignettes/imgs/NR.jpg")
+=======
+knitr::include_graphics("NR.jpg")
+>>>>>>> dfcecfb081c703df0617790cce39211836145a13
+```
+
+The variation of the empirical $p$-value with gene rank suggests modules with high scores in network proximity. Note that this procedure is designed to focus on the top of a gene list, in this small example the top 30 genes out of a network of 61.
+
+## Enrichment analysis
+Sorting the genes by the initial score $X0$ we can see the enrichment level in the first $N$-ordered genes.
+```{r include=TRUE, message=FALSE, warning=FALSE, results='hide'}
+scores <- scores[order(-scores$X0), ]
+compare_X0_ND(g, X0_ranked_by_ND = setNames(scores$X0, rownames(scores)),
+              X0_ranked_by_X0 = sort(setNames(scores$X0, rownames(scores)), 
+              decreasing = T), do.plot = T, file = "cmp_X0_ND.jpg", norm = "n")
+
+ae_res <- assess_enrichment(G=g, top_list = rownames(scores), 
+          ranked_vector_X0 = sort(setNames(scores$X0, rownames(scores)), 
+          decreasing = T), do.plot = T, critical = sigcomp$critical,
+          file="top_net_enrichment.jpg")
+```
+```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
+<<<<<<< HEAD
+knitr::include_graphics("/home/bioinformatics/vnale/dmfind2/vignettes/imgs/cmp_X0_ND.jpg")
+```
+```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
+knitr::include_graphics("/home/bioinformatics/vnale/dmfind2/vignettes/imgs/top_net_enrichment.jpg")
+=======
+knitr::include_graphics("cmp_X0_ND.jpg")
+```
+```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
+knitr::include_graphics("top_net_enrichment.jpg")
+>>>>>>> dfcecfb081c703df0617790cce39211836145a13
+```
+
+## Top network definition
+Based on the enrichment score, we define a subnetwork (top network) composed by the first $N$-ordered enriched genes.
+```{r include=TRUE, message=FALSE, warning=FALSE, results='hide'}
+top_network <- extract_module(graph = g, selected_vertices =
+               nr_res$NR_summary$id, X0 = X0, 
+               min_subnet_size = 2)
+```
+
+## Communities and topological analysis
+We can also assess a topological analysis of our network.
+```{r include=TRUE, message=FALSE, warning=FALSE}
+
+res_comm <- find_communities(top_network)
+res_comm$info
+res_comm$info$algorithm[which.max(res_comm$info$modularity)]
+
+```
+
+```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
+<<<<<<< HEAD
+knitr::include_graphics("/home/bioinformatics/vnale/dmfind2/vignettes/imgs/graph.jpg")
+=======
+knitr::include_graphics("graph.jpg")
+>>>>>>> dfcecfb081c703df0617790cce39211836145a13
+```
+
+## Define nodes roles based on partecipation coefficient and z-score
+Each gene can be spatial represented. To define the role of each node we need to calculate the participation coefficient (pc) and the within module z-score (wmz). Then, based on those two parameters, we can define regions (and roles).
+
+With this definition the space is divided in two categories: hubs and non-hubs.
+To define who is a hub we cut the space on the y-axis, proportionally to the maximum value of z-score.
+Then, we define regions accordingly to participation coefficient.
+
+*For “non-hub” nodes:*
+
+R1 – ultra peripheral nodes: nodes with all their links within their module (pc <= 0.05);
+
+R2 – peripheral nodes: nodes with most links within their module (0.05 < pc <= 0.62);
+
+R3 – non-hubs connector nodes: nodes with many links to other modules (0.62 < pc <= 0.8)
+
+R4 – non-hubs kinless nodes: nodes with links homogeneously distributed among all modules (pc > 0.8).
+
+*For the “hub” nodes:*
+
+R5 – provincial nodes: hub nodes with the vast majority of links within their module (pc <= 0.3);
+
+R6 – connector hubs: hubs with many links to most of the other modules (0.30 < pc <= 0.75);
+
+R7 – kinless hubs: hubs with links homogeneously distributed among all modules (pc > 0.75).
+
+```{r include=TRUE}
+pc_wmz(top_network, do_plot=TRUE)
+```
+```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
+<<<<<<< HEAD
+knitr::include_graphics("/home/bioinformatics/vnale/dmfind2/vignettes/imgs/pc_wmz.jpg")
+=======
+knitr::include_graphics("pc_wmz.jpg")
+>>>>>>> dfcecfb081c703df0617790cce39211836145a13
+```
+
+# Session Info {- .smaller}
+```{r sessioninfo}
+sessionInfo()
+```
