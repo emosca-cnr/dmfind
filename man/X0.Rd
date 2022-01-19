@@ -8,7 +8,7 @@
 1-column matrix with rownames
 }
 \usage{
-X0
+data(X0)
 }
 \description{
 An example of initial condition

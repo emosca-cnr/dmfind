@@ -5,15 +5,24 @@
 #' @param X0rankedByND ranked vector of ND values ordered by X0
 #' @param X0rankedByX0 ranked vector of X0 values ordered by X0
 #' @param norm FALSE
-#' @param do.plot FALSE
+#' @param doPlot FALSE
+#' @param file outfile
 #' @return Comparison plot between X0 and ND
-#' @examples compare_X0_ND(G, X0rankedByND, X0rankedByX0, norm, do.plot=FALSE, file="./compare_X0_ND.jpg")
-#' @usage compare_X0_ND(G, X0rankedByND, X0rankedByX0, norm, do.plot=FALSE, file="./compare_X0_ND.jpg")
+#' @examples 
+#' \dontrun{compare_X0_ND(G=NULL, X0rankedByND=NULL, X0rankedByX0=NULL, norm=FALSE, doPlot=FALSE,
+#'  file="compare_X0_ND.jpg")}
+#' @usage compare_X0_ND(G=NULL, X0rankedByND=NULL, X0rankedByX0=NULL, norm=FALSE, doPlot=FALSE, 
+#' file="compare_X0_ND.jpg")
+#' @import igraph
+#' @import grDevices
+#' @import graphics
+#' @import utils
 #' @export
 #'
 
 compare_X0_ND <- function(G=NULL, X0rankedByND=NULL, X0rankedByX0=NULL, 
-                          norm=FALSE, do.plot=FALSE, file="./compare_X0_ND.jpg", ...){
+                          norm=FALSE, doPlot=FALSE, 
+                          file="compare_X0_ND.jpg"){
 
     ##normalization
     X0rankedByND <- X0rankedByND / max(X0rankedByND)
@@ -26,7 +35,7 @@ compare_X0_ND <- function(G=NULL, X0rankedByND=NULL, X0rankedByX0=NULL,
         CCF=calculate_ccf(G, names(X0rankedByND)),
         row.names = 1:length(X0rankedByND))
 
-    if(do.plot){
+    if(doPlot){
 
         jpeg(file, width=100, height=100, res=300, units="mm")
         layout(matrix(c(1, 3, 2, 3), nrow=2, byrow=TRUE), widths=c(0.8, 0.2))

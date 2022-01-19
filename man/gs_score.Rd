@@ -18,5 +18,5 @@ numeric vector of gene set scores
 Calculation of gene set scores
 }
 \examples{
-gs_score(x, gsList)
+\dontrun{gs_score(x, gsList)}
 }

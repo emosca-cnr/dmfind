@@ -11,7 +11,7 @@ igraph object
 \url{https://string-db.org}
 }
 \usage{
-g400esm
+data(g400esm)
 }
 \description{
 An example subnetwork extracted from STRING

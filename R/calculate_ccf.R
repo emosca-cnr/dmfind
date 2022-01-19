@@ -5,7 +5,9 @@
 #' @param rankedVectorNames ranked vector of names
 #' @return cff
 #' @usage calculate_ccf(G, rankedVectorNames)
-#' @examples calculate_ccf(G, rankedVectorNames)
+#' @examples 
+#' \dontrun{calculate_ccf(G, rankedVectorNames)}
+#' @import igraph
 #' @export
 
 calculate_ccf <- function(G=NULL, rankedVectorNames=NULL){
@@ -16,8 +18,8 @@ calculate_ccf <- function(G=NULL, rankedVectorNames=NULL){
     n <- length(rankedVectorNames)
 
     ans <- sapply(1:n, function(i) 
-        CCF(igraph::induced_subgraph(g, 
-        V(g)$name[V(g)$name %in% rankedVectorNames[1:i]])))
+        CCF(igraph::induced_subgraph(G, 
+        V(G)$name[V(G)$name %in% rankedVectorNames[1:i]])))
 
     return(ans)
 

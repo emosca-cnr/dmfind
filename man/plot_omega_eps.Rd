@@ -18,5 +18,5 @@ plot
 Plot the results of eval_eps
 }
 \examples{
-plot_omega_eps(evalEpsRes, file="eval_eps_X0_omega.jpg")
+\dontrun{plot_omega_eps(evalEpsRes, file="eval_eps_X0_omega.jpg")}
 }

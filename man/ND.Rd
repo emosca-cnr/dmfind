@@ -2,20 +2,25 @@
 % Please edit documentation in R/ND.R
 \name{ND}
 \alias{ND}
-\title{Network Diffusion using}
+\title{Network Diffusion}
 \usage{
-ND(X0, W, alpha=0.7, nMax=1e4, eps=1e-6, finalSmooth=FALSE, allSteps=FALSE, verbose=FALSE)
+ND(X0, W, alpha=0.7, nMax=1e4, eps=1e-6, finalSmooth=FALSE, 
+allSteps=FALSE, verbose=FALSE)
 }
 \arguments{
-\item{X0}{vector or matrix composed of column vectors with initial distribution of information}
+\item{X0}{vector or matrix composed of column vectors with initial 
+distribution of information}
 
-\item{W}{symmetrically normalized adjacency matrix W = D^-1 A D^-1, see normalize_adj_mat function}
+\item{W}{symmetrically normalized adjacency matrix W = D^-1 A D^-1, 
+see normalize_adj_mat function}
 
 \item{alpha}{numeric, the smothing factor}
 
 \item{nMax}{numeric, maximum number of iterations}
 
-\item{eps}{numeric, the iteration will stop when the maximum difference between matrix Xs between two consecutive iteraction is smaller than \code{eps}}
+\item{eps}{numeric, the iteration will stop when the maximum difference 
+between matrix Xs between two consecutive iteraction is 
+smaller than \code{eps}}
 
 \item{finalSmooth}{TRUE/FALSE, whether to do the final step of smoothing}
 
@@ -36,5 +41,6 @@ a list with:
 Network Diffusion using
 }
 \examples{
-ND(X0, W, alpha=0.7, nMax=1e4, eps=1e-6, finalSmooth=FALSE, allSteps=FALSE, verbose=FALSE)
+\dontrun{ND(X0, W, alpha=0.7, nMax=1e4, eps=1e-6, finalSmooth=FALSE, 
+allSteps=FALSE, verbose=FALSE)}
 }

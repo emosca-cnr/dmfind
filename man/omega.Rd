@@ -11,7 +11,8 @@ omega(G, u, norm=c("n", "l", "v"))
 
 \item{u}{ranked named list; names must correspond to V(G)$name}
 
-\item{norm}{normalize by number of links (l), number or vertices (v) or do not normalize (n)}
+\item{norm}{normalize by number of links (l), number or vertices 
+(v) or do not normalize (n)}
 }
 \value{
 omega
@@ -20,5 +21,5 @@ omega
 Calculation of omega function
 }
 \examples{
-omega(G, u, norm=c("n", "l", "v"))
+\dontrun{omega(G, u, norm=c("n", "l", "v"))}
 }

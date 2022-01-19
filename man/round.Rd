@@ -18,5 +18,5 @@ truncated output
 scientific approximation
 }
 \examples{
-round(x,y)
+\dontrun{round(x,y)}
 }

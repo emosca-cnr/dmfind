@@ -4,7 +4,8 @@
 #' @param graph igraph object, total graph
 #' @description Function for assess centrality measures to the top network.
 #' @usage assess_centrality(subnetwork, graph)
-#' @examples assess_centrality(subnetwork, graph)
+#' @examples 
+#' \dontrun{assess_centrality(subnetwork, graph)}
 #' @return dataframe with centrality measures
 #' @export
 #' @import igraph

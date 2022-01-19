@@ -5,7 +5,9 @@
 #' @param maxRank maximum rank
 #' @return significant connected component
 #' @usage find_sign_conn_comp(NRsummary, NRpThr=0.05, minRank=50, maxRank=300)
-#' @examples find_sign_conn_comp(NRsummary, NRpThr=0.05, minRank=50, maxRank=300)
+#' @examples 
+#' \dontrun{find_sign_conn_comp(NRsummary, NRpThr=0.05, minRank=50, 
+#' maxRank=300)}
 #' @export
 
 find_sign_conn_comp <- function(NRsummary, NRpThr=0.05, 

@@ -21,9 +21,19 @@
 #' @param vectorMode TRUE/FALSE
 #' @param ... further arguments to igraph.plot
 #' @return ???
-#' @examples sm2demX(0, Xs, G, classes, eps=1, useExp=FALSE, median=FALSE, classesPerm=NULL, mc.cores=2, rankingType=c("dR", "dS", "dXs", "dX0"), NRpThr=0.05, NRk=100, minModuleSizeFinal=10, minRank=100, maxRank=500, NRmaxRank=600, minSubnetSize=2, plotFlag=FALSE, plotOutfile="graph.jpg", vectorMode=FALSE)
-#' @usage sm2demX(0, Xs, G, classes, eps=1, useExp=FALSE, median=FALSE, classesPerm=NULL, mc.cores=2, rankingType=c("dR", "dS", "dXs", "dX0"), NRpThr=0.05, NRk=100, minModuleSizeFinal=10, minRank=100, maxRank=500, NRmaxRank=600, minSubnetSize=2, plotFlag=FALSE, plotOutfile="graph.jpg", vectorMode=FALSE)
+#' @examples 
+#' \dontrun{sm2dem(X0, Xs, G, classes, eps=1, useExp=FALSE, median=FALSE, 
+#' classesPerm=NULL, mc.cores=2, rankingType=c("dR", "dS", "dXs", "dX0"), 
+#' NRpThr=0.05, NRk=100, minModuleSizeFinal=10, minRank=100, maxRank=500, 
+#' NRmaxRank=600, minSubnetSize=2, plotFlag=FALSE, plotOutfile="graph.jpg", 
+#' vectorMode=FALSE)}
+#' @usage sm2dem(X0, Xs, G, classes, eps=1, useExp=FALSE, median=FALSE, 
+#' classesPerm=NULL, mc.cores=2, rankingType=c("dR", "dS", "dXs", "dX0"), 
+#' NRpThr=0.05, NRk=100, minModuleSizeFinal=10, minRank=100, maxRank=500, 
+#' NRmaxRank=600, minSubnetSize=2, plotFlag=FALSE, plotOutfile="graph.jpg", 
+#' vectorMode=FALSE, ...)
 #' @import BiocParallel
+#' @import igraph
 #' @export
 #'
 
@@ -73,10 +83,7 @@ sm2dem <- function(X0, Xs, G, classes, eps=1, useExp=FALSE, median=FALSE,
 
     if(sum(sigComp$selected) >= minModuleSizeFinal){
         cat('extract_module\n')
-        modules <- extract_module(G, sigComp$id[sigComp$selected==1],
-                              vertices_weight=rankedVector, 
-                              minSubnetSize = minSubnetSize, 
-                              plotOutfile=plotOutfile, ...)
+        modules <- extract_module(G, sigComp$id[sigComp$selected==1])
         summaryLog$modulesSize <- length(V(modules$connSubnets))
         summaryLog$modulesLinks <- length(E(modules$connSubnets))
         summaryLog$modulesD <- graph.density(modules$connSubnets)

@@ -11,7 +11,7 @@ get_module_label(xy, f, labs)
 
 \item{f}{factor describing modules}
 
-\item{labs}{name vector of labels. Names  must be equal to unique values of f.}
+\item{labs}{name vector of labels. Names must be equal to unique values of f}
 }
 \value{
 data
@@ -20,5 +20,5 @@ data
 Get module label
 }
 \examples{
-get_module_label(xy, f, labs)
+\dontrun{get_module_label(xy, f, labs)}
 }

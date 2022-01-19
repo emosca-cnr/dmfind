@@ -18,5 +18,5 @@ maximum connected component
 Extract the maximum connected components
 }
 \examples{
-get_max_conn_comp(x, verbose=TRUE)
+\dontrun{get_max_conn_comp(x, verbose=TRUE)}
 }

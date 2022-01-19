@@ -20,5 +20,5 @@ plot
 Plot the results of eval_eps
 }
 \examples{
-plot_NR(nrRes=NULL, signCompTable=NULL, file="NR.jpg")
+\dontrun{plot_NR(nrRes=NULL, signCompTable=NULL, file="NR.jpg")}
 }

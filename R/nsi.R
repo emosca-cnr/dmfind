@@ -6,7 +6,8 @@
 #' @param eps numeric value
 #' @return network smoothing index S
 #' @usage nsi(X0, Xs, eps=rep(1, ncol(X0)))
-#' @examples nsi(X0, Xs, eps=rep(1, ncol(X0)))
+#' @examples 
+#' \dontrun{nsi(X0, Xs, eps=rep(1, ncol(X0)))}
 #' @export
 nsi <- function(X0, Xs, eps=rep(1, ncol(X0))){
 

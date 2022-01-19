@@ -13,9 +13,17 @@
 #' @param plot_flag whether to plot or not the network
 #' @param ... further arguments to igraph.plot
 #' @return list of values
-#' @examples sv2dem(X, G, mc.cores=2, NR_p_thr=0.05, NR_k=100, min_module_size_final=10, min_rank=100, max_rank=500, NR_max_rank=600, min_subnet_size=2, plot_flag=FALSE, plot_outfile="graph.jpg")
-#' @usage sv2dem(X, G, mc.cores=2, NR_p_thr=0.05, NR_k=100, min_module_size_final=10, min_rank=100, max_rank=500, NR_max_rank=600, min_subnet_size=2, plot_flag=FALSE, plot_outfile="graph.jpg")
-#' @import parallel
+#' @examples 
+#' \dontrun{sv2dem(X, G, mc.cores=2, NR_p_thr=0.05, NR_k=100,
+#'  min_module_size_final=10, min_rank=100, max_rank=500, 
+#'  NR_max_rank=600, min_subnet_size=2, plot_flag=FALSE, 
+#'  plot_outfile="graph.jpg")}
+#' @usage sv2dem(X, G, mc.cores=2, NR_p_thr=0.05, NR_k=100, 
+#' min_module_size_final=10, min_rank=100, max_rank=500, 
+#' NR_max_rank=600, min_subnet_size=2, plot_flag=FALSE, 
+#' plot_outfile="graph.jpg", ...)
+#' @import BiocParallel
+#' @import igraph
 #' @export
 #'
 
@@ -56,10 +64,7 @@ sv2dem <- function(X, G, mc.cores=2, NR_p_thr=0.05, NR_k=100,
 
   if(sum(sig_comp$selected) >= min_module_size_final){
     cat('extract_module\n')
-    modules <- extract_module(G, sig_comp$id[sig_comp$selected==1], 
-                              vertices_weight=ranked_vector, 
-                              min_subnet_size = min_subnet_size, 
-                              plot_outfile=plot_outfile, ...)
+    modules <- extract_module(G, sig_comp$id[sig_comp$selected==1])
     summary_log$modules_size <- length(V(modules$conn_subnets))
     summary_log$modules_links <- length(E(modules$conn_subnets))
     summary_log$modules_d <- graph.density(modules$conn_subnets)

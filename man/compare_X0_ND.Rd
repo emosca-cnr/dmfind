@@ -4,7 +4,8 @@
 \alias{compare_X0_ND}
 \title{compare_X0_ND}
 \usage{
-compare_X0_ND(G, X0rankedByND, X0rankedByX0, norm, do.plot=FALSE, file="./compare_X0_ND.jpg")
+compare_X0_ND(G=NULL, X0rankedByND=NULL, X0rankedByX0=NULL, norm=FALSE, doPlot=FALSE, 
+file="compare_X0_ND.jpg")
 }
 \arguments{
 \item{G}{graph}
@@ -15,7 +16,9 @@ compare_X0_ND(G, X0rankedByND, X0rankedByX0, norm, do.plot=FALSE, file="./compar
 
 \item{norm}{FALSE}
 
-\item{do.plot}{FALSE}
+\item{doPlot}{FALSE}
+
+\item{file}{outfile}
 }
 \value{
 Comparison plot between X0 and ND
@@ -24,5 +27,6 @@ Comparison plot between X0 and ND
 Generate N permutations of a binary vector
 }
 \examples{
-compare_X0_ND(G, X0rankedByND, X0rankedByX0, norm, do.plot=FALSE, file="./compare_X0_ND.jpg")
+\dontrun{compare_X0_ND(G=NULL, X0rankedByND=NULL, X0rankedByX0=NULL, norm=FALSE, doPlot=FALSE,
+ file="compare_X0_ND.jpg")}
 }

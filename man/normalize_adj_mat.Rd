@@ -16,9 +16,10 @@ normalized adjacency matrix
 Symmetric Normalization of Adjancency Matrix
 }
 \details{
-This function applies the following normalization: a_ij' = a_ij / sqrt(d_i d_j), where d_i is the degree of vertex i
+This function applies the following normalization: 
+a_ij' = a_ij / sqrt(d_i d_j), where d_i is the degree of vertex i
 }
 \examples{
-normalize_adj_mat(A)
+\dontrun{normalize_adj_mat(A)}
 
 }

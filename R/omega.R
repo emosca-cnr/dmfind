@@ -3,10 +3,12 @@
 #' @description Calculation of omega function
 #' @param G igraph object; only the vertices in names(u) will be considered
 #' @param u ranked named list; names must correspond to V(G)$name
-#' @param norm normalize by number of links (l), number or vertices (v) or do not normalize (n)
+#' @param norm normalize by number of links (l), number or vertices 
+#' (v) or do not normalize (n)
 #' @return omega 
 #' @usage omega(G, u, norm=c("n", "l", "v"))
-#' @examples omega(G, u, norm=c("n", "l", "v"))
+#' @examples 
+#' \dontrun{omega(G, u, norm=c("n", "l", "v"))}
 #' @import igraph
 #' @export
 

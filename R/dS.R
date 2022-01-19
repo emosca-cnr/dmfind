@@ -7,7 +7,8 @@
 #' @param eps numeric value
 #' @return named vector of delta smoothing indexes
 #' @usage dS(X0, Xs, classes, eps=1)
-#' @examples dS(X0, Xs, classes, eps=1)
+#' @examples 
+#' \dontrun{dS(X0, Xs, classes, eps=1)}
 #'
 dS <- function(X0, Xs, classes, eps=1){
     

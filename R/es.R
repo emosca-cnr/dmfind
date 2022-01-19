@@ -6,7 +6,8 @@
 #' @param le TRUE/FALSE
 #' @return enrichment score
 #' @usage es(idx, x, le=FALSE)
-#' @examples es(idx, x, le=FALSE) 
+#' @examples 
+#' \dontrun{es(idx, x, le=FALSE)}
 #' @export
 #'
 es <- function(idx, x, le=FALSE){

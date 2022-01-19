@@ -4,7 +4,7 @@
 \alias{calc_dS}
 \title{Calculation of delta network smoothing indexes}
 \usage{
-calc_dS(X0, A, classes, eps=1)
+calc_dS(X0, A, classes, eps=1, ...)
 }
 \arguments{
 \item{X0}{input matrix}
@@ -24,5 +24,5 @@ calc_dS(X0, A, classes, eps=1)
 Calculation of delta network smoothing indexes
 }
 \examples{
-calc_dS(X0, A, classes, eps=1)
+\dontrun{calc_dS(X0, A, classes, eps=1)}
 }

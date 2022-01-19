@@ -1,15 +1,20 @@
 #' Gene Set Enrichment Analysis
 #' 
 #' @description Gene Set Enrichment Analysis
-#' @param rl numeric matrix of genes-by-ranking criteria; each column contains numeric values; rownames are mandatory
+#' @param rl numeric matrix of genes-by-ranking criteria; each column contains 
+#' numeric values; rownames are mandatory
 #' @param gsl named list of gene sets
 #' @param k integer, number of permutations
-#' @param ordMode ordering mode: -1 -> descending; 1 ascending; must be of lenght equal to ncol(rl)
-#' @param mcCoresPath number of cores to use for parallel calculation of gene set lists; the total number of cpu used will be mcCoresPath x mcCoresPerm
-#' @param mcCoresPerm number of cores to use for parallel calculation of ranked list permutations; the total number of cpu used will be mcCoresPath x mcCoresPerm
+#' @param ordMode ordering mode: -1 -> descending; 1 ascending; must be 
+#' of length equal to ncol(rl)
+#' @param mcCoresPath number of cores to use for parallel calculation of gene 
+#' set lists; the total number of cpu used will be mcCoresPath x mcCoresPerm
+#' @param mcCoresPerm number of cores to use for parallel calculation of ranked 
+#' list permutations; the total number of cpu used will be mcCoresPath x mcCoresPerm
 #' @import BiocParallel
 #' @return data.frame with es, nes, p-value, adjusted p-value and FDR q-value
-#' @examples gsea(rl, gsl, k=100, ordMode=-1, mcCoresPath=1, mcCoresPerm=1)
+#' @examples 
+#' \dontrun{gsea(rl, gsl, k=100, ordMode=-1, mcCoresPath=1, mcCoresPerm=1)}
 #' @usage gsea(rl, gsl, k=100, ordMode=-1, mcCoresPath=1, mcCoresPerm=1)
 #' @export
 
@@ -157,7 +162,7 @@ gsea <- function(rl, gsl, k=100, ordMode=-1,
         #out table
         out[[i]] <- data.frame(id=rownames(res[[i]]), es=res[[i]][, 1], 
                                pVal=pVal, 
-                               adjpVal=p.adjust(pVal, method='fdr'), 
+                               adjpVal=stats::p.adjust(pVal, method='fdr'), 
                                nes=nes[, 1], FDRq=fdrq, stringsAsFactors=FALSE)
 
     }

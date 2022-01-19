@@ -6,7 +6,8 @@
 #' @param yMax max value of the new distribution
 #' @return linear map y
 #' @usage linear_map(x, yMin, yMax)
-#' @examples linear_map(x, yMin, yMax)
+#' @examples 
+#' \dontrun{linear_map(x, yMin, yMax)}
 #' @export
 
 linear_map <- function (x, yMin, yMax){

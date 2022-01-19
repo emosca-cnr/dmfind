@@ -4,13 +4,21 @@
 #' @param topList ranked list of vertex names
 #' @param ranks ranks of topList that will be assessed
 #' @param rankedVectorX0 ranked vector by X0
-#' @param do.plot whether to plot or not
+#' @param doPlot whether to plot or not
 #' @param critical a possible rank to draw in the plot
 #' @param file output file name
-#' @description Perform enrichment analysis of the top network based on a ranked vector 
-#' @usage assess_enrichment(G, topList, ranks, rankedVectorX0, doPlot=FALSE, critical, file="outfile.jpg")
-#' @examples assess_enrichment(G, topList, ranks, rankedVectorX0, doPlot=FALSE, critical, file="outfile.jpg")
+#' @description Perform enrichment analysis of the top network 
+#' based on a ranked vector 
+#' @usage assess_enrichment(G=NULL, topList=NULL, ranks=NULL, 
+#' rankedVectorX0=NULL, doPlot=FALSE, critical=NULL, file="topNet_enrichment.jpg")
+#' @examples 
+#' \dontrun{assess_enrichment(G=NULL, topList=NULL, ranks=NULL, 
+#' rankedVectorX0=NULL, doPlot=FALSE, critical=NULL, file="topNet_enrichment.jpg")}
 #' @return list of values
+#' @import igraph
+#' @import grDevices
+#' @import graphics
+#' @import utils
 #' @export
 
 assess_enrichment <- function(G=NULL, topList=NULL, ranks=NULL, 
@@ -28,8 +36,8 @@ assess_enrichment <- function(G=NULL, topList=NULL, ranks=NULL,
         if(sum(rankedVectorX0[names(rankedVectorX0) %in% 
                                 V(netCcf[[i]])$name])>0){
             gseaRes[[i]] <- gsea(matrix(rankedVectorX0, ncol = 1, 
-                                         dimnames = list(names(rankedVectorX0), "X0")), 
-                                         list(topNet=V(netCcf[[i]])$name))
+                                dimnames = list(names(rankedVectorX0), "X0")), 
+                                list(topNet=V(netCcf[[i]])$name))
         }else{
             warning("No positive elements for ", ranks[i], "\n")
             gseaRes[[i]] <- list(gsTable=list(X0=data.frame(id=1, 
@@ -42,7 +50,7 @@ assess_enrichment <- function(G=NULL, topList=NULL, ranks=NULL,
     gseaResDf$id <- ranks
     gseaResDf$size <- unlist(lapply(netCcf, function(x) vcount(x)))
 
-    if(do.plot){
+    if(doPlot){
         jpeg(file, width=100, height=200, res=300, units="mm")
         par(mfrow=c(2, 1))
         par(mgp=c(1.5, 0.5, 0))

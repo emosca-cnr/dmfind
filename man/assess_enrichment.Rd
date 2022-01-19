@@ -4,7 +4,8 @@
 \alias{assess_enrichment}
 \title{assess enrichment of the top networks}
 \usage{
-assess_enrichment(G, topList, ranks, rankedVectorX0, doPlot=FALSE, critical, file="outfile.jpg")
+assess_enrichment(G=NULL, topList=NULL, ranks=NULL, 
+rankedVectorX0=NULL, doPlot=FALSE, critical=NULL, file="topNet_enrichment.jpg")
 }
 \arguments{
 \item{G}{igraph object}
@@ -15,18 +16,20 @@ assess_enrichment(G, topList, ranks, rankedVectorX0, doPlot=FALSE, critical, fil
 
 \item{rankedVectorX0}{ranked vector by X0}
 
+\item{doPlot}{whether to plot or not}
+
 \item{critical}{a possible rank to draw in the plot}
 
 \item{file}{output file name}
-
-\item{do.plot}{whether to plot or not}
 }
 \value{
 list of values
 }
 \description{
-Perform enrichment analysis of the top network based on a ranked vector
+Perform enrichment analysis of the top network 
+based on a ranked vector
 }
 \examples{
-assess_enrichment(G, topList, ranks, rankedVectorX0, doPlot=FALSE, critical, file="outfile.jpg")
+\dontrun{assess_enrichment(G=NULL, topList=NULL, ranks=NULL, 
+rankedVectorX0=NULL, doPlot=FALSE, critical=NULL, file="topNet_enrichment.jpg")}
 }

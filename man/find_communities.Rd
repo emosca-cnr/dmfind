@@ -4,7 +4,9 @@
 \alias{find_communities}
 \title{Find topological communities}
 \usage{
-find_communities(g, eWeights=NULL, vWeights=NULL, verbose=TRUE, methods=c("fastgreedy", "labprop", "walktrap", "eigen", "multilev", "infomap"))
+find_communities(g, eWeights=NULL, vWeights=NULL, verbose=TRUE, 
+methods=c("fastgreedy", "labprop", "walktrap", "eigen", 
+"multilev", "infomap"))
 }
 \arguments{
 \item{g}{graph}
@@ -15,7 +17,8 @@ find_communities(g, eWeights=NULL, vWeights=NULL, verbose=TRUE, methods=c("fastg
 
 \item{verbose}{TRUE/FALSE}
 
-\item{methods}{one or more of "fastgreedy", "labprop", "walktrap", "eigen", "multilev", "infomap"}
+\item{methods}{one or more of "fastgreedy", "labprop", "walktrap", 
+"eigen", "multilev", "infomap"}
 }
 \value{
 list od community objects
@@ -24,5 +27,8 @@ list od community objects
 Find topological communities
 }
 \examples{
- find_communities(g, eWeights=NULL, vWeights=NULL, verbose=TRUE, methods=c("fastgreedy", "labprop", "walktrap", "eigen", "multilev", "infomap"))
+ 
+\dontrun{find_communities(g, eWeights=NULL, vWeights=NULL, verbose=TRUE,
+ methods=c("fastgreedy", "labprop", "walktrap", "eigen",
+  "multilev", "infomap"))}
 }

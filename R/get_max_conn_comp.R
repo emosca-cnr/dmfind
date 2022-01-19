@@ -5,7 +5,9 @@
 #' @param verbose TRUE/FALSE
 #' @return maximum connected component
 #' @usage get_max_conn_comp(x, verbose=TRUE)
-#' @examples get_max_conn_comp(x, verbose=TRUE)
+#' @examples 
+#' \dontrun{get_max_conn_comp(x, verbose=TRUE)}
+#' @import igraph
 #' @export
 
 get_max_conn_comp <- function(x, verbose=TRUE){

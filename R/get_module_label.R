@@ -3,10 +3,11 @@
 #' @description Get module label
 #' @param xy layout coordinates
 #' @param f factor describing modules
-#' @param labs name vector of labels. Names  must be equal to unique values of f.
+#' @param labs name vector of labels. Names must be equal to unique values of f
 #' @return data
 #' @usage get_module_label(xy, f, labs)
-#' @examples get_module_label(xy, f, labs)
+#' @examples 
+#' \dontrun{get_module_label(xy, f, labs)}
 #' @export
 
 get_module_label <- function(xy=NULL, f=NULL, labs=NULL){

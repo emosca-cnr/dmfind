@@ -20,5 +20,5 @@ list with snG and snSummary elements
 Calculation of permutation-adjusted network smoothing index
 }
 \examples{
-get_top_subnetworks(G, rankedList, idx=1:length(rankedList))
+\dontrun{get_top_subnetworks(G, rankedList, idx=1:length(rankedList))}
 }

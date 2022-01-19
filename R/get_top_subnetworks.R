@@ -5,7 +5,8 @@
 #' @param rankedList ranked vector; names must match V(G)$name
 #' @param idx vector of ranks according to which networks will be extracted
 #' @return list with snG and snSummary elements
-#' @examples get_top_subnetworks(G, rankedList, idx=1:length(rankedList))
+#' @examples 
+#' \dontrun{get_top_subnetworks(G, rankedList, idx=1:length(rankedList))}
 #' @usage get_top_subnetworks(G, rankedList, idx=1:length(rankedList))
 #' @import igraph
 #' @export

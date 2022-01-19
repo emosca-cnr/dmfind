@@ -1,12 +1,15 @@
 #' Extraction and plotting of connected subnetworks from a graph and a set of selected vertices
 #' 
-#' @description Extraction and plotting of connected subnetworks from a graph and a set of selected vertices
+#' @description Extraction and plotting of connected subnetworks from a 
+#' graph and a set of selected vertices
 #' @param graph igraph object
 #' @param selectedVertices subset of vertices
+#' @param X0 X0 matrix
 #' @param minSubnetSize minimum size of subnetwork
 #' @return subnetwork 
 #' @usage extract_module(graph, selectedVertices, X0=NULL, minSubnetSize=2)
-#' @examples extract_module(graph, selectedVertices, X0=NULL, minSubnetSize=2)
+#' @examples 
+#' \dontrun{extract_module(graph, selectedVertices, X0=NULL, minSubnetSize=2)}
 #' @export
 #' @import igraph
 

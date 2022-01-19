@@ -1,21 +1,34 @@
-#' Extraction and plotting of connected subnetworks from a graph and a set of selected vertices
+#' Extraction and plotting of connected subnetworks from a graph 
+#' and a set of selected vertices
 #' 
-#' @description Extraction and plotting of connected subnetworks from a graph and a set of selected vertices
+#' @description Extraction and plotting of connected subnetworks 
+#' from a graph and a set of selected vertices
 #' @param graph igraph object
-#' @param selectedVertices subset of vertices
-#' @param verticesSubset a subset of selectedVertices (optional)
-#' @param verticesWeight weights (optional)
-#' @param verticesLabel labels (optional)
-#' @param minSubnet_Size minimum size of subnetwork
+#' @param colorBy object to be colored by an attribute
+#' @param colorQuant TRUE/FALSE
+#' @param labelBy select a feature to label the graph
+#' @param pal palette to color the graph
+#' @param community communities from network analysis 
+#' @param commWin distance of the vertices inside a community
+#' @param commWb distance between communities
+#' @param lo layout 
+#' @param legendOff legend
 #' @param plotOutfile output file
-#' @param plotFlag whether to plot or not the network
 #' @param ... additional arguments
 #' @return plot network
-#' @usage plot_network(graph, colorBy=NULL, colorQuant=TRUE, labelBy="name", pal=NULL, plotOutfile="graph.jpg", community=NULL, commWin=2, commWb=1, lo=NULL, legendOff=FALSE)
-#' @examples plot_network(graph, colorBy=NULL, colorQuant=TRUE, labelBy="name", pal=NULL, plotOutfile="graph.jpg", community=NULL, commWin=2, commWb=1, lo=NULL, legendOff=FALSE)
+#' @usage plot_network(graph, colorBy=NULL, colorQuant=TRUE, labelBy="name", 
+#' pal=NULL, plotOutfile="graph.jpg", community=NULL, commWin=2, commWb=1, 
+#' lo=NULL, legendOff=FALSE, ...)
+#' @examples 
+#' \dontrun{if (require("igraph")) plot_network(graph, colorBy=NULL, 
+#' colorQuant=TRUE, labelBy="name", pal=NULL, plotOutfile="graph.jpg", 
+#' community=NULL, commWin=2, commWb=1, lo=NULL, legendOff=FALSE)}
 #' @export
 #' @import igraph
 #' @import RColorBrewer
+#' @import grDevices
+#' @import graphics
+#' @import utils
 
 plot_network <- function(graph, colorBy=NULL, colorQuant=TRUE, 
                          labelBy="name", pal=NULL, plotOutfile="graph.jpg", 
@@ -38,8 +51,8 @@ plot_network <- function(graph, colorBy=NULL, colorQuant=TRUE,
 
     ew <- NULL
     if(!is.null(community)){
-        ew <- edge_weights(community, graph, weight.within=commWin,
-                           weight.between=commWb)
+        ew <- edge_weights(community, graph, weightWithin=commWin,
+                           weightBetween=commWb)
     }
 
     if(is.null(lo)){

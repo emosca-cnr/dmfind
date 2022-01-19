@@ -7,9 +7,13 @@
 plot_S(calcAdjNDres=NULL, X0, initSigGenes=NULL, file="S.jpg")
 }
 \arguments{
-\item{file}{filename}
+\item{calcAdjNDres}{XS Matrix from ND}
 
-\item{evalEpsRes}{Epsilon evaluation}
+\item{X0}{X0 matrix}
+
+\item{initSigGenes}{NULL}
+
+\item{file}{filename}
 }
 \value{
 plot
@@ -18,5 +22,5 @@ plot
 Plot S
 }
 \examples{
-plot_S(calcAdjNDres=NULL, X0, initSigGenes=NULL, file="S.jpg")
+\dontrun{plot_S(calcAdjNDres=NULL, X0, initSigGenes=NULL, file="S.jpg")}
 }

@@ -11,7 +11,8 @@ check_eps(X0, Xs, x, eps, top = 250, sortX0=FALSE)
 
 \item{Xs}{1-column matrix (smoothed)}
 
-\item{x}{optional vector with top names to use, in place of X0, in the comparison with S}
+\item{x}{optional vector with top names to use, in place of X0, in the 
+comparison with S}
 
 \item{eps}{values to check}
 
@@ -26,5 +27,5 @@ optimal epsilon value
 Search for optimal epsilon
 }
 \examples{
-check_eps(X0, Xs, x, eps, top = 250, sortX0=FALSE)
+\dontrun{check_eps(X0, Xs, x, eps, top = 250, sortX0=FALSE)}
 }

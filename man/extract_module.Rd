@@ -11,14 +11,17 @@ extract_module(graph, selectedVertices, X0=NULL, minSubnetSize=2)
 
 \item{selectedVertices}{subset of vertices}
 
+\item{X0}{X0 matrix}
+
 \item{minSubnetSize}{minimum size of subnetwork}
 }
 \value{
 subnetwork
 }
 \description{
-Extraction and plotting of connected subnetworks from a graph and a set of selected vertices
+Extraction and plotting of connected subnetworks from a 
+graph and a set of selected vertices
 }
 \examples{
-extract_module(graph, selectedVertices, X0=NULL, minSubnetSize=2)
+\dontrun{extract_module(graph, selectedVertices, X0=NULL, minSubnetSize=2)}
 }

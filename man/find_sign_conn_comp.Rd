@@ -22,5 +22,6 @@ significant connected component
 Finding significant connected components
 }
 \examples{
-find_sign_conn_comp(NRsummary, NRpThr=0.05, minRank=50, maxRank=300)
+\dontrun{find_sign_conn_comp(NRsummary, NRpThr=0.05, minRank=50, 
+maxRank=300)}
 }

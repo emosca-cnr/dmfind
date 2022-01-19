@@ -7,13 +7,17 @@
 omega_perm(idx, G, dS, null_model="A", norm="n")
 }
 \arguments{
-\item{idx}{vector of randomly resampled dS scores; the names must be the same as dS's}
+\item{idx}{vector of randomly resampled dS scores; 
+the names must be the same as dS's}
 
 \item{G}{gene x gene undirected interaction graph}
 
-\item{dS}{scores vector; it must have the same names and size of the vertices of G}
+\item{dS}{scores vector; it must have the same names 
+and size of the vertices of G}
 
 \item{null_model}{null model type to be used}
+
+\item{norm}{type of normalization}
 }
 \value{
 vector of permuted omega
@@ -22,5 +26,5 @@ vector of permuted omega
 Calculation of permuted omega function
 }
 \examples{
-omega_perm(idx, G, dS, null_model="A", norm="n")
+\dontrun{omega_perm(idx, G, dS, null_model="A", norm="n")}
 }

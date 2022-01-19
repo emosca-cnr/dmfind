@@ -20,5 +20,5 @@ enrichment score
 function to calculate the enrichment score
 }
 \examples{
-es(idx, x, le=FALSE) 
+\dontrun{es(idx, x, le=FALSE)}
 }

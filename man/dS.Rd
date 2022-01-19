@@ -22,6 +22,6 @@ named vector of delta smoothing indexes
 Delta Network Smoothing Index
 }
 \examples{
-dS(X0, Xs, classes, eps=1)
+\dontrun{dS(X0, Xs, classes, eps=1)}
 
 }

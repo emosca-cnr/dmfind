@@ -4,7 +4,8 @@
 #' @param x numeric
 #' @param y number of digits
 #' @return truncated output
-#' @examples round(x,y)
+#' @examples 
+#' \dontrun{round(x,y)}
 #' @usage round(x,y)
 #' @export
 

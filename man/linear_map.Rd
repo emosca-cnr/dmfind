@@ -20,5 +20,5 @@ linear map y
 Linear map
 }
 \examples{
-linear_map(x, yMin, yMax)
+\dontrun{linear_map(x, yMin, yMax)}
 }

@@ -18,5 +18,5 @@ dataframe with centrality measures
 Function for assess centrality measures to the top network.
 }
 \examples{
-assess_centrality(subnetwork, graph)
+\dontrun{assess_centrality(subnetwork, graph)}
 }

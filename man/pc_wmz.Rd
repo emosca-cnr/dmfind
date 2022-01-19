@@ -4,23 +4,33 @@
 \alias{pc_wmz}
 \title{pc_wmz Calculate participation coeffcient and within module degree z-score}
 \usage{
-pc_wmz(topNetwork, allNames = FALSE, extremePoints = FALSE, chooseYourGenes = NULL, outFile="pc_wmz.jpg", doPlot=TRUE)
+pc_wmz(topNetwork, allNames = FALSE, extremePoints = FALSE, 
+chooseYourGenes = NULL, outFile="pc_wmz.jpg", doPlot=TRUE)
 }
 \arguments{
-\item{topNetwork}{network with some parameters: "comm_id" for community membership and "label" for labels (for plotting purpose).}
+\item{topNetwork}{network with some parameters: "comm_id" for community 
+membership and "label" for labels (for plotting purpose).}
 
 \item{allNames}{TRUE/FALSE. Used to plot all gene names.}
 
-\item{extremePoints}{TRUE/FALSE. Used to plot extreme poits of the plot, such as the gene with max and min participation coefficient and z-score.}
+\item{extremePoints}{TRUE/FALSE. Used to plot extreme poits of the plot, 
+such as the gene with max and min participation coefficient and z-score.}
 
-\item{chooseYourGenes}{Vector of names (matching with "label" of network). Used to plot genes name of your choice.}
+\item{chooseYourGenes}{Vector of names (matching with "label" of network). 
+Used to plot genes name of your choice.}
+
+\item{outFile}{filename for saving}
+
+\item{doPlot}{TRUE/FALSE}
 }
 \value{
 dataframe with pc, wmz, region, description and role
 }
 \description{
-Calculate participation coeffcient and within module degree z-score
+Calculate participation coeffcient 
+and within module degree z-score
 }
 \examples{
-pc_wmz(topNetwork, allNames = FALSE, extremePoints = FALSE, chooseYourGenes = NULL, outFile="pc_wmz.jpg", doPlot=TRUE)
+\dontrun{pc_wmz(topNetwork, allNames = FALSE, extremePoints = FALSE, 
+chooseYourGenes = NULL, outFile="pc_wmz.jpg", doPlot=TRUE}
 }

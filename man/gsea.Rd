@@ -7,17 +7,21 @@
 gsea(rl, gsl, k=100, ordMode=-1, mcCoresPath=1, mcCoresPerm=1)
 }
 \arguments{
-\item{rl}{numeric matrix of genes-by-ranking criteria; each column contains numeric values; rownames are mandatory}
+\item{rl}{numeric matrix of genes-by-ranking criteria; each column contains 
+numeric values; rownames are mandatory}
 
 \item{gsl}{named list of gene sets}
 
 \item{k}{integer, number of permutations}
 
-\item{ordMode}{ordering mode: -1 -> descending; 1 ascending; must be of lenght equal to ncol(rl)}
+\item{ordMode}{ordering mode: -1 -> descending; 1 ascending; must be 
+of length equal to ncol(rl)}
 
-\item{mcCoresPath}{number of cores to use for parallel calculation of gene set lists; the total number of cpu used will be mcCoresPath x mcCoresPerm}
+\item{mcCoresPath}{number of cores to use for parallel calculation of gene 
+set lists; the total number of cpu used will be mcCoresPath x mcCoresPerm}
 
-\item{mcCoresPerm}{number of cores to use for parallel calculation of ranked list permutations; the total number of cpu used will be mcCoresPath x mcCoresPerm}
+\item{mcCoresPerm}{number of cores to use for parallel calculation of ranked 
+list permutations; the total number of cpu used will be mcCoresPath x mcCoresPerm}
 }
 \value{
 data.frame with es, nes, p-value, adjusted p-value and FDR q-value
@@ -26,5 +30,5 @@ data.frame with es, nes, p-value, adjusted p-value and FDR q-value
 Gene Set Enrichment Analysis
 }
 \examples{
-gsea(rl, gsl, k=100, ordMode=-1, mcCoresPath=1, mcCoresPerm=1)
+\dontrun{gsea(rl, gsl, k=100, ordMode=-1, mcCoresPath=1, mcCoresPerm=1)}
 }

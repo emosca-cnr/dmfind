@@ -1,13 +1,19 @@
 #' Function for the assignment of edges weights in order to better visualize the communities
 #' 
-#' @description Function for the assignment of edges weights in order to better visualize the communities
+#' @description Function for the assignment of edges weights in order to 
+#' better visualize the communities
 #' @param community list with the mandatory field "membership"
 #' @param network pathway network
-#' @param weightWithin value to weight the attraction between two vertices of the same community
-#' @param weightBetween value to weight the attraction between two vertices of two disntict communities
+#' @param weightWithin value to weight the attraction between two vertices 
+#' of the same community
+#' @param weightBetween value to weight the attraction between two vertices 
+#' of two disntict communities
 #' @return vector of edge weights
-#' @usage edge_weights(community, network, weightWithin=100, weightBetween=1)
-#' @examples edge_weights(community, network, weightWithin=100, weightBetween=1)
+#' @usage edge_weights(community, network, weightWithin=100, 
+#' weightBetween=1)
+#' @examples 
+#' \dontrun{edge_weights(community, network, weightWithin=100, 
+#' weightBetween=1)}
 #' @import igraph
 #' @export
 #'

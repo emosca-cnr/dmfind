@@ -18,5 +18,5 @@ cff
 Calculate ccf
 }
 \examples{
-calculate_ccf(G, rankedVectorNames)
+\dontrun{calculate_ccf(G, rankedVectorNames)}
 }

@@ -20,5 +20,5 @@ network smoothing index S
 Network Smoothing Index
 }
 \examples{
-nsi(X0, Xs, eps=rep(1, ncol(X0)))
+\dontrun{nsi(X0, Xs, eps=rep(1, ncol(X0)))}
 }

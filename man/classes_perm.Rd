@@ -18,5 +18,5 @@ list of N permutations
 Generate N permutations of a binary vector
 }
 \examples{
-classes_perm(z,N)
+\dontrun{classes_perm(z,N)}
 }

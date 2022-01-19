@@ -5,17 +5,22 @@
 #' @param k number of permutations
 #' @param eps numeric value
 #' @param mc.cores number of cores
-#' @param mode whether to use network smoothing index (S) or network smoothing values (Xs)
-#' @param ... additional parameteres of ND
+#' @param returnPerm return permutations
+#' @param mode whether to use network smoothing index (S) or 
+#' network smoothing values (Xs)
+#' @param ... additional parameters of ND
 #' @description Calculation of permutation-adjusted network smoothing index
-#' @usage calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), mc.cores=1, return.perm=FALSE)
-#' @examples calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), mc.cores=1, return.perm=FALSE)
+#' @usage calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), mc.cores=1, 
+#' returnPerm=FALSE, ...)
+#' @examples 
+#' \dontrun{calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), mc.cores=1, 
+#' returnPerm=FALSE)}
 #' @return \code{data.frame} with X0, Xs, S, p and Sp
 #' @import BiocParallel
 #' @export
 #'
 calc_adjND <- function(X0, W, eps=rep(1, ncol(X0)), k=99, mode=c("S", "Xs"), 
-                       mc.cores=1, return.perm=FALSE, ...){
+                       mc.cores=1, returnPerm=FALSE, ...){
 
     mode <- match.arg(mode)
 
@@ -45,7 +50,7 @@ calc_adjND <- function(X0, W, eps=rep(1, ncol(X0)), k=99, mode=c("S", "Xs"),
     }
 
     ## trash all permutations
-    if(!return.perm){
+    if(!returnPerm){
         rm(allX0, allXS)
     }
 
@@ -54,14 +59,14 @@ calc_adjND <- function(X0, W, eps=rep(1, ncol(X0)), k=99, mode=c("S", "Xs"),
     S <- all_S[[1]]
 
     if(mode=="S"){
-        if(return.perm){
+        if(returnPerm){
             out <- list(Xs=Xs, eps=eps, S=S, p=estP, Sp= S * -log10(estP),
                         allX0=allX0, allXS=allXS)
         }else{
             out <- list(Xs=Xs, eps=eps, S=S, p=estP, Sp= S * -log10(estP))
         }
     }else{
-        if(return.perm){
+        if(returnPerm){
             out <- list(Xs=S, eps=eps, p=estP, Xsp= S * -log10(estP), 
                         allX0=allX0, allXS=allXS)
         }else{

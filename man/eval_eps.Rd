@@ -24,5 +24,5 @@ list with sn_g and sn_summary elements
 Evaluate the effect of epsilon on NSI
 }
 \examples{
-eval_eps(X0, Xs, eps=NULL, G, top)
+\dontrun{eval_eps(X0, Xs, eps=NULL, G, top)}
 }

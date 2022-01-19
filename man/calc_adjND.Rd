@@ -4,7 +4,8 @@
 \alias{calc_adjND}
 \title{Calculation of permutation-adjusted network smoothing index}
 \usage{
-calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), mc.cores=1, return.perm=FALSE)
+calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), mc.cores=1, 
+returnPerm=FALSE, ...)
 }
 \arguments{
 \item{X0}{input matrix}
@@ -15,11 +16,14 @@ calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), mc.cores=1, return.perm=FALSE)
 
 \item{k}{number of permutations}
 
-\item{mode}{whether to use network smoothing index (S) or network smoothing values (Xs)}
+\item{mode}{whether to use network smoothing index (S) or 
+network smoothing values (Xs)}
 
 \item{mc.cores}{number of cores}
 
-\item{...}{additional parameteres of ND}
+\item{returnPerm}{return permutations}
+
+\item{...}{additional parameters of ND}
 }
 \value{
 \code{data.frame} with X0, Xs, S, p and Sp
@@ -28,5 +32,6 @@ calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), mc.cores=1, return.perm=FALSE)
 Calculation of permutation-adjusted network smoothing index
 }
 \examples{
-calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), mc.cores=1, return.perm=FALSE)
+\dontrun{calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), mc.cores=1, 
+returnPerm=FALSE)}
 }

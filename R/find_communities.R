@@ -5,10 +5,16 @@
 #' @param eWeights edge weights
 #' @param vWeights vertex weights
 #' @param verbose TRUE/FALSE
-#' @param methods one or more of "fastgreedy", "labprop", "walktrap", "eigen", "multilev", "infomap"
+#' @param methods one or more of "fastgreedy", "labprop", "walktrap", 
+#' "eigen", "multilev", "infomap"
 #' @return list od community objects
-#' @usage find_communities(g, eWeights=NULL, vWeights=NULL, verbose=TRUE, methods=c("fastgreedy", "labprop", "walktrap", "eigen", "multilev", "infomap"))
-#' @examples  find_communities(g, eWeights=NULL, vWeights=NULL, verbose=TRUE, methods=c("fastgreedy", "labprop", "walktrap", "eigen", "multilev", "infomap"))
+#' @usage find_communities(g, eWeights=NULL, vWeights=NULL, verbose=TRUE, 
+#' methods=c("fastgreedy", "labprop", "walktrap", "eigen", 
+#' "multilev", "infomap"))
+#' @examples  
+#' \dontrun{find_communities(g, eWeights=NULL, vWeights=NULL, verbose=TRUE,
+#'  methods=c("fastgreedy", "labprop", "walktrap", "eigen",
+#'   "multilev", "infomap"))}
 #' @import igraph
 #' @export
 find_communities <- function(g, eWeights=NULL, vWeights=NULL, 

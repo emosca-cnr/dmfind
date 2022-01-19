@@ -1,15 +1,19 @@
 #' Calculation of pathway score matrix
 #' @param x input matrix
 #' @param gsList gene set list
+#' @param gsScore gene set score
 #' @param useMedian whether to use median (TRUE) or mean (FALSE)
 #' @param scalingEps numeric value
 #' @param mc.cores number of cores
 #' @return matrix of scaled pathway scores
-#' @examples std_gs_score(x, gsList, useMedian=FALSE, scalingEps=1, mc.cores=1)
-#' @usage std_gs_score(x, gsList, useMedian=FALSE, scalingEps=1, mc.cores=1)
+#' @examples 
+#' \dontrun{std_gs_score(x, gsList, gsScore, useMedian=FALSE, scalingEps=1, 
+#' mc.cores=1)}
+#' @usage std_gs_score(x, gsList, gsScore, useMedian=FALSE, scalingEps=1, 
+#' mc.cores=1)
 #' @export
 #'
-std_gs_score <- function(x, gsList, useMedian=FALSE, scalingEps=1, mc.cores=1){
+std_gs_score <- function(x, gsList, gsScore, useMedian=FALSE, scalingEps=1, mc.cores=1){
 
     #calculation of gsScore and scaled gsScore
     out <- split(x, rep(1:ncol(x), each = nrow(x)))
@@ -24,11 +28,11 @@ std_gs_score <- function(x, gsList, useMedian=FALSE, scalingEps=1, mc.cores=1){
     colnames(out) <- colnames(x)
 
     if(useMedian){
-        out <- t(scale(t(out), center=apply(out, 1, median), 
-                       scale=apply(out, 1, sd) + scalingEps))
+        out <- t(scale(t(out), center=apply(out, 1, stats::median), 
+                       scale=apply(out, 1, stats::sd) + scalingEps))
     }else{
         out <- t(scale(t(out), center=apply(out, 1, mean), 
-                       scale=apply(out, 1, sd) + scalingEps))
+                       scale=apply(out, 1, stats::sd) + scalingEps))
     }
 
     return(out)

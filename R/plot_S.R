@@ -1,10 +1,16 @@
 #' Plot S
 #' @description Plot S
-#' @param evalEpsRes Epsilon evaluation
+#' @param calcAdjNDres XS Matrix from ND
+#' @param X0 X0 matrix
+#' @param initSigGenes NULL
 #' @param file filename
 #' @return plot
-#' @examples plot_S(calcAdjNDres=NULL, X0, initSigGenes=NULL, file="S.jpg")
+#' @examples 
+#' \dontrun{plot_S(calcAdjNDres=NULL, X0, initSigGenes=NULL, file="S.jpg")}
 #' @usage plot_S(calcAdjNDres=NULL, X0, initSigGenes=NULL, file="S.jpg")
+#' @import grDevices
+#' @import graphics
+#' @import utils
 #' @export
 
 plot_S <- function(calcAdjNDres=NULL, X0, initSigGenes=NULL, file="S.jpg"){

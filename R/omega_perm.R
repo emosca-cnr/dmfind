@@ -1,11 +1,15 @@
 #' Calculation of permuted omega function
 #' @param G gene x gene undirected interaction graph
-#' @param dS scores vector; it must have the same names and size of the vertices of G
-#' @param idx vector of randomly resampled dS scores; the names must be the same as dS's
+#' @param dS scores vector; it must have the same names 
+#' and size of the vertices of G
+#' @param idx vector of randomly resampled dS scores; 
+#' the names must be the same as dS's
 #' @param null_model null model type to be used
+#' @param norm type of normalization
 #' @return vector of permuted omega
 #' @usage omega_perm(idx, G, dS, null_model="A", norm="n")
-#' @examples omega_perm(idx, G, dS, null_model="A", norm="n")
+#' @examples 
+#' \dontrun{omega_perm(idx, G, dS, null_model="A", norm="n")}
 #' @import igraph
 
 

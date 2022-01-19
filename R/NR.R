@@ -1,14 +1,19 @@
 #' Local Monte Carlo p values
 #' @param G gene x gene undirected interaction graph
-#' @param rankedVector scores vector; it must have the same names and size of the vertices of G
+#' @param rankedVector scores vector; it must have the same 
+#' names and size of the vertices of G
 #' @param k number of permutations
 #' @param mc.cores number of cores
 #' @param nullModel null model type
+#' @param norm type of normalization
 #' @return list of values
 #' @usage NR(G, rankedVector, k=99, mc.cores=1, nullModel="A", norm="n")
-#' @examples NR(G, rankedVector, k=99, mc.cores=1, nullModel="A", norm="n")
+#' @examples 
+#' \dontrun{
+#' NR(G, rankedVector, k=99, mc.cores=1, nullModel="A", norm="n") }
 #' @export
 #' @import BiocParallel
+#' @import igraph
 
 
 NR <- function(G, rankedVector, k=99, mc.cores=1, nullModel="A", norm="n") {

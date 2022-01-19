@@ -5,8 +5,12 @@
 #' @param signCompTable ?
 #' @param file filename
 #' @return plot
-#' @examples plot_NR(nrRes=NULL, signCompTable=NULL, file="NR.jpg")
+#' @examples 
+#' \dontrun{plot_NR(nrRes=NULL, signCompTable=NULL, file="NR.jpg")}
 #' @usage plot_NR(nrRes=NULL, signCompTable=NULL, file="NR.jpg")
+#' @import grDevices
+#' @import graphics
+#' @import utils
 #' @export
 
 plot_NR <- function(nrRes=NULL, signCompTable=NULL, file="NR.jpg"){

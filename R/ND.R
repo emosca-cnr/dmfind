@@ -1,16 +1,23 @@
-#' Network Diffusion using
+#' Network Diffusion 
 #' 
 #' @description Network Diffusion using
-#' @param X0 vector or matrix composed of column vectors with initial distribution of information
-#' @param W symmetrically normalized adjacency matrix W = D^-1 A D^-1, see normalize_adj_mat function
+#' @param X0 vector or matrix composed of column vectors with initial 
+#' distribution of information
+#' @param W symmetrically normalized adjacency matrix W = D^-1 A D^-1, 
+#' see normalize_adj_mat function
 #' @param alpha numeric, the smothing factor
 #' @param nMax numeric, maximum number of iterations
-#' @param eps numeric, the iteration will stop when the maximum difference between matrix Xs between two consecutive iteraction is smaller than \code{eps}
+#' @param eps numeric, the iteration will stop when the maximum difference 
+#' between matrix Xs between two consecutive iteraction is 
+#' smaller than \code{eps}
 #' @param finalSmooth TRUE/FALSE, whether to do the final step of smoothing
 #' @param allSteps, TRUE/FALSE, whether to store all steps
 #' @param verbose, TRUE/FALSE
-#' @usage ND(X0, W, alpha=0.7, nMax=1e4, eps=1e-6, finalSmooth=FALSE, allSteps=FALSE, verbose=FALSE)
-#' @examples ND(X0, W, alpha=0.7, nMax=1e4, eps=1e-6, finalSmooth=FALSE, allSteps=FALSE, verbose=FALSE)
+#' @usage ND(X0, W, alpha=0.7, nMax=1e4, eps=1e-6, finalSmooth=FALSE, 
+#' allSteps=FALSE, verbose=FALSE)
+#' @examples 
+#' \dontrun{ND(X0, W, alpha=0.7, nMax=1e4, eps=1e-6, finalSmooth=FALSE, 
+#' allSteps=FALSE, verbose=FALSE)}
 #' @return a list with:
 #' \itemize{
 #' \item{\code{Xt}}{ the smoothed matrix;}

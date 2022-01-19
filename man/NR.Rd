@@ -9,13 +9,16 @@ NR(G, rankedVector, k=99, mc.cores=1, nullModel="A", norm="n")
 \arguments{
 \item{G}{gene x gene undirected interaction graph}
 
-\item{rankedVector}{scores vector; it must have the same names and size of the vertices of G}
+\item{rankedVector}{scores vector; it must have the same 
+names and size of the vertices of G}
 
 \item{k}{number of permutations}
 
 \item{mc.cores}{number of cores}
 
 \item{nullModel}{null model type}
+
+\item{norm}{type of normalization}
 }
 \value{
 list of values
@@ -24,5 +27,6 @@ list of values
 Local Monte Carlo p values
 }
 \examples{
-NR(G, rankedVector, k=99, mc.cores=1, nullModel="A", norm="n")
+\dontrun{
+NR(G, rankedVector, k=99, mc.cores=1, nullModel="A", norm="n") }
 }
