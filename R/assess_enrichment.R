@@ -5,11 +5,12 @@
 #' @param ranked_vector_X0 ranked vector by X0
 #' @param do.plot whether to plot or not
 #' @param critical a possible rank to draw in the plot
+#' @param show_top_sig if not NULL, an integer that indicatesd the number of top significant ranks to display
 #' @param file output file name
 #'
 #' @export
 
-assess_enrichment <- function(G=NULL, top_list=NULL, ranks=NULL, ranked_vector_X0=NULL, do.plot=FALSE, critical=NULL, file="top_net_enrichment.jpg"){
+assess_enrichment <- function(G=NULL, top_list=NULL, ranks=NULL, ranked_vector_X0=NULL, do.plot=FALSE, critical=NULL, show_top_sig=10, file="top_net_enrichment.jpg"){
 
   ranks <- seq(10, length(top_list), by=10)
   gsea_res <- vector("list", length(ranks))
@@ -31,12 +32,14 @@ assess_enrichment <- function(G=NULL, top_list=NULL, ranks=NULL, ranked_vector_X
   gsea_res_df$size <- unlist(lapply(net_ccf, function(x) vcount(x)))
 
   if(do.plot){
-    jpeg(file, width = 100, height = 200, res=300, units="mm")
-    par(mfrow=c(2, 1))
+    jpeg(file, width = 180, height = 90, res=300, units="mm")
+    par(mfrow=c(1, 2))
     par(mgp=c(1.5, 0.5, 0))
     par(mar=c(3, 3, 3, 1))
 
-    top_10_idx <- order(log10(gsea_res_df$FDRq))[1:10]
+    if(!is.null(show_top_sig)){
+      top_10_idx <- order(log10(gsea_res_df$FDRq))[1:10]
+    }
 
     plot(gsea_res_df$id, gsea_res_df$size, pch=16, xlab="rank", ylab="n", cex=0.6, main = "connected components")
     if(!is.null(critical)){
@@ -50,7 +53,9 @@ assess_enrichment <- function(G=NULL, top_list=NULL, ranks=NULL, ranked_vector_X
       abline(v=critical, col="purple", lty=2, lwd=1)
     }
     abline(h=log10(0.1), col="purple", lty=2, lwd=1)
-    text(gsea_res_df$id[top_10_idx], log10(gsea_res_df$FDRq)[top_10_idx], gsea_res_df$id[top_10_idx], cex=0.7, pos = 3)
+    if(!is.null(show_top_sig)){
+      text(gsea_res_df$id[top_10_idx], log10(gsea_res_df$FDRq)[top_10_idx], gsea_res_df$id[top_10_idx], cex=0.7, pos = 3)
+    }
 
 
     dev.off()

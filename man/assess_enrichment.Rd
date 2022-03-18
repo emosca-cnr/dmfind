@@ -11,6 +11,7 @@ assess_enrichment(
   ranked_vector_X0 = NULL,
   do.plot = FALSE,
   critical = NULL,
+  show_top_sig = 10,
   file = "top_net_enrichment.jpg"
 )
 }
@@ -26,6 +27,8 @@ assess_enrichment(
 \item{do.plot}{whether to plot or not}
 
 \item{critical}{a possible rank to draw in the plot}
+
+\item{show_top_sig}{if not NULL, an integer that indicatesd the number of top significant ranks to display}
 
 \item{file}{output file name}
 }
