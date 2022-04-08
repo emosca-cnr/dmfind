@@ -9,9 +9,11 @@
 #' the intersection of the networks, a dataframe containing the centrality 
 #' measure for every network and the Jaccard Index.
 #' @description Network comparison
-#' @usage NetComp(NetList)
+#' @usage NetComp(NetList, union=FALSE, intersection=FALSE,
+#' centrMeas=FALSE, ji=FALSE)
 #' @examples
-#' \dontrun{NetComp(NetList)}
+#' \dontrun{NetComp(NetList, union=FALSE, intersection=FALSE,
+#' centrMeas=FALSE, ji=FALSE)}
 #' @import igraph
 #' @export
 #'
