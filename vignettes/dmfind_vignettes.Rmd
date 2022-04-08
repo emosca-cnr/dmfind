@@ -76,7 +76,7 @@ plot(X0, Xs, xlab="X0", ylab = "Xs")
 
 ```
 
-## Epsilon choice to optimize Omega score
+## Epsilon choice to optimize Omega score  
 As expected, network based scores prioritize genes in network proximity to high $X_0$ values. The initial and final state of the system are comapred by means of the network smoothing index $S$, which require a tuning parameter $\epsilon$. Briefly, low $\epsilon$ highliths genes with the highest gain, while for $\epsilon \to \inf$ the same gene ranking is obtained by $S$ and $X_s$. We can explore the relation between $\epsilon$ and $S$ with `eval_eps` function.
 
 It's useful to check the $\Omega$ function calculated on $X_0$ and $X_s$ values using the ranking determined by $S(\epsilon)$.
@@ -94,10 +94,10 @@ for(i in 1:nrow(eps)){
 
 ```
 ```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
-knitr::include_graphics("/home/bioinformatics/vnale/dmfind/vignettes/imgs/eval_eps_X0.jpg")
+knitr::include_graphics("imgs/eval_eps_X0.jpg")
 ```
 ```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
-knitr::include_graphics("/home/bioinformatics/vnale/dmfind/vignettes/imgs/eval_eps_X0_omega.jpg")
+knitr::include_graphics("imgs/eval_eps_X0_omega.jpg")
 ```
 
 
@@ -127,9 +127,8 @@ sigcomp <- find_sign_conn_comp(NR_summary = nr_res$NR_summary, NR_p_thr = 0.2)
 plot_NR(nr_res, sign_comp_table = sigcomp$sign_comp_table)
 ```
 ```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
-knitr::include_graphics("/home/bioinformatics/vnale/dmfind/vignettes/imgs/NR.jpg")
+knitr::include_graphics("imgs/NR.jpg")
 ```
-
 The variation of the empirical $p$-value with gene rank suggests modules with high scores in network proximity. Note that this procedure is designed to focus on the top of a gene list, in this small example the top 30 genes out of a network of 61.
 
 ## Enrichment analysis
@@ -146,10 +145,10 @@ ae_res <- assess_enrichment(G=g, top_list = rownames(scores),
           file="top_net_enrichment.jpg")
 ```
 ```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
-knitr::include_graphics("/home/bioinformatics/vnale/dmfind/vignettes/imgs/cmp_X0_ND.jpg")
+knitr::include_graphics("imgs/cmp_X0_ND.jpg")
 ```
 ```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
-knitr::include_graphics("/home/bioinformatics/vnale/dmfind/vignettes/imgs/top_net_enrichment.jpg")
+knitr::include_graphics("imgs/top_net_enrichment.jpg")
 ```
 
 ## Top network definition
@@ -163,15 +162,11 @@ top_network <- extract_module(graph = g, selected_vertices =
 ## Communities and topological analysis
 We can also assess a topological analysis of our network.
 ```{r include=TRUE, message=FALSE, warning=FALSE}
-
 res_comm <- find_communities(top_network)
-res_comm$info
-res_comm$info$algorithm[which.max(res_comm$info$modularity)]
-
 ```
 
 ```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
-knitr::include_graphics("/home/bioinformatics/vnale/dmfind/vignettes/imgs/graph.jpg")
+knitr::include_graphics("imgs/x_comm_network.png")
 ```
 
 ## Define nodes roles based on partecipation coefficient and z-score
@@ -187,7 +182,7 @@ R1 – ultra peripheral nodes: nodes with all their links within their module (p
 
 R2 – peripheral nodes: nodes with most links within their module (0.05 < pc <= 0.62);
 
-R3 – non-hubs connector nodes: nodes with many links to other modules (0.62 < pc <= 0.8)
+R3 – non-hubs connector nodes: nodes with many links to other modules (0.62 < pc <= 0.8);
 
 R4 – non-hubs kinless nodes: nodes with links homogeneously distributed among all modules (pc > 0.8).
 
@@ -203,7 +198,7 @@ R7 – kinless hubs: hubs with links homogeneously distributed among all modules
 pc_wmz(top_network, do_plot=TRUE)
 ```
 ```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
-knitr::include_graphics("/home/bioinformatics/vnale/dmfind/vignettes/imgs/pc_wmz.jpg")
+knitr::include_graphics("imgs/pc_wmz.jpg")
 ```
 
 # Session Info {- .smaller}
