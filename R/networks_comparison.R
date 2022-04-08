@@ -3,8 +3,9 @@
 #' @param NetList interactomes, list of igraph objects
 #' @param union Perform the union of the input set of networks
 #' @param intersection Perform the insersection of the input set of networks
+#' @param centrMeas Calculate the centrality measures for every input network
 #' @param ji Calculation of the Jaccard index
-#' @return the occurrences matrix. If selected, the union of the networks, 
+#' @return A list containing the occurrences matrix and, if selected, the union of the networks, 
 #' the intersection of the networks, a dataframe containing the centrality 
 #' measure for every network and the Jaccard Index.
 #' @description Network comparison
