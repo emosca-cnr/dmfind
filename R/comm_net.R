@@ -21,5 +21,7 @@ comm_net <- function(g) {
     
     commNetDf <- data.frame(as_edgelist(commNetRes, names = TRUE),  E(commNetRes)$weight)
     colnames(commNetDf) <- c("Node 1", "Node 2", "Connections")
-    return(commNetRes, commNetDf)
+    l <- list(commNetRes, commNetDf)
+    return(l)
+    #return(commNetDf)
 }

@@ -169,6 +169,15 @@ res_comm <- find_communities(top_network)
 knitr::include_graphics("imgs/x_comm_network.png")
 ```
 
+## Visualization - network of communities
+```{r include=TRUE}
+comm_net(top_network)
+```
+```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
+knitr::include_graphics("imgs/comm_net.jpg")
+```
+
+
 ## Define nodes roles based on partecipation coefficient and z-score
 Each gene can be spatial represented. To define the role of each node we need to calculate the participation coefficient (pc) and the within module z-score (wmz). Then, based on those two parameters, we can define regions (and roles).
 
@@ -195,10 +204,18 @@ R6 – connector hubs: hubs with many links to most of the other modules (0.30 <
 R7 – kinless hubs: hubs with links homogeneously distributed among all modules (pc > 0.75).
 
 ```{r include=TRUE}
-pc_wmz(top_network, do_plot=TRUE)
+pc_wmz(top_network, do_plot=T)
 ```
 ```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
 knitr::include_graphics("imgs/pc_wmz.jpg")
+```
+
+## Network comparison
+There are several ways to compare networks: with the function "net_comparison" we could perform some analysis, such as union, intersection, Jaccard index & Overlap coefficient calculation
+The input data must be a list of n interactomes
+
+```{r include=TRUE}
+NetComp(NetList, union=T, intersection=T, centrMeas=T, ji=T)
 ```
 
 # Session Info {- .smaller}
