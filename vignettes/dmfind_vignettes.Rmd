@@ -86,18 +86,10 @@ eps <- matrix(c(0.1, 1, 10, 100), ncol=1)
 out <- eval_eps(X0, Xs, eps, g)
 plot_omega_eps(out)
 
-for(i in 1:nrow(eps)){
-  plot(X0[, 1], out$S[[i]][, 1], xlab="X0", ylab="S", main = eps[i, ], pch=".")
-  top_n <- which(rank(-out$S[[i]][, 1]) <= 300)
-  points(X0[top_n, 1], out$S[[i]][top_n, 1], col="red", pch=16, cex=0.7)
-}
+```
 
-```
 ```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
-knitr::include_graphics("imgs/eval_eps_X0.jpg")
-```
-```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
-knitr::include_graphics("imgs/eval_eps_X0_omega.jpg")
+knitr::include_graphics("imgs_2/eval_eps_X0_omega.jpg")
 ```
 
 
@@ -127,7 +119,7 @@ sigcomp <- find_sign_conn_comp(NR_summary = nr_res$NR_summary, NR_p_thr = 0.2)
 plot_NR(nr_res, sign_comp_table = sigcomp$sign_comp_table)
 ```
 ```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
-knitr::include_graphics("imgs/NR.jpg")
+knitr::include_graphics("imgs_2/NR.jpg")
 ```
 The variation of the empirical $p$-value with gene rank suggests modules with high scores in network proximity. Note that this procedure is designed to focus on the top of a gene list, in this small example the top 30 genes out of a network of 61.
 
@@ -144,11 +136,11 @@ ae_res <- assess_enrichment(G=g, top_list = rownames(scores),
           decreasing = T), do.plot = T, critical = sigcomp$critical,
           file="top_net_enrichment.jpg")
 ```
-```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
-knitr::include_graphics("imgs/cmp_X0_ND.jpg")
+```{r, out.width="50%", echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
+knitr::include_graphics("imgs_2/cmp_X0_ND.jpg")
 ```
-```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
-knitr::include_graphics("imgs/top_net_enrichment.jpg")
+```{r, out.width="50%", echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
+knitr::include_graphics("imgs_2/top_net_enrichment.jpg")
 ```
 
 ## Top network definition
@@ -166,15 +158,17 @@ res_comm <- find_communities(top_network)
 ```
 
 ```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
-knitr::include_graphics("imgs/x_comm_network.png")
+knitr::include_graphics("imgs_2/comm_network.png")
 ```
 
 ## Visualization - network of communities
 ```{r include=TRUE}
-comm_net(top_network)
+commNet <- comm_net(top_network)
+plot_network(commNet[[1]], color_by = "comm_id", pal=pal, comm_w_in = 0.1, comm_w_b = 10,
+             plot_outfile = "comm_net.jpg", legend.off = T, min_subnet_size = 2)
 ```
-```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
-knitr::include_graphics("imgs/comm_net.jpg")
+```{r, out.width="50%", echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
+knitr::include_graphics("imgs_2/comm_net.jpg")
 ```
 
 
@@ -204,13 +198,13 @@ R6 – connector hubs: hubs with many links to most of the other modules (0.30 <
 R7 – kinless hubs: hubs with links homogeneously distributed among all modules (pc > 0.75).
 
 ```{r include=TRUE}
-pc_wmz(top_network, do_plot=T)
+pc_wmz(top_network, do_plot=T, all_names = T)
 ```
 ```{r fig.width=4, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
-knitr::include_graphics("imgs/pc_wmz.jpg")
+knitr::include_graphics("imgs_2/pc_wmz.jpg")
 ```
 
-## Network comparison
+## Network comparison - to do
 There are several ways to compare networks: with the function "net_comparison" we could perform some analysis, such as union, intersection, Jaccard index & Overlap coefficient calculation
 The input data must be a list of n interactomes
 
