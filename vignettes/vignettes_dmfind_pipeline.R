@@ -96,6 +96,7 @@ plot_network(commNet[[1]], color_by = "comm_id", pal=pal, comm_w_in = 0.1, comm_
 #######################################################################################################
 n1 <- as.character(sample(1:70, 45))
 n2 <- as.character(sample(1:70, 52))
+n3 <- as.character(sample(1:70, 35))
 
 g1 <- barabasi.game(45, directed = F)
 V(g1)$name <- n1
@@ -107,5 +108,11 @@ V(g2)$name <- n2
 l2 <- paste0("sym", n2)
 V(g2)$label <- l2
 
-g <- list(g1, g2)
+g3 <- barabasi.game(35, directed = F)
+V(g3)$name <- n3
+l3 <- paste0("sym", n3)
+V(g3)$label <- l3
+
+
+g <- list(g1, g2, g3)
 netcom <- NetComp(g, union=T, intersection=T, centrMeas = T, ji = T, oc = T)

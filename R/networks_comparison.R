@@ -76,9 +76,9 @@ NetComp <- function(NetList, union=FALSE, intersection=FALSE,
               igraph::edge_attr(unionNet, paste0("w", 2))
             for (i in 3:length(NetList)) {
                 V(unionNet)$w <- igraph::vertex_attr(unionNet, "w") +
-                    igraph::vertex_attr(unionNet, paste0("w", j))
+                    igraph::vertex_attr(unionNet, paste0("w", i))
                 E(unionNet)$w <- igraph::edge_attr(unionNet, "w") +
-                  igraph::edge_attr(unionNet, paste0("w", j))
+                  igraph::edge_attr(unionNet, paste0("w", i))
             }
         } else {
             V(unionNet)$w <- igraph::vertex_attr(unionNet, paste0("w", 1)) +
