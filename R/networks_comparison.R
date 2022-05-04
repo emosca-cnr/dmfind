@@ -27,7 +27,7 @@ NetComp <- function(NetList, union=FALSE, intersection=FALSE,
         genes <- merge(genes, as.data.frame(V(NetList[[i]])$name), by=1, all=T)
         names(genes) <- "genes"
     }
-    cat(paste0("Creating occurreces matrix for ",
+    cat(paste0("Creating occurrences matrix for ",
                length(NetList), " interactomes...\n"))
     mOcc <- matrix(0, nrow=nrow(genes), ncol=length(NetList))
     rownames(mOcc) <- genes$genes
@@ -59,8 +59,8 @@ NetComp <- function(NetList, union=FALSE, intersection=FALSE,
             unionNet <- igraph::union(NetList[[1]], NetList[[2]], byname=TRUE)
         }
         # set w as the sum of w1, ..., wn
-        unionNet <- unionNet %>% igraph::set_vertex_attr("w", value=0)
-        unionNet <- unionNet %>% igraph::set_edge_attr("w", value=0)
+        unionNet <- unionNet %>% igraph::set_vertex_attr("w", value=1)
+        unionNet <- unionNet %>% igraph::set_edge_attr("w", value=1)
         # set missing w_i to 0
         for (i in 1:length(NetList)) {
             vertex_attr(unionNet, paste0("w",i))[is.na(igraph::vertex_attr(
@@ -72,15 +72,22 @@ NetComp <- function(NetList, union=FALSE, intersection=FALSE,
         if (length(NetList)>2) {
             V(unionNet)$w <- igraph::vertex_attr(unionNet, paste0("w", 1)) +
                 igraph::vertex_attr(unionNet, paste0("w", 2))
+            E(unionNet)$w <- igraph::edge_attr(unionNet, paste0("w", 1)) +
+              igraph::edge_attr(unionNet, paste0("w", 2))
             for (i in 3:length(NetList)) {
                 V(unionNet)$w <- igraph::vertex_attr(unionNet, "w") +
                     igraph::vertex_attr(unionNet, paste0("w", j))
+                E(unionNet)$w <- igraph::edge_attr(unionNet, "w") +
+                  igraph::edge_attr(unionNet, paste0("w", j))
             }
         } else {
             V(unionNet)$w <- igraph::vertex_attr(unionNet, paste0("w", 1)) +
                 igraph::vertex_attr(unionNet, paste0("w", 2))
+            E(unionNet)$w <- igraph::edge_attr(unionNet, paste0("w", 1)) +
+              igraph::edge_attr(unionNet, paste0("w", 2))
         }
         table(V(unionNet)$w)
+        table(E(unionNet)$w)
         cat("Done\n")
     } else {
         unionNet <- "NA"
@@ -90,11 +97,13 @@ NetComp <- function(NetList, union=FALSE, intersection=FALSE,
     if (intersection == TRUE) {
         cat(paste0("Extracting the intersection for ",
                    length(NetList), " interactomes...\n"))
-        topEdges <- subgraph.edges(unionNet,
-                                   E(unionNet)[(E(unionNet)$w==max(E(unionNet)$w))],
-                                   delete.vertices = TRUE)
-        top_vertices <- induced_subgraph(unionNet,
-                                         V(unionNet)[(V(unionNet)$w==max(V(unionNet)$w))])
+        topEdges <-
+          subgraph.edges(unionNet,
+                         E(unionNet)[(E(unionNet)$w==max(E(unionNet)$w))],
+                         delete.vertices = TRUE)
+        topVertices <-
+          induced_subgraph(unionNet,
+                           V(unionNet)[(V(unionNet)$w==max(V(unionNet)$w))])
         cat("Done\n")
     } else {
         topEdges <- "NA"
@@ -107,13 +116,12 @@ NetComp <- function(NetList, union=FALSE, intersection=FALSE,
         listCentr <- list()
         for (i in 1:length(NetList)) {
             df_all <- data.frame(id=V(NetList[[i]])$name,
-                                 symbol=V(NetList[[i]])$label,
-                                 degree=igraph::degree(NetList[[i]]),
-                                 betwenness=igraph::betweenness(NetList[[i]]),
-                                 closeness=igraph::closeness(NetList[[i]]),
-                                 eigenCentr=
-                                     igraph::eigen_centrality(NetList[[i]])$vector,
-                                 stringsAsFactors=FALSE)
+                      symbol=V(NetList[[i]])$label,
+                      degree=igraph::degree(NetList[[i]]),
+                      betwenness=igraph::betweenness(NetList[[i]]),
+                      closeness=igraph::closeness(NetList[[i]]),
+                      eigenCentr=igraph::eigen_centrality(NetList[[i]])$vector,
+                      stringsAsFactors=FALSE)
             listCentr[[i]] <- df_all
         }
         cat("Done\n")
@@ -124,7 +132,7 @@ NetComp <- function(NetList, union=FALSE, intersection=FALSE,
     ### 5) calculate Jaccard index
     if (ji == TRUE) {
         cat(paste0("Calculating Jaccard Index...\n"))
-        Jindex <- length(V(top_vertices))/length(V(unionNet))
+        Jindex <- length(V(topVertices))/length(V(unionNet))
         cat("Done\n")
     } else {
         Jindex <- "NA"
@@ -136,14 +144,18 @@ NetComp <- function(NetList, union=FALSE, intersection=FALSE,
       for (i in 1:length(NetList)) {
         minOv <- min(length(V(NetList[[i]])))
       }
-      Overlap <- length(V(top_vertices))/minOv
+      Overlap <- length(V(topVertices))/minOv
       cat("Done\n")
     } else {
       Overlap <- "NA"
     }
 
-    ans <- list(mOcc, unionNet, topEdges, listCentr, ji, oc)
-    names(ans) <- c("Occurrence Matrix", "Network Union", "Network Intersection", "Centrality Measures", "Jaccard Index", "Overlap Coefficient")
+    ans <- list(mOcc, unionNet, topEdges, topVertices,
+                listCentr, Jindex, Overlap)
+    names(ans) <- c("Occurrence Matrix", "Network Union",
+                    "Network Intersection - Edges", "Network Intersection
+                    - Vertices", "Centrality Measures", "Jaccard Index",
+                    "Overlap Coefficient")
     return(ans)
 
 }

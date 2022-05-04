@@ -90,3 +90,22 @@ dmfind::pc_wmz(top_network, do_plot=TRUE, all_names = T)
 commNet <- comm_net(top_network)
 plot_network(commNet[[1]], color_by = "comm_id", pal=pal, comm_w_in = 0.1, comm_w_b = 10,
              plot_outfile = "comm_net.jpg", legend.off = T, min_subnet_size = 2)
+
+#######################################################################################################
+######################################    Network Comparison   ########################################
+#######################################################################################################
+n1 <- as.character(sample(1:70, 45))
+n2 <- as.character(sample(1:70, 52))
+
+g1 <- barabasi.game(45, directed = F)
+V(g1)$name <- n1
+l1 <- paste0("sym", n1)
+V(g1)$label <- l1
+
+g2 <- barabasi.game(52, directed = F)
+V(g2)$name <- n2
+l2 <- paste0("sym", n2)
+V(g2)$label <- l2
+
+g <- list(g1, g2)
+netcom <- NetComp(g, union=T, intersection=T, centrMeas = T, ji = T, oc = T)
