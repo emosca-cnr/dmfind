@@ -204,13 +204,18 @@ pc_wmz(top_network, do_plot=T, all_names = T)
 knitr::include_graphics("imgs_2/pc_wmz.jpg")
 ```
 
-## Network comparison - to do
+## Network comparison
 There are several ways to compare networks: with the function "net_comparison" we could perform some analysis, such as union, intersection, Jaccard index & Overlap coefficient calculation
+
 The input data must be a list of n interactomes
 
+To use this function you could create two or more toy model with the igraph function "barabasi.game", remember to set labels to the vertices.
 ```{r include=TRUE}
-NetComp(NetList, union=T, intersection=T, centrMeas=T, ji=T)
+NetComp(NetList, union=T, intersection=T, centrMeas=T, ji=T, oc=T)
 ```
+
+This function return a list containing the occurrences matrix where every column are the input networks
+Optionally you can choose to perform the union, the intersection (both vertices and edges), the calculation of the Jaccard index, the Overlap coefficient and the centrality measures for every input interactome.
 
 # Session Info {- .smaller}
 ```{r sessioninfo}
