@@ -13,7 +13,9 @@
 
 assess_enrichment <- function(G=NULL, top_list=NULL, ranks=NULL, ranked_vector_X0=NULL, k=100, do.plot=FALSE, critical=NULL, show_top_sig=10, file="top_net_enrichment.jpg"){
 
-  ranks <- seq(10, length(top_list), by=10)
+  if(is.null(ranks)){
+    ranks <- seq(10, length(top_list), by=10)
+  }
   gsea_res <- vector("list", length(ranks))
   net_ccf <- gsea_res
   for(i in 1:length(ranks)){
