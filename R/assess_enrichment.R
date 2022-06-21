@@ -7,10 +7,11 @@
 #' @param critical a possible rank to draw in the plot
 #' @param show_top_sig if not NULL, an integer that indicatesd the number of top significant ranks to display
 #' @param file output file name
+#' @param k number of permutations
 #'
 #' @export
 
-assess_enrichment <- function(G=NULL, top_list=NULL, ranks=NULL, ranked_vector_X0=NULL, do.plot=FALSE, critical=NULL, show_top_sig=10, file="top_net_enrichment.jpg"){
+assess_enrichment <- function(G=NULL, top_list=NULL, ranks=NULL, ranked_vector_X0=NULL, k=100, do.plot=FALSE, critical=NULL, show_top_sig=10, file="top_net_enrichment.jpg"){
 
   ranks <- seq(10, length(top_list), by=10)
   gsea_res <- vector("list", length(ranks))
@@ -20,7 +21,7 @@ assess_enrichment <- function(G=NULL, top_list=NULL, ranks=NULL, ranked_vector_X
 
     #if the sum of gene set scores is 0 we can not evaluate the enrichment
     if(sum(ranked_vector_X0[names(ranked_vector_X0) %in% V(net_ccf[[i]])$name])>0){
-      gsea_res[[i]] <- gsea(matrix(ranked_vector_X0, ncol = 1, dimnames = list(names(ranked_vector_X0), "X0")), list(top_net=V(net_ccf[[i]])$name))
+      gsea_res[[i]] <- gsea(matrix(ranked_vector_X0, ncol = 1, dimnames = list(names(ranked_vector_X0), "X0")), list(top_net=V(net_ccf[[i]])$name), k=k)
     }else{
       warning("No positive elments for ", ranks[i], "\n")
       gsea_res[[i]] <- list(gs_table=list(X0=data.frame(id=1, es=0, p_val=1, adj_p_val=1, nes=0, FDRq=1, stringsAsFactors=FALSE)))
