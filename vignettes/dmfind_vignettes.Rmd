@@ -1,6 +1,6 @@
 ---
 title: > 
-    "The dmfind User's Guide"
+    dmfind: a network medicine tool for the analysis of omics data
 author: 
 - name: "Valentina Nale"
   affiliation: 
@@ -10,7 +10,7 @@ date: "`r BiocStyle::doc_date()`"
 output: 
   BiocStyle::html_document
 vignette: >
-  %\VignetteIndexEntry{The dmfind User's Guide}
+  %\VignetteIndexEntry{dmfind: a network medicine tool for the analysis of omics data}
   %\VignettePackage{dmfind}
   %\VignetteKeywords{Network, OmicsData, Visualization, MultiOmics, SystemsBiology}
   %\VignetteEngine{knitr::rmarkdown}
@@ -220,4 +220,5 @@ Optionally you can choose to perform the union, the intersection (both vertices 
 # Session Info {- .smaller}
 ```{r sessioninfo}
 sessionInfo()
+
 ```

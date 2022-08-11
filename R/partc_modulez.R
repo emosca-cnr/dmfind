@@ -1,11 +1,11 @@
-#' pc_wmz Calculate participation coeffcient and within module degree z-score
+#' pc_wmz Calculate participation coefficient and within module degree z-score
 #'
-#' @description Calculate participation coeffcient
+#' @description Calculate participation coefficient
 #' and within module degree z-score
 #' @param topNetwork network with some parameters: "comm_id" for community
 #' membership and "label" for labels (for plotting purpose).
 #' @param allNames TRUE/FALSE. Used to plot all gene names.
-#' @param extremePoints TRUE/FALSE. Used to plot extreme poits of the plot,
+#' @param extremePoints TRUE/FALSE. Used to plot extreme points of the plot,
 #' such as the gene with max and min participation coefficient and z-score.
 #' @param chooseYourGenes Vector of names (matching with "label" of network).
 #' Used to plot genes name of your choice.
@@ -26,130 +26,131 @@
 #' @export
 
 pc_wmz <- function(topNetwork, allNames=FALSE, extremePoints=FALSE,
-                   chooseYourGenes=NULL, outFile="pc_wmz.jpg", doPlot=TRUE, ...) {
+                   chooseYourGenes=NULL, outFile="pc_wmz.jpg", doPlot=TRUE,
+                   ...) {
 
-    # partecipation coefficient
-    pc <- brainGraph::part_coeff(topNetwork, V(topNetwork)$comm_id)
+  # partecipation coefficient
+  pc <- brainGraph::part_coeff(topNetwork, V(topNetwork)$comm_id)
 
-    # within module z-score
-    wmZ <-brainGraph::within_module_deg_z_score(topNetwork,
-                                                V(topNetwork)$comm_id)
-    wmZ[is.na(wmZ)] <- 0
+  # within module z-score
+  wmZ <-brainGraph::within_module_deg_z_score(topNetwork,
+                                              V(topNetwork)$comm_id)
+  wmZ[is.na(wmZ)] <- 0
 
-    # cbind pc and wmZ (x and y coordinates)
-    df <- data.frame(name=names(pc), label=V(topNetwork)$label[match(names(pc),
-                    V(topNetwork)$name)], comm_id=
-                      V(topNetwork)$comm_id[match(names(pc),
-                    V(topNetwork)$name)], pc=pc,
-                    wmZ=wmZ, stringsAsFactors = FALSE)
+  # cbind pc and wmZ (x and y coordinates)
+  df <- data.frame(name=names(pc), label=V(topNetwork)$label[match(names(pc),
+                                                                   V(topNetwork)$name)], comm_id=
+                     V(topNetwork)$comm_id[match(names(pc),
+                                                 V(topNetwork)$name)], pc=pc,
+                   wmZ=wmZ, stringsAsFactors = FALSE)
 
-    maxZscore <- max(wmZ)
-    hCut <- (maxZscore * 2.5) / 8
+  maxZscore <- max(wmZ)
+  hCut <- (maxZscore * 2.5) / 8
 
-    # look for coordinates
-    # NON-HUBS : z < 2.5
-    # for R1: ULTRA PERIPHERAL NODES (p<=0.05) = nodes with all
-    #their links within their module
-    df$region[df$pc <= 0.05 & df$wmZ < hCut] <- "R1"
-    df$definition[df$region == "R1"] <- "ULTRA PERIPHERAL NODES"
-    df$description[df$region == "R1"] <-
-        "nodes with all their links within their module"
+  # look for coordinates
+  # NON-HUBS : z < 2.5
+  # for R1: ULTRA PERIPHERAL NODES (p<=0.05) = nodes with all
+  #their links within their module
+  df$region[df$pc <= 0.05 & df$wmZ < hCut] <- "R1"
+  df$definition[df$region == "R1"] <- "ULTRA PERIPHERAL NODES"
+  df$description[df$region == "R1"] <-
+    "nodes with all their links within their module"
 
-    # for R2: PERIPHERAL NODES (0.05 < p <= 0.62) = nodes with
-    # most links within their module
-    df$region[df$pc > 0.05 & df$pc <= 0.62 & df$wmZ < hCut] <- "R2"
-    df$definition[df$region == "R2"] <- "PERIPHERAL NODES"
-    df$description[df$region == "R2"] <-
-        "nodes with most links within their module"
+  # for R2: PERIPHERAL NODES (0.05 < p <= 0.62) = nodes with
+  # most links within their module
+  df$region[df$pc > 0.05 & df$pc <= 0.62 & df$wmZ < hCut] <- "R2"
+  df$definition[df$region == "R2"] <- "PERIPHERAL NODES"
+  df$description[df$region == "R2"] <-
+    "nodes with most links within their module"
 
-    # for R3: NON-HUB CONNECTOR NODES (0.62 < p <= 0.8) = nodes
-    # with many links to other modules
-    df$region[df$pc > 0.62 & df$pc <= 0.8 & df$wmZ < hCut] <- "R3"
-    df$definition[df$region == "R3"] <- "NON-HUB CONNECTOR NODES"
-    df$description[df$region == "R3"] <-
-        "nodes with many links to other modules"
+  # for R3: NON-HUB CONNECTOR NODES (0.62 < p <= 0.8) = nodes
+  # with many links to other modules
+  df$region[df$pc > 0.62 & df$pc <= 0.8 & df$wmZ < hCut] <- "R3"
+  df$definition[df$region == "R3"] <- "NON-HUB CONNECTOR NODES"
+  df$description[df$region == "R3"] <-
+    "nodes with many links to other modules"
 
-    # for R4: NON-HUB KINLESS NODES (p > 0.8) = nodes with links
-    # homogeneously distributed among all modules
-    df$region[df$pc > 0.8 & df$wmZ < hCut] <- "R4"
-    df$definition[df$region == "R4"] <- "NON-HUB KINLESS NODES"
-    df$description[df$region == "R4"] <-
-        "nodes with links homogeneously distributed among all modules"
+  # for R4: NON-HUB KINLESS NODES (p > 0.8) = nodes with links
+  # homogeneously distributed among all modules
+  df$region[df$pc > 0.8 & df$wmZ < hCut] <- "R4"
+  df$definition[df$region == "R4"] <- "NON-HUB KINLESS NODES"
+  df$description[df$region == "R4"] <-
+    "nodes with links homogeneously distributed among all modules"
 
-    ### HUBS : z > 2.5
-    # for R5: PROVINCIAL HUBS (p <= 0.3) = hub nodes with the vast
-    # majority of links within their module
-    df$region[df$pc <= 0.3 & df$wmZ > hCut] <- "R5"
-    df$definition[df$region == "R5"] <- "PROVINCIAL HUBS"
-    df$description[df$region == "R5"] <-
-        "hub nodes with the vast majority of links within their module"
+  ### HUBS : z > 2.5
+  # for R5: PROVINCIAL HUBS (p <= 0.3) = hub nodes with the vast
+  # majority of links within their module
+  df$region[df$pc <= 0.3 & df$wmZ > hCut] <- "R5"
+  df$definition[df$region == "R5"] <- "PROVINCIAL HUBS"
+  df$description[df$region == "R5"] <-
+    "hub nodes with the vast majority of links within their module"
 
-    # for R6: CONNECTOR HUBS (0.3 < p <= 0.75) = hubs with many links
-    # to most of the other modules
-    df$region[df$pc > 0.3 & df$pc <= 0.75 & df$wmZ > hCut] <- "R6"
-    df$definition[df$region == "R6"] <- "CONNECTOR HUBS"
-    df$description[df$region == "R6"] <-
-        "hubs with many links to most of the other modules"
+  # for R6: CONNECTOR HUBS (0.3 < p <= 0.75) = hubs with many links
+  # to most of the other modules
+  df$region[df$pc > 0.3 & df$pc <= 0.75 & df$wmZ > hCut] <- "R6"
+  df$definition[df$region == "R6"] <- "CONNECTOR HUBS"
+  df$description[df$region == "R6"] <-
+    "hubs with many links to most of the other modules"
 
-    # for R7: KINLESS HUBS (p > 0.75) = hubs with links homogeneously
-    # distributed among all modules
-    df$region[df$pc > 0.75 & df$wmZ > hCut] <- "R7"
-    df$definition[df$region == "R7"] <- "KINLESS HUBS"
-    df$description[df$region == "R7"] <-
-        "hubs with links homogeneously distributed among all modules"
+  # for R7: KINLESS HUBS (p > 0.75) = hubs with links homogeneously
+  # distributed among all modules
+  df$region[df$pc > 0.75 & df$wmZ > hCut] <- "R7"
+  df$definition[df$region == "R7"] <- "KINLESS HUBS"
+  df$description[df$region == "R7"] <-
+    "hubs with links homogeneously distributed among all modules"
 
-    ########################################
-    ########### check parameters ###########
-    ########################################
+  ########################################
+  ########### check parameters ###########
+  ########################################
 
-    if(doPlot){
-        if (allNames == TRUE & extremePoints == TRUE | allNames == TRUE &
-            extremePoints == TRUE & !is.null(chooseYourGenes)) {
-        stop("Impossibile to satisfy all the conditions.
+  if(doPlot){
+    if (allNames == TRUE & extremePoints == TRUE | allNames == TRUE &
+        extremePoints == TRUE & !is.null(chooseYourGenes)) {
+      stop("Impossibile to satisfy all the conditions.
             Choose different parameters.")
-        } else {
+    } else {
 
-    ########################################
-    ################# PLOT #################
-    ########################################
+      ########################################
+      ################# PLOT #################
+      ########################################
 
-    vLabl <- ""
+      vLabl <- ""
 
-    if (allNames == TRUE) {
+      if (allNames == TRUE) {
         warning("You have selected to plot all gene names.
                 To plot only expreme points use 'extremePoints = TRUE")
         vLabl <- V(topNetwork)$label
-    }
-    if (extremePoints == TRUE) {
+      }
+      if (extremePoints == TRUE) {
         warning("You have selected to plot extreme gene names.
                 To plot all the gene names use 'allNames = TRUE'")
 
         nameMaxZscore <-
-            V(topNetwork)$label[match(names(pc)[which.max(wmZ)],
-                                       V(topNetwork)$name)]
+          V(topNetwork)$label[match(names(pc)[which.max(wmZ)],
+                                    V(topNetwork)$name)]
 
         # gene with max pc
         nameMaxPc <-
-            V(topNetwork)$label[match(names(pc)[which.max(pc)],
-                                       V(topNetwork)$name)]
+          V(topNetwork)$label[match(names(pc)[which.max(pc)],
+                                    V(topNetwork)$name)]
 
         # genes with pc = 0
         V(topNetwork)$label[match(names(pc)[pc == 0 & which.max(wmZ)],
-                                   V(topNetwork)$name)]
+                                  V(topNetwork)$name)]
 
         # gene with min z score
         nameMinZscore <-
-            V(topNetwork)$label[match(names(pc)[which.min(wmZ)],
-                                       V(topNetwork)$name)]
+          V(topNetwork)$label[match(names(pc)[which.min(wmZ)],
+                                    V(topNetwork)$name)]
 
         # gene with min pc
         nameMinPc <-
-            V(topNetwork)$label[match(names(pc)[which.min(pc)],
-                                       V(topNetwork)$name)]
+          V(topNetwork)$label[match(names(pc)[which.min(pc)],
+                                    V(topNetwork)$name)]
 
         vLabl <- V(topNetwork)$label
         vLabl[!vLabl %in% c(nameMaxZscore,
-                              nameMaxPc, nameMinZscore, nameMinPc)] <- ""
+                            nameMaxPc, nameMinZscore, nameMinPc)] <- ""
       }
 
       if (!is.null(chooseYourGenes)) {
@@ -157,8 +158,7 @@ pc_wmz <- function(topNetwork, allNames=FALSE, extremePoints=FALSE,
         warning("You have selected to plot your gene names. To plot all
                 the gene names use 'allNames = TRUE'")
         vLabl <- V(topNetwork)$label
-        vLabl[!vLabl %in% chooseYourGenes] <- ""
-
+        vLabl[!vLabl %in% genes_unique] <- ""
 
       }
 
@@ -173,9 +173,11 @@ pc_wmz <- function(topNetwork, allNames=FALSE, extremePoints=FALSE,
                 You can find the plot in ", getwd()))
       }
 
+      #outFile= "prova.jpg"
       jpeg(outFile, width = 200, height = 200, units="mm", res=300)
       plot(pc, wmZ, xlim = c(0,1), xlab="P", ylab="z")
 
+      #dev.off()
       ### RECT = XLEFT, YBOTTOM, XRIGHT, YTOP
       ####################################
       # horizontal cut : max z-score = author cut : author max z-score
@@ -209,6 +211,11 @@ pc_wmz <- function(topNetwork, allNames=FALSE, extremePoints=FALSE,
       rect(0.75, hCut, 1.3, maxZscore+0.2, col = "gray90", border = NA)
 
       points(pc, wmZ, pch=16)
+      if (!is.null(chooseYourGenes)) {
+        df2 <- df[df$label %in% genes_unique, ]
+        points(df2$pc, df2$wmZ, xlim = c(0,1), xlab="P", ylab="z",
+               pch=21, cex=2, lwd=3, bg="hotpink") #hotpink
+      }
 
       text(c(0.03, 0.60, 0.78, 1.02, 0.28, 0.73, 1.02),
            c(hCut, hCut, hCut, hCut, maxZscore+0.2,
@@ -217,7 +224,7 @@ pc_wmz <- function(topNetwork, allNames=FALSE, extremePoints=FALSE,
 
       if(any(vLabl!="")){
         plotrix::thigmophobe.labels(pc, wmZ, vLabl[match(names(pc),
-                                    V(topNetwork)$name)], cex=0.8)
+                                    V(topNetwork)$name)], cex=0.8, font=2)
       }
 
       dev.off()
