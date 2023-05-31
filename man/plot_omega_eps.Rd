@@ -4,8 +4,19 @@
 \alias{plot_omega_eps}
 \title{Plot the results of eval_eps}
 \usage{
-plot_omega_eps(eval_eps_res, file = "eval_eps_X0_omega.jpg")
+plot_omega_eps(evalEpsRes, file="eval_eps_X0_omega.jpg")
+}
+\arguments{
+\item{evalEpsRes}{Epsilon evaluation}
+
+\item{file}{filename}
+}
+\value{
+plot
 }
 \description{
 Plot the results of eval_eps
+}
+\examples{
+\dontrun{plot_omega_eps(evalEpsRes, file="eval_eps_X0_omega.jpg")}
 }

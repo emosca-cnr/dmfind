@@ -8,7 +8,7 @@
 symmetrix matrix with rownames and colnames
 }
 \usage{
-W
+data(W)
 }
 \description{
 An example of symmetrix matrix

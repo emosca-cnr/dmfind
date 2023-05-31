@@ -4,18 +4,21 @@
 \alias{get_top_subnetworks}
 \title{Calculation of permutation-adjusted network smoothing index}
 \usage{
-get_top_subnetworks(G, ranked_list, idx = 1:length(ranked_list))
+get_top_subnetworks(G, rankedList, idx=1:length(rankedList))
 }
 \arguments{
 \item{G}{igraph graph object}
 
-\item{ranked_list}{ranked vector; names must match V(G)$name}
+\item{rankedList}{ranked vector; names must match V(G)$name}
 
 \item{idx}{vector of ranks according to which networks will be extracted}
 }
 \value{
-list with sn_g and sn_summary elements
+list with snG and snSummary elements
 }
 \description{
 Calculation of permutation-adjusted network smoothing index
+}
+\examples{
+\dontrun{get_top_subnetworks(G, rankedList, idx=1:length(rankedList))}
 }

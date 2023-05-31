@@ -4,16 +4,29 @@
 \alias{compare_X0_ND}
 \title{compare_X0_ND}
 \usage{
-compare_X0_ND(
-  G = NULL,
-  X0_ranked_by_ND = NULL,
-  X0_ranked_by_X0 = NULL,
-  norm = FALSE,
-  do.plot = FALSE,
-  file = "./compare_X0_ND.jpg",
-  ...
-)
+compare_X0_ND(G=NULL, X0rankedByND=NULL, X0rankedByX0=NULL, norm=FALSE, doPlot=FALSE, 
+file="compare_X0_ND.jpg")
+}
+\arguments{
+\item{G}{graph}
+
+\item{X0rankedByND}{ranked vector of ND values ordered by X0}
+
+\item{X0rankedByX0}{ranked vector of X0 values ordered by X0}
+
+\item{norm}{FALSE}
+
+\item{doPlot}{FALSE}
+
+\item{file}{outfile}
+}
+\value{
+Comparison plot between X0 and ND
 }
 \description{
-compare_X0_ND
+Generate N permutations of a binary vector
+}
+\examples{
+\dontrun{compare_X0_ND(G=NULL, X0rankedByND=NULL, X0rankedByX0=NULL, norm=FALSE, doPlot=FALSE,
+ file="compare_X0_ND.jpg")}
 }

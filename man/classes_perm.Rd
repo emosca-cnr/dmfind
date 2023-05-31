@@ -4,7 +4,7 @@
 \alias{classes_perm}
 \title{Generate N permutations of a binary vector}
 \usage{
-classes_perm(z, N)
+classes_perm(z,N)
 }
 \arguments{
 \item{z}{binary vector with values in \{1, 2\}}
@@ -16,4 +16,7 @@ list of N permutations
 }
 \description{
 Generate N permutations of a binary vector
+}
+\examples{
+\dontrun{classes_perm(z,N)}
 }

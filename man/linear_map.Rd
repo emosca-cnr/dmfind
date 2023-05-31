@@ -4,15 +4,21 @@
 \alias{linear_map}
 \title{Linear map}
 \usage{
-linear_map(x, y.min, y.max)
+linear_map(x, yMin, yMax)
 }
 \arguments{
 \item{x}{numeric vector}
 
-\item{y.min}{min value of the new distribution}
+\item{yMin}{min value of the new distribution}
 
-\item{y.max}{max value of the new distribution}
+\item{yMax}{max value of the new distribution}
+}
+\value{
+linear map y
 }
 \description{
 Linear map
+}
+\examples{
+\dontrun{linear_map(x, yMin, yMax)}
 }

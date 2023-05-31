@@ -4,29 +4,11 @@
 \alias{sm2dem}
 \title{Pipeline for the extraction of differentially enriched modules from smoothed matrices}
 \usage{
-sm2dem(
-  X0,
-  Xs,
-  G,
-  classes,
-  eps = 1,
-  use.exp = FALSE,
-  median = FALSE,
-  classes_perm = NULL,
-  mc.cores = 2,
-  ranking_type = c("dR", "dS", "dXs", "dX0"),
-  NR_p_thr = 0.05,
-  NR_k = 100,
-  min_module_size_final = 10,
-  min_rank = 100,
-  max_rank = 500,
-  NR_max_rank = 600,
-  min_subnet_size = 2,
-  plot_flag = FALSE,
-  plot_outfile = "graph.jpg",
-  vector_mode = FALSE,
-  ...
-)
+sm2dem(X0, Xs, G, classes, eps=1, useExp=FALSE, median=FALSE, 
+classesPerm=NULL, mc.cores=2, rankingType=c("dR", "dS", "dXs", "dX0"), 
+NRpThr=0.05, NRk=100, minModuleSizeFinal=10, minRank=100, maxRank=500, 
+NRmaxRank=600, minSubnetSize=2, plotFlag=FALSE, plotOutfile="graph.jpg", 
+vectorMode=FALSE, ...)
 }
 \arguments{
 \item{X0}{input matrix}
@@ -39,38 +21,48 @@ sm2dem(
 
 \item{eps}{numeric value}
 
-\item{use.exp}{TRUE/FALSE whether to use the exponent at the denominator}
+\item{useExp}{TRUE/FALSE whether to use the exponent at the denominator}
 
 \item{median}{TRUE/FALSE whether to use median instead of mean}
 
-\item{classes_perm}{list of numeric vectors of \{1,2\}}
+\item{classesPerm}{list of numeric vectors of \{1,2\}}
 
 \item{mc.cores}{number of cores}
 
-\item{ranking_type}{criterion for ranking the molecular entities}
+\item{rankingType}{criterion for ranking the molecular entities}
 
-\item{NR_p_thr}{threshold for NR p value}
+\item{NRpThr}{threshold for NR p value}
 
-\item{NR_k}{number of permutations}
+\item{NRk}{number of permutations}
 
-\item{min_module_size_final}{minimun size of final module}
+\item{minModuleSizeFinal}{minimun size of final module}
 
-\item{min_rank}{minimum rank}
+\item{minRank}{minimum rank}
 
-\item{max_rank}{maximum rank}
+\item{maxRank}{maximum rank}
 
-\item{NR_max_rank}{network resampling will be applied from 1 to NR_max_rank}
+\item{NRmaxRank}{network resampling will be applied from 1 to NRmaxRank}
 
-\item{min_subnet_size}{minimum number of genes connected in the subnetworks to be extracted}
+\item{minSubnetSize}{minimum number of genes connected in the subnetworks to be extracted}
 
-\item{plot_flag}{whether to plot or not the network}
+\item{plotFlag}{whether to plot or not the network}
 
-\item{plot_outfile}{file name of the output figure}
+\item{plotOutfile}{file name of the output figure}
 
-\item{vector_mode}{TRUE/FALSE}
+\item{vectorMode}{TRUE/FALSE}
 
 \item{...}{further arguments to igraph.plot}
 }
+\value{
+???
+}
 \description{
 Pipeline for the extraction of differentially enriched modules from smoothed matrices
+}
+\examples{
+\dontrun{sm2dem(X0, Xs, G, classes, eps=1, useExp=FALSE, median=FALSE, 
+classesPerm=NULL, mc.cores=2, rankingType=c("dR", "dS", "dXs", "dX0"), 
+NRpThr=0.05, NRk=100, minModuleSizeFinal=10, minRank=100, maxRank=500, 
+NRmaxRank=600, minSubnetSize=2, plotFlag=FALSE, plotOutfile="graph.jpg", 
+vectorMode=FALSE)}
 }

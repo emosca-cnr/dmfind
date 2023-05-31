@@ -8,5 +8,7 @@
 #'
 #' @docType package
 #' @name dmfind
+#' @import igraph
+#' @import BiocParallel
 
 NULL

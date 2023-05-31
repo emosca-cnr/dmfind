@@ -4,15 +4,21 @@
 \alias{get_module_label}
 \title{Get module label}
 \usage{
-get_module_label(xy = NULL, f = NULL, labs = NULL)
+get_module_label(xy, f, labs)
 }
 \arguments{
 \item{xy}{layout coordinates}
 
 \item{f}{factor describing modules}
 
-\item{labs}{name vector of labels. Names  must be equal to unique values of f.}
+\item{labs}{name vector of labels. Names must be equal to unique values of f}
+}
+\value{
+data
 }
 \description{
 Get module label
+}
+\examples{
+\dontrun{get_module_label(xy, f, labs)}
 }

@@ -4,15 +4,24 @@
 \alias{extract_module}
 \title{Extraction and plotting of connected subnetworks from a graph and a set of selected vertices}
 \usage{
-extract_module(graph, selected_vertices, X0 = NULL, min_subnet_size = 2)
+extract_module(graph, selectedVertices, X0=NULL, minSubnetSize=2)
 }
 \arguments{
 \item{graph}{igraph object}
 
-\item{selected_vertices}{subset of vertices}
+\item{selectedVertices}{subset of vertices}
 
-\item{min_subnet_size}{minimum size of subnetwork}
+\item{X0}{X0 matrix}
+
+\item{minSubnetSize}{minimum size of subnetwork}
+}
+\value{
+subnetwork
 }
 \description{
-Extraction and plotting of connected subnetworks from a graph and a set of selected vertices
+Extraction and plotting of connected subnetworks from a 
+graph and a set of selected vertices
+}
+\examples{
+\dontrun{extract_module(graph, selectedVertices, X0=NULL, minSubnetSize=2)}
 }

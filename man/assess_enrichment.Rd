@@ -4,6 +4,7 @@
 \alias{assess_enrichment}
 \title{assess enrichment of the top networks}
 \usage{
+<<<<<<< HEAD
 assess_enrichment(
   G = NULL,
   top_list = NULL,
@@ -19,19 +20,31 @@ assess_enrichment(
   min_net_size = 10,
   min.k.nes = 10
 )
+=======
+assess_enrichment(G=NULL, topList=NULL, ranks=NULL, 
+rankedVectorX0=NULL, doPlot=FALSE, critical=NULL, file="topNet_enrichment.jpg")
+>>>>>>> d202699f763fdab01effe6aef1561079a7969e3b
 }
 \arguments{
 \item{G}{igraph object}
 
+<<<<<<< HEAD
 \item{top_list}{ranked list of vertex names that will be used to define top networks}
+=======
+\item{topList}{ranked list of vertex names}
+>>>>>>> d202699f763fdab01effe6aef1561079a7969e3b
 
-\item{ranks}{ranks of top_list that will be assessed}
+\item{ranks}{ranks of topList that will be assessed}
 
+<<<<<<< HEAD
 \item{X0_vector}{named numeric vector that will be tested with GSEA or ORA. In case of GSEA it will be ranked by decreasing orderg, while in the case of ORA the names of the X0 values grater than 0 will be tested for enrichment, while all X0 names will be the universe.}
 
 \item{k}{number of permutations}
+=======
+\item{rankedVectorX0}{ranked vector by X0}
+>>>>>>> d202699f763fdab01effe6aef1561079a7969e3b
 
-\item{do.plot}{whether to plot or not}
+\item{doPlot}{whether to plot or not}
 
 \item{critical}{a possible rank to draw in the plot}
 
@@ -39,6 +52,14 @@ assess_enrichment(
 
 \item{file}{output file name}
 }
+\value{
+list of values
+}
 \description{
-assess enrichment of the top networks
+Perform enrichment analysis of the top network 
+based on a ranked vector
+}
+\examples{
+\dontrun{assess_enrichment(G=NULL, topList=NULL, ranks=NULL, 
+rankedVectorX0=NULL, doPlot=FALSE, critical=NULL, file="topNet_enrichment.jpg")}
 }

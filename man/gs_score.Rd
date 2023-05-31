@@ -4,16 +4,19 @@
 \alias{gs_score}
 \title{Calculation of gene set scores}
 \usage{
-gs_score(x = NULL, gs_list = NULL)
+gs_score(x, gsList)
 }
 \arguments{
 \item{x}{input vector}
 
-\item{gs_list}{gene set listy gene set list}
+\item{gsList}{gene set listy gene set list}
 }
 \value{
 numeric vector of gene set scores
 }
 \description{
 Calculation of gene set scores
+}
+\examples{
+\dontrun{gs_score(x, gsList)}
 }

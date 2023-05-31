@@ -2,30 +2,30 @@
 % Please edit documentation in R/check_eps.R
 \name{check_eps}
 \alias{check_eps}
-\title{Search for the optim epsilon}
+\title{Search for the optimal epsilon}
 \usage{
-check_eps(
-  X0,
-  Xs,
-  x = NA,
-  eps = c(0.1, 0.25, 0.5, 1),
-  top = 250,
-  sort.X0 = FALSE
-)
+check_eps(X0, Xs, x, eps, top = 250, sortX0=FALSE)
 }
 \arguments{
 \item{X0}{1-column matrix}
 
 \item{Xs}{1-column matrix (smoothed)}
 
-\item{x}{optional vector with top names to use, in place of X0, in the comparison with S}
+\item{x}{optional vector with top names to use, in place of X0, in the 
+comparison with S}
 
 \item{eps}{values to check}
 
 \item{top}{number of top genes on which the comparison has to be done}
 
-\item{sort.X0}{whether to sort (TRUE) or not (FALSE) X0 in decreasing order}
+\item{sortX0}{whether to sort (TRUE) or not (FALSE) X0 in decreasing order}
+}
+\value{
+optimal epsilon value
 }
 \description{
-Search for the optim epsilon
+Search for optimal epsilon
+}
+\examples{
+\dontrun{check_eps(X0, Xs, x, eps, top = 250, sortX0=FALSE)}
 }

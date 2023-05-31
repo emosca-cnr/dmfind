@@ -1,39 +1,48 @@
 #' Calculation of omega function
+#' 
+#' @description Calculation of omega function
 #' @param G igraph object; only the vertices in names(u) will be considered
 #' @param u ranked named list; names must correspond to V(G)$name
-#' @param norm normalize by number of links (l), number or vertices (v) or do not normalize (n)
+#' @param norm normalize by number of links (l), number or vertices 
+#' (v) or do not normalize (n)
+#' @return omega 
+#' @usage omega(G, u, norm=c("n", "l", "v"))
+#' @examples 
+#' \dontrun{omega(G, u, norm=c("n", "l", "v"))}
 #' @import igraph
 #' @export
 
 omega <- function(G, u, norm=c("n", "l", "v")) {
 
-  norm <- match.arg(norm, c("n", "l", "v"))
+    norm <- match.arg(norm, c("n", "l", "v"))
 
-  #implementation 2
-  Gi <- igraph::induced.subgraph(G, match(names(u), V(G)$name)) # note that the vertex order is not the same as in u
-  Ai <- as.matrix(get.adjacency(Gi)) # extract local adjacency matrix
-  idx.norm <- match(names(u), rownames(Ai)) # appropriate setting of Ai and u names
-  Ai <- Ai[idx.norm, idx.norm]
+    #implementation 2
+    # note that the vertex order is not the same as in u
+    Gi <- igraph::induced.subgraph(G, match(names(u), V(G)$name)) 
+    # extract local adjacency matrix
+    Ai <- as.matrix(get.adjacency(Gi)) 
+    # appropriate setting of Ai and u names
+    idxNorm <- match(names(u), rownames(Ai)) 
+    Ai <- Ai[idxNorm, idxNorm]
 
-  U <- matrix(u, ncol = 1, dimnames = list(names(u)))
-  omega_vect <-  U %*% t(U)
-  omega_vect <- omega_vect * Ai
-  omega_vect[upper.tri(omega_vect)] <- 0
+    U <- matrix(u, ncol = 1, dimnames = list(names(u)))
+    omegaVect <-  U %*% t(U)
+    omegaVect <- omegaVect * Ai
+    omegaVect[upper.tri(omegaVect)] <- 0
 
-  #omega_vect <- 2*cumsum(rowSums(omega_vect))
-  omega_vect <- cumsum(rowSums(omega_vect))
+    #omegaVect <- 2*cumsum(rowSums(omegaVect))
+    omegaVect <- cumsum(rowSums(omegaVect))
 
-  if(norm=="l"){
-    Ai[upper.tri(Ai)] <- 0
-    nE <- cumsum(rowSums(Ai))
-    omega_vect <- omega_vect / nE
-    omega_vect[is.nan(omega_vect)] <- 0
-  }
+    if(norm=="l"){
+        Ai[upper.tri(Ai)] <- 0
+        nE <- cumsum(rowSums(Ai))
+        omegaVect <- omegaVect / nE
+        omegaVect[is.nan(omegaVect)] <- 0
+    }
 
-  if(norm=="v"){
-    omega_vect <- omega_vect / (1:length(omega_vect))
-  }
+    if(norm=="v"){
+        omegaVect <- omegaVect / (1:length(omegaVect))
+    }
 
-
-  return(omega_vect)
+    return(omegaVect)
 }
