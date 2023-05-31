@@ -1,6 +1,6 @@
 # dmfind
 
-Network diffusion-based analysis of omics for the identifcation of differentially enriched modules.
+Network diffusion-based analysis of omics for the identification of differentially enriched modules.
 
 If you use this package please cite:
 

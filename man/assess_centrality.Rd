@@ -12,10 +12,11 @@ assess_centrality(subnetwork, graph)
 \item{graph}{igraph object, total graph}
 }
 \value{
-dataframe with centrality measures
+dataframe with degree, betwenness, closeness and
+eigenvector centrality measures
 }
 \description{
-Function for assess centrality measures to the top network.
+Function for assess centrality measures to the top network
 }
 \examples{
 \dontrun{assess_centrality(subnetwork, graph)}

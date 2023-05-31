@@ -3,10 +3,10 @@
 #' @description Define significance for enriched genes
 #' @param ae_res_full dataframe resulting from 'assess_enrichment'
 #' @param mNDp dataframe resulting from mNDp
-#' @param start
-#' @param end
-#' @param by
-#' @param threshold
+#' @param start start
+#' @param end end
+#' @param by by
+#' @param threshold threshold
 #' @return dataframe with deltaP, deltaZ, changeRegion, euclideanDistance,
 #' pc and wm_z from first and second network
 #' @examples

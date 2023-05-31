@@ -1,16 +1,16 @@
-#' Extract a connected components of size n
+#' Extract connected components of at least n vertices
 #' 
-#' @description Extract the maximum connected components
-#' @param x network
-#' @param n size of connected component 
-#' @return subgraph
-#' @usage get_nconn_comp(x,n)
+#' @description Extract connected components of at least n vertices
+#' @param x igraph obejct
+#' @param n minimum size of a connected component
+#' @return igraph object
+#' @usage get_nconn_comp(x, n)
 #' @examples 
 #' \dontrun{get_nconn_comp(x,n)}
 #' @import igraph
 #' @export
 
-get_nconn_comp <- function(x, n){
+get_nconn_comp <- function(x=NULL, n=NULL){
     conn <- clusters(x)
     clstrOk <- which(conn$csize >= n)
     nodesOk <- which(conn$membership %in% clstrOk)

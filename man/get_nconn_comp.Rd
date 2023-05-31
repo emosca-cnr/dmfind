@@ -2,20 +2,20 @@
 % Please edit documentation in R/get_nconn_comp.R
 \name{get_nconn_comp}
 \alias{get_nconn_comp}
-\title{Extract a connected components of size n}
+\title{Extract connected components of at least n vertices}
 \usage{
-get_nconn_comp(x,n)
+get_nconn_comp(x, n)
 }
 \arguments{
-\item{x}{network}
+\item{x}{igraph obejct}
 
-\item{n}{size of connected component}
+\item{n}{minimum size of a connected component}
 }
 \value{
-subgraph
+igraph object
 }
 \description{
-Extract the maximum connected components
+Extract connected components of at least n vertices
 }
 \examples{
 \dontrun{get_nconn_comp(x,n)}

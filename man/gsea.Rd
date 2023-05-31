@@ -4,7 +4,6 @@
 \alias{gsea}
 \title{Gene Set Enrichment Analysis}
 \usage{
-<<<<<<< HEAD
 gsea(
   rl = NULL,
   gsl = NULL,
@@ -14,40 +13,23 @@ gsea(
   mc_cores_perm = 1,
   min.k.nes = 10
 )
-=======
-gsea(rl, gsl, k=100, ordMode=-1, mcCoresPath=1, mcCoresPerm=1)
->>>>>>> d202699f763fdab01effe6aef1561079a7969e3b
 }
 \arguments{
-\item{rl}{numeric matrix of genes-by-ranking criteria; each column contains 
-numeric values; rownames are mandatory}
+\item{rl}{numeric matrix of genes-by-ranking criteria; each column contains numeric values; rownames are mandatory}
 
 \item{gsl}{named list of gene sets}
 
 \item{k}{number of permutations}
 
-<<<<<<< HEAD
 \item{ord.mode}{ordering mode: -1 -> descending; 1 ascending; must be of length equal to `ncol(rl)`}
-=======
-\item{ordMode}{ordering mode: -1 -> descending; 1 ascending; must be 
-of length equal to ncol(rl)}
->>>>>>> d202699f763fdab01effe6aef1561079a7969e3b
 
-\item{mcCoresPath}{number of cores to use for parallel calculation of gene 
-set lists; the total number of cpu used will be mcCoresPath x mcCoresPerm}
+\item{mc_cores_path}{number of cores to use for parallel calculation of gene set lists; the total number of cpu used will be mc_cores_path x mc_cores_perm}
 
-\item{mcCoresPerm}{number of cores to use for parallel calculation of ranked 
-list permutations; the total number of cpu used will be mcCoresPath x mcCoresPerm}
+\item{mc_cores_perm}{number of cores to use for parallel calculation of ranked list permutations; the total number of cpu used will be mc_cores_path x mc_cores_perm}
 }
 \value{
 list with two data.frames, gs_table and leading_edge. gs_table contains: es, enrichment score; nes normalized enrichment score; p-value, empirical p-value; adjusted p-value, BH FDR; FDR q-value, empirical FDR. leading_edge contains: tags, leading edge size; tags_perc, leading edge size percent over gene set; list_top, rank of the ES; list_top_perc, rank of the ES percent over full ranked list; lead_edge, gene names of the leading edge.
 }
 \description{
 Gene Set Enrichment Analysis
-<<<<<<< HEAD
-=======
-}
-\examples{
-\dontrun{gsea(rl, gsl, k=100, ordMode=-1, mcCoresPath=1, mcCoresPerm=1)}
->>>>>>> d202699f763fdab01effe6aef1561079a7969e3b
 }

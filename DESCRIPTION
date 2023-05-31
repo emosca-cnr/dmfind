@@ -1,7 +1,7 @@
 Package: dmfind
 Type: Package
 Title: Network diffusion-based analysis of omics data
-Version: 1.2.5
+Version: 1.3.0
 Date: 2023-05-31
 Authors@R: c(person("Ettore", "Mosca", role = c("aut", "cre"),
 		     email = "ettore.mosca@itb.cnr.it"),
@@ -34,4 +34,5 @@ Author: Ettore Mosca [aut, cre],
   Matteo Bersanelli [aut],
   Luciano Milanesi [aut]
 Maintainer: Ettore Mosca <ettore.mosca@itb.cnr.it>
+Encoding: UTF-8
 

@@ -2,21 +2,21 @@
 % Please edit documentation in R/partc_modulez.R
 \name{pc_wmz}
 \alias{pc_wmz}
-\title{pc_wmz Calculate participation coeffcient and within module degree z-score}
+\title{pc_wmz Calculate participation coefficient and within module degree z-score}
 \usage{
-pc_wmz(topNetwork, allNames = FALSE, extremePoints = FALSE, 
+pc_wmz(topNetwork, allNames = FALSE, extremePoints = FALSE,
 chooseYourGenes = NULL, outFile="pc_wmz.jpg", doPlot=TRUE)
 }
 \arguments{
-\item{topNetwork}{network with some parameters: "comm_id" for community 
+\item{topNetwork}{network with some parameters: "comm_id" for community
 membership and "label" for labels (for plotting purpose).}
 
 \item{allNames}{TRUE/FALSE. Used to plot all gene names.}
 
-\item{extremePoints}{TRUE/FALSE. Used to plot extreme poits of the plot, 
+\item{extremePoints}{TRUE/FALSE. Used to plot extreme points of the plot,
 such as the gene with max and min participation coefficient and z-score.}
 
-\item{chooseYourGenes}{Vector of names (matching with "label" of network). 
+\item{chooseYourGenes}{Vector of names (matching with "label" of network).
 Used to plot genes name of your choice.}
 
 \item{outFile}{filename for saving}
@@ -27,10 +27,10 @@ Used to plot genes name of your choice.}
 dataframe with pc, wmz, region, description and role
 }
 \description{
-Calculate participation coeffcient 
+Calculate participation coefficient
 and within module degree z-score
 }
 \examples{
-\dontrun{pc_wmz(topNetwork, allNames = FALSE, extremePoints = FALSE, 
+\dontrun{pc_wmz(topNetwork, allNames = FALSE, extremePoints = FALSE,
 chooseYourGenes = NULL, outFile="pc_wmz.jpg", doPlot=TRUE}
 }
