@@ -1,64 +1,86 @@
-#' Extraction and plotting of connected subnetworks from a graph and a set of selected vertices
+#' Extraction and plotting of connected subnetworks from a graph 
+#' and a set of selected vertices
+#' 
+#' @description Extraction and plotting of connected subnetworks 
+#' from a graph and a set of selected vertices
 #' @param graph igraph object
-#' @param selected_vertices subset of vertices
-#' @param vertices_subset a subset of selected_vertices (optional)
-#' @param vertices_weight weights (optional)
-#' @param vertices_label labels (optional)
-#' @param min_subnet_size minimum size of subnetwork
-#' @param plot_outfile output file
-#' @param plot_flag whether to plot or not the network
+#' @param colorBy object to be colored by an attribute
+#' @param colorQuant TRUE/FALSE
+#' @param labelBy select a feature to label the graph
+#' @param pal palette to color the graph
+#' @param community communities from network analysis 
+#' @param commWin distance of the vertices inside a community
+#' @param commWb distance between communities
+#' @param lo layout 
+#' @param legendOff legend
+#' @param plotOutfile output file
 #' @param ... additional arguments
+#' @return plot network
+#' @usage plot_network(graph, colorBy=NULL, colorQuant=TRUE, labelBy="name", 
+#' pal=NULL, plotOutfile="graph.jpg", community=NULL, commWin=2, commWb=1, 
+#' lo=NULL, legendOff=FALSE, ...)
+#' @examples 
+#' \dontrun{if (require("igraph")) plot_network(graph, colorBy=NULL, 
+#' colorQuant=TRUE, labelBy="name", pal=NULL, plotOutfile="graph.jpg", 
+#' community=NULL, commWin=2, commWb=1, lo=NULL, legendOff=FALSE)}
 #' @export
 #' @import igraph
 #' @import RColorBrewer
+#' @import grDevices
+#' @import graphics
+#' @import utils
 
-plot_network <- function(graph, color_by=NULL, color_quant=TRUE, label_by="name", pal=NULL, plot_outfile="graph.jpg", community=NULL, comm_w_in=2, comm_w_b=1, lo=NULL, legend.off=FALSE, ...){
+plot_network <- function(graph, colorBy=NULL, colorQuant=TRUE, 
+                         labelBy="name", pal=NULL, plotOutfile="graph.jpg", 
+                         community=NULL, commWin=2, commWb=1, lo=NULL, 
+                         legendOff=FALSE, ...){
 
-
-  if(!is.null(color_by)){
-    color_values <- get.vertex.attribute(graph, color_by)
-    if(color_quant){
-      color_values <- cut(color_values, length(pal), dig.lab = 1)
+    if(!is.null(colorBy)){
+        colorValues <- get.vertex.attribute(graph, colorBy)
+        if(colorQuant){
+            colorValues <- cut(colorValues, length(pal), dig.lab = 1)
+        }
+        V(graph)$color <- pal[as.numeric(as.factor(colorValues))]
     }
-    V(graph)$color <- pal[as.numeric(as.factor(color_values))]
-  }
-  if(label_by == ""){
-    vertex_labels <- ""
-  }else{
-    vertex_labels <- get.vertex.attribute(graph, label_by)
-  }
-  V(graph)$label <- vertex_labels
+    if(labelBy == ""){
+        vertexLabels <- ""
+    }else{
+        vertexLabels <- get.vertex.attribute(graph, labelBy)
+     }
+    V(graph)$label <- vertexLabels
 
-  ew <- NULL
-  if(!is.null(community)){
-    ew <- edge_weights(community, graph, weight.within = comm_w_in, weight.between = comm_w_b)
-  }
+    ew <- NULL
+    if(!is.null(community)){
+        ew <- edge_weights(community, graph, weightWithin=commWin,
+                           weightBetween=commWb)
+    }
 
-  if(is.null(lo)){
-    lo <- layout_with_fr(graph, weights = ew)
-  }
+    if(is.null(lo)){
+        lo <- layout_with_fr(graph, weights=ew)
+    }
   
-  if(!is.null(plot_outfile)){
-    jpeg(plot_outfile, width = 210, height = 200, units='mm', res=300)
-  }
+    if(!is.null(plotOutfile)){
+        jpeg(plotOutfile, width=210, height = 200, units='mm', res=300)
+    }
   
-  if(!is.null(color_by) & !legend.off){
-    layout(matrix(c(1, 2), ncol = 2), widths = c(0.9, 0.2))
-  }
-  par(mar=c(1, 1, 1, 1))
+    if(!is.null(colorBy) & !legendOff){
+        layout(matrix(c(1, 2), ncol=2), widths = c(0.9, 0.2))
+    }
+    par(mar=c(1, 1, 1, 1))
 
-  plot.igraph(graph, vertex.labels=vertex_labels, layout=lo, ...)
+    plot.igraph(graph, vertex.labels=vertexLabels, layout=lo, ...)
 
-  if(!is.null(color_by) & !legend.off){
-    plot.new()
-    legend("bottomright", levels(factor(color_values, levels=sort(unique(color_values)))), col=pal, pch=16, bty="n", cex=0.6)
-  }
+    if(!is.null(colorBy) & !legendOff){
+        plot.new()
+        legend("bottomright", levels(factor(colorValues, 
+              levels=sort(unique(colorValues)))), 
+              col=pal, pch=16, bty="n", cex=0.6)
+    }
 
-  if(!is.null(plot_outfile)){
-    dev.off()
-  }
+    if(!is.null(plotOutfile)){
+        dev.off()
+    }
   
-
-  return(lo)
+    return(lo)
 
 }

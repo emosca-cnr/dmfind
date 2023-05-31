@@ -4,19 +4,29 @@
 \alias{NR}
 \title{Local Monte Carlo p values}
 \usage{
-NR(G, ranked_vector, k = 99, mc.cores = 1, null_model = "A", norm = "n")
+NR(G, rankedVector, k=99, mc.cores=1, nullModel="A", norm="n")
 }
 \arguments{
 \item{G}{gene x gene undirected interaction graph}
 
-\item{ranked_vector}{scores vector; it must have the same names and size of the vertices of G}
+\item{rankedVector}{scores vector; it must have the same 
+names and size of the vertices of G}
 
 \item{k}{number of permutations}
 
 \item{mc.cores}{number of cores}
 
-\item{null_model}{null model type}
+\item{nullModel}{null model type}
+
+\item{norm}{type of normalization}
+}
+\value{
+list of values
 }
 \description{
 Local Monte Carlo p values
+}
+\examples{
+\dontrun{
+NR(G, rankedVector, k=99, mc.cores=1, nullModel="A", norm="n") }
 }

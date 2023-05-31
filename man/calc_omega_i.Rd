@@ -13,7 +13,11 @@ calc_omega_i(idx, Ai, dSprod, norm = c("n", "l", "v"))
 
 \item{dSprod}{matrix with products of delta S}
 
-\item{norm}{normalize by number of links (l), number or vertices (v) or do not normalize (n)}
+\item{norm}{normalize by number of links (l), number or 
+vertices (v) or do not normalize (n)}
+}
+\value{
+n
 }
 \description{
 Calculation of omega i (internal)

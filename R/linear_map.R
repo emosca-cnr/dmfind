@@ -1,13 +1,18 @@
 #' Linear map
 #'
+#' @description Linear map
 #' @param x numeric vector
-#' @param y.min min value of the new distribution
-#' @param y.max max value of the new distribution
+#' @param yMin min value of the new distribution
+#' @param yMax max value of the new distribution
+#' @return linear map y
+#' @usage linear_map(x, yMin, yMax)
+#' @examples 
+#' \dontrun{linear_map(x, yMin, yMax)}
 #' @export
 
-linear_map <- function (x, y.min, y.max){
-  m <- ((y.max - y.min)/(max(x) - min(x)))
-  c <- y.max - m * max(x)
-  y <- m * x + c
-  return(y)
+linear_map <- function (x, yMin, yMax){
+    m <- ((yMax - yMin)/(max(x) - min(x)))
+    c <- yMax - m * max(x)
+    y <- m * x + c
+    return(y)
 }

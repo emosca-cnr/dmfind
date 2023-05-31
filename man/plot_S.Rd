@@ -2,10 +2,25 @@
 % Please edit documentation in R/plot_S.R
 \name{plot_S}
 \alias{plot_S}
-\title{Plot the results of eval_eps}
+\title{Plot S}
 \usage{
-plot_S(calc_adjND_res = NULL, X0, init_sig_genes = NULL, file = "S.jpg")
+plot_S(calcAdjNDres=NULL, X0, initSigGenes=NULL, file="S.jpg")
+}
+\arguments{
+\item{calcAdjNDres}{XS Matrix from ND}
+
+\item{X0}{X0 matrix}
+
+\item{initSigGenes}{NULL}
+
+\item{file}{filename}
+}
+\value{
+plot
 }
 \description{
-Plot the results of eval_eps
+Plot S
+}
+\examples{
+\dontrun{plot_S(calcAdjNDres=NULL, X0, initSigGenes=NULL, file="S.jpg")}
 }

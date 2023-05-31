@@ -4,21 +4,10 @@
 \alias{sv2dem}
 \title{Pipeline for the extraction of differentially enriched modules from an input vector}
 \usage{
-sv2dem(
-  X,
-  G,
-  mc.cores = 2,
-  NR_p_thr = 0.05,
-  NR_k = 100,
-  min_module_size_final = 10,
-  min_rank = 100,
-  max_rank = 500,
-  NR_max_rank = 600,
-  min_subnet_size = 2,
-  plot_flag = FALSE,
-  plot_outfile = "graph.jpg",
-  ...
-)
+sv2dem(X, G, mc.cores=2, NR_p_thr=0.05, NR_k=100, 
+min_module_size_final=10, min_rank=100, max_rank=500, 
+NR_max_rank=600, min_subnet_size=2, plot_flag=FALSE, 
+plot_outfile="graph.jpg", ...)
 }
 \arguments{
 \item{X}{input vector}
@@ -47,6 +36,15 @@ sv2dem(
 
 \item{...}{further arguments to igraph.plot}
 }
+\value{
+list of values
+}
 \description{
 Pipeline for the extraction of differentially enriched modules from an input vector
+}
+\examples{
+\dontrun{sv2dem(X, G, mc.cores=2, NR_p_thr=0.05, NR_k=100,
+ min_module_size_final=10, min_rank=100, max_rank=500, 
+ NR_max_rank=600, min_subnet_size=2, plot_flag=FALSE, 
+ plot_outfile="graph.jpg")}
 }

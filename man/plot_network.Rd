@@ -2,42 +2,47 @@
 % Please edit documentation in R/plot_network.R
 \name{plot_network}
 \alias{plot_network}
-\title{Extraction and plotting of connected subnetworks from a graph and a set of selected vertices}
+\title{Extraction and plotting of connected subnetworks from a graph 
+and a set of selected vertices}
 \usage{
-plot_network(
-  graph,
-  color_by = NULL,
-  color_quant = TRUE,
-  label_by = "name",
-  pal = NULL,
-  plot_outfile = "graph.jpg",
-  community = NULL,
-  comm_w_in = 2,
-  comm_w_b = 1,
-  lo = NULL,
-  legend.off = FALSE,
-  ...
-)
+plot_network(graph, colorBy=NULL, colorQuant=TRUE, labelBy="name", 
+pal=NULL, plotOutfile="graph.jpg", community=NULL, commWin=2, commWb=1, 
+lo=NULL, legendOff=FALSE, ...)
 }
 \arguments{
 \item{graph}{igraph object}
 
-\item{plot_outfile}{output file}
+\item{colorBy}{object to be colored by an attribute}
+
+\item{colorQuant}{TRUE/FALSE}
+
+\item{labelBy}{select a feature to label the graph}
+
+\item{pal}{palette to color the graph}
+
+\item{plotOutfile}{output file}
+
+\item{community}{communities from network analysis}
+
+\item{commWin}{distance of the vertices inside a community}
+
+\item{commWb}{distance between communities}
+
+\item{lo}{layout}
+
+\item{legendOff}{legend}
 
 \item{...}{additional arguments}
-
-\item{selected_vertices}{subset of vertices}
-
-\item{vertices_subset}{a subset of selected_vertices (optional)}
-
-\item{vertices_weight}{weights (optional)}
-
-\item{vertices_label}{labels (optional)}
-
-\item{min_subnet_size}{minimum size of subnetwork}
-
-\item{plot_flag}{whether to plot or not the network}
+}
+\value{
+plot network
 }
 \description{
-Extraction and plotting of connected subnetworks from a graph and a set of selected vertices
+Extraction and plotting of connected subnetworks 
+from a graph and a set of selected vertices
+}
+\examples{
+\dontrun{if (require("igraph")) plot_network(graph, colorBy=NULL, 
+colorQuant=TRUE, labelBy="name", pal=NULL, plotOutfile="graph.jpg", 
+community=NULL, commWin=2, commWb=1, lo=NULL, legendOff=FALSE)}
 }

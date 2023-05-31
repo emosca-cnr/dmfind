@@ -4,13 +4,19 @@
 \alias{round}
 \title{Scientific approximation}
 \usage{
-round(x, y = 0)
+round(x,y)
 }
 \arguments{
 \item{x}{numeric}
 
 \item{y}{number of digits}
 }
+\value{
+truncated output
+}
 \description{
-Scientific approximation
+scientific approximation
+}
+\examples{
+\dontrun{round(x,y)}
 }
