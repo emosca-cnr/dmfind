@@ -26,11 +26,26 @@
 #' \item{\code{XsAll}}{ transient Xs matrices.}
 #' }
 #' @export
-#'
+#' @importFrom Matrix Matrix
 
-ND <- function(X0, W, alpha=0.7, nMax=1e4, eps=1e-6, finalSmooth=FALSE, 
+ND <- function(X0=NULL, W=NULL, alpha=0.7, nMax=1e4, eps=1e-6, finalSmooth=FALSE, 
                allSteps=FALSE, verbose=FALSE){
 
+    if(!identical(rownames(X0), rownames(W))){
+        cat("Row names of W and X0 are not identical, trying to match...\n")
+        X0 <- X0[match(rownames(W), rownames(X0)), ]
+        cat("nrows of X0 and W:", nrow(X0), "\n")
+    }
+    
+    if(!is(X0, "dgCMatrix")){
+        X0 <- Matrix::Matrix(X0, sparse = TRUE)
+    }
+    if(!is(X0, "dgCMatrix")){
+        W <- Matrix::Matrix(W, sparse = TRUE)
+    }
+    
+    #cat("Alpha: ", alpha, "\n")
+    
     Xs <- X0
     Fprev <- X0
 
