@@ -1,7 +1,6 @@
-#' Plot S
+#' Scatter Plot of NSI values 
 #' @description Plot S
-#' @param calcAdjNDres XS Matrix from ND
-#' @param X0 X0 matrix
+#' @param nsiRes result of calc_dS() or cal_adjND()
 #' @param initSigGenes NULL
 #' @param file filename
 #' @return plot
@@ -13,7 +12,7 @@
 #' @import utils
 #' @export
 
-plot_S <- function(calcAdjNDres=NULL, X0, initSigGenes=NULL, file="S.jpg"){
+plot_S <- function(nsiRes=NULL, initSigGenes=NULL, file="S.jpg"){
 
     if(!is.null(initSigGenes)){
         idxSigGenes <- which(rownames(X0) %in% initSigGenes)

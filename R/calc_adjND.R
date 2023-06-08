@@ -18,8 +18,8 @@
 #' @export
 #'
 calc_adjND <-
-  function(X0,
-           W,
+  function(X0=NULL,
+           W=NULL,
            eps = NULL,
            k = 99,
            mode = c("S", "Xs"),
@@ -89,6 +89,7 @@ calc_adjND <-
     if (mode == "S") {
       if (returnPerm) {
         out <- list(
+          X0 = X0,
           Xs = Xs,
           eps = eps,
           S = S,
@@ -99,6 +100,7 @@ calc_adjND <-
         )
       } else{
         out <- list(
+          X0 = X0,
           Xs = Xs,
           eps = eps,
           S = S,
@@ -109,6 +111,7 @@ calc_adjND <-
     } else{
       if (returnPerm) {
         out <- list(
+          X0 = X0,
           Xs = S,
           eps = eps,
           p = estP,
@@ -118,6 +121,7 @@ calc_adjND <-
         )
       } else{
         out <- list(
+          X0 = X0,
           Xs = S,
           eps = eps,
           p = estP,

@@ -14,7 +14,6 @@ dS <- function(X0 = NULL,
                Xs = NULL,
                classes = NULL,
                eps = NULL) {
-    
     if (!(identical(rownames(X0), rownames(Xs))))
         stop('rownames(X0) and rownames(Xs) are not identicail\n')
     
@@ -31,26 +30,29 @@ dS <- function(X0 = NULL,
         stop("eps must have 2 columns\n")
     }
     
-    X01 <- cbind(X01=Matrix::rowMeans(X0[, classes == 1, drop = FALSE]))
-    X02 <- cbind(X02=Matrix::rowMeans(X0[, classes == 2, drop = FALSE]))
+    X01 <-
+        Matrix::Matrix(Matrix::rowMeans(X0[, classes == 1, drop = FALSE]), sparse = T, dimnames = list(rownames(X0), "X01"))
+    X02 <-
+        Matrix::Matrix(Matrix::rowMeans(X0[, classes == 2, drop = FALSE]), sparse = T, dimnames = list(rownames(X0), "X02"))
     
-    Xs1 <- cbind(Xs1=Matrix::rowMeans(Xs[, classes == 1, drop = FALSE]))
-    Xs2 <- cbind(Xs2=Matrix::rowMeans(Xs[, classes == 2, drop = FALSE]))
+    Xs1 <-
+        Matrix::Matrix(Matrix::rowMeans(Xs[, classes == 1, drop = FALSE]), sparse = T, dimnames = list(rownames(Xs), "Xs1"))
+    Xs2 <-
+        Matrix::Matrix(Matrix::rowMeans(Xs[, classes == 2, drop = FALSE]), sparse = T, dimnames = list(rownames(X0), "Xs2"))
     
-    nsi1 <- nsi(X01, Xs1, eps = eps[, 1, drop=F])
-    nsi2 <- nsi(X02, Xs2, eps = eps[, 2, drop=F])
+    nsi1 <- nsi(X01, Xs1, eps = eps[, 1, drop = F])
+    nsi2 <- nsi(X02, Xs2, eps = eps[, 2, drop = F])
     
     delta_S <- nsi2 - nsi1
     
-    dSdf <-
-        data.frame(
-            S1 = as.numeric(nsi1),
-            S2 = as.numeric(nsi2),
-            dS_2vs1 = as.numeric(delta_S),
-            row.names = rownames(X0),
-            stringsAsFactors = FALSE
-        )
+    ans <- list(
+        X0 = cbind(X01, X02),
+        Xs = cbind(Xs1, Xs2),
+        eps = eps,
+        S = data.frame(S1=as.numeric(nsi1), S2=as.numeric(nsi1), row.names = rownames(nsi1)),
+        dS = data.frame(dS=as.numeric(delta_S), row.names = rownames(delta_S))
+    )
     
-    return(dSdf)
+    return(ans)
     
 }

@@ -101,22 +101,27 @@ dmfind_demo$X0ds[1:5, ]
 The networks smoothing index (NSI) compares the initial state $x_0$ with the steady-state $x_s$ reached after network diffusion:
 
 $$ \mathbf{S} = \frac{\mathbf{x_s}}{\mathbf{x_0}+\epsilon} $$
-where the parameter $\epsilon$ tunes the relevance of the initial state. The impact of $\epsilon$ can be assessed by means of the function `eval_eps()`, which scores the network proximity of $\mathbf{x_0}$ values in the networks composed by the top $k$ genes ranked by $S$. If $\mathbf{X}_0$ contains sample-level data we recommend to tune $\epsilon$ on the basis of the mean initial state of each class. So, the steps are:
+where the parameter $\epsilon$ tunes the relevance of the initial state. The impact of $\epsilon$ can be assessed by means of the function `eval_eps()`, which scores the network proximity of $\mathbf{x_0}$ values in the networks composed by the top $k$ genes ranked by $S$. The scoring uses the $\Omega$ function [@Bersanelli2016]. Given the set $R_r$ defined by the top $r$ genes ranked by decreasing $S(\epsilon)$, we calculate:
 
-1. Perform network diffusion to obtain the steady state; if $\mathbf{X}_0$ contains gene-weights to be analysed with permutation-adusted NSI:
+$$\Omega_0 (R_r;\epsilon)=\mathbf{x}_0^T (R_r;\epsilon) \cdot \mathbf{A}(R_r;\epsilon) \cdot \mathbf{x}_0(R_r;\epsilon)$$
+The values of $\Omega_0$ are calculated between the top $r \in \{2,\dots, n\}$ ranking genes by decreasing $S(\epsilon)$. The impact of different $\epsilon$ is quantified summing such $\Omega_0$ values. 
+
+### Perform network diffusion to obtain the steady state.
+
+if $\mathbf{X}_0$ contains gene-weights to be analysed with permutation-adusted NSI:
 
 ```{r ND, eval=FALSE}
 Xs <- ND(X0, W)$Xs
 ```
 
-while, if $\mathbf{X}_0$ contains sample-level data:
+while, if $\mathbf{X}_0$ contains sample-level data we recommend to tune $\epsilon$ on the basis of the mean initial state of each class:
 
 ```{r ND2, eval=FALSE}
 X0_means <- calc_X0_mean(X0, classes)
 Xs <- ND(X0_means, W)$Xs
 ```
 
-2. run `eval_eps()` over some $\epsilon$ values:
+### Run `eval_eps()` over some $\epsilon$ values:
 
 ```{r eval eps, eval=FALSE}
 eps <- matrix(c(0.01, 0.1, 1, 10, 100), ncol=1)
@@ -125,11 +130,16 @@ out <- eval_eps(X0 = X0, Xs = Xs, eps = eps, G = g)
 plot_omega_eps(out, column = 1)
 ```
 
-where $g$ is the igraph object related to $\mathbf{W}$. The `column` argument of `plot_omega_eps` indicates the column of $\mathbf{X}_0$ against which to plot results. In the example below, we observe similar values of area under the curve (AUC) for $\epsilon>0.1$ calculated using $\mathbf{X}_0$ (left panel), with the highest AUC with $\epsilon=1$, which would be the choice in this case. In general, in cases where we have similar AUCs calculated using $\mathbf{X}_0$, it is possible to look at the AUCs calculated over $\mathbf{X}_s$ to guide the choice of $\epsilon=1$.
+where $g$ is the igraph object related to $\mathbf{W}$. The `column` argument of `plot_omega_eps` indicates the column of $\mathbf{X}_0$ against which to plot results.
+
+In the example below, we observe similar values of area under the curve (AUC) for $\epsilon>0.1$ calculated using $\mathbf{X}_0$ (left panel), with the highest AUC with $\epsilon=1$, which would be the choice in this case. In general, in cases where we have similar AUCs calculated using $\mathbf{X}_0$, it is possible to look at the AUCs calculated over $\mathbf{X}_s$ to guide the choice of $\epsilon=1$.
 
 ![](imgs/eval_eps_res.jpg)
 
+
 ## Calculation of NSI
+
+### Differential NSI (cases vs controls)
 
 The differential NSI
 
@@ -143,6 +153,8 @@ resdS <- calc_dS(X0 = X0, W = W, classes = classes, eps = matrix(c(1, 1), ncol=2
 head(dmfind_demo$dS)
 ```
 where `classes` is a $\{1,2\}-$vector that defines the class of $\mathbf{X}_0$ columns.
+
+### Permutation-based NSI (vectors of gene weights)
 
 The permutation-based NSI
 
@@ -160,6 +172,10 @@ head(dmfind_demo$Sp$S)
 head(dmfind_demo$Sp$p)
 head(dmfind_demo$Sp$Sp)
 ```
+
+## Visualization of the NSI values
+After having 
+
 
 # Definition of the top networks;
 
