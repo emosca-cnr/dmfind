@@ -4,7 +4,7 @@
 \alias{calc_p}
 \title{Estimation of p values}
 \usage{
-calc_p(X)
+calc_p(X = NULL)
 }
 \arguments{
 \item{X}{list of matrices, where the first is the 

@@ -9,6 +9,8 @@ plot_omega_eps(evalEpsRes, file="eval_eps_X0_omega.jpg")
 \arguments{
 \item{evalEpsRes}{Epsilon evaluation}
 
+\item{column}{which columm of evalEpsRes$csX0 and evalEpsRes$csXs}
+
 \item{file}{filename}
 }
 \value{

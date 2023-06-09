@@ -150,7 +150,7 @@ can be calculated by means of the function `calc_dS()`:
 resdS <- calc_dS(X0 = X0, W = W, classes = classes, eps = matrix(c(1, 1), ncol=2))
 ```
 ```{r echo=FALSE}
-head(dmfind_demo$dS)
+lapply(dmfind_demo$dS, head)
 ```
 where `classes` is a $\{1,2\}-$vector that defines the class of $\mathbf{X}_0$ columns.
 
@@ -168,18 +168,44 @@ resSp <- calc_adjND(X0 = X0, W = W, eps = matrix(1), k = 99, BPPARAM = Multicore
 where `BPPARAM` is the optional `BiocParallelParam` instance that describes the parallel back-end and is passed to `bplapply()`, and `k` is the number of permutations. The resulting list contains...
 
 ```{r echo=FALSE}
-head(dmfind_demo$Sp$S)
-head(dmfind_demo$Sp$p)
-head(dmfind_demo$Sp$Sp)
+lapply(dmfind_demo$Sp, head)
 ```
 
 ## Visualization of the NSI values
-After having 
 
+After having calcualted the NSI, we recommend to explore the results by means of scatter plots. In case of $S_p$, typical plots include the relation between $S$ and its significance
 
-# Definition of the top networks;
+```{r eval=FALSE}
+plot_NSI(resSp, x="S", y="p")
+```
+
+![](imgs/p_S.jpg){width=90%} 
+and the relation between $S_p$ and the initial state:
+
+```{r eval=FALSE}
+plot_NSI(resSp, x = "X0", y="Sp")
+```
+![](imgs/Sp_X0.jpg){width=90%}
+
+In case of $\Delta S$, the main visualization is that of $\Delta S$ vs the column of $\mathbf{X}_0$ relative to the cases (the second)
+
+```{r eval=FALSE}
+plot_NSI(resdS, x = "X0", y="dS", column = 2)
+```
+![](imgs/dS_x02.jpg){width=90%} 
+
+# Definition of the top networks
+
+The package `dmfind` provides two types of analysis to guide the choice of the "top" networks, that is the networks that contain the interactions between genes with high $\mathbf{X}_0$:
+
+- **network resampling**, which scores the presence of genes with high NSI values in network proximity;
+- **network enrichment**, which scores network enrichment in genes with high $\mathbf{X}_0$;
+- **modularity analysis**, which scores network modularity
+
+These analysis are applied over a number of top genes by $S_p$ or $\Delta S$. In human genome-wide analysis, a typical number could be 500.
 
 ## Network resampling
+
 Network resampling can be used to asses the presence of significantly connected modules. 
 ```{r include=TRUE, eval=FALSE, message=FALSE, warning=FALSE, results='hide'}
 nr_res <- NR(g, sort(resS$Sp[, 1], decreasing = T), k = 99,

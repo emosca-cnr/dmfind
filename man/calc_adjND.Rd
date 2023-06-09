@@ -4,8 +4,7 @@
 \alias{calc_adjND}
 \title{Calculation of permutation-adjusted network smoothing index}
 \usage{
-calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), mc.cores=1,
-returnPerm=FALSE, ...)
+calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), returnPerm=FALSE, ...)
 }
 \arguments{
 \item{X0}{input matrix}
@@ -16,10 +15,10 @@ returnPerm=FALSE, ...)
 
 \item{k}{number of permutations}
 
-\item{mode}{whether to use network smoothing index (S) or
+\item{mode}{whether to use network smoothing index (S) (default) or
 network smoothing values (Xs)}
 
-\item{mc.cores}{number of cores}
+\item{BPPARAM}{An optional BiocParallelParam instance determining the parallel back-end to be used during evaluation. If NULL, parallel evaluation is disabled using SerialParam(). See ?bplapply.}
 
 \item{returnPerm}{return permutations}
 
@@ -32,6 +31,5 @@ network smoothing values (Xs)}
 Calculation of permutation-adjusted network smoothing index
 }
 \examples{
-\dontrun{calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), mc.cores=1,
-returnPerm=FALSE)}
+\dontrun{calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), returnPerm=FALSE)}
 }
