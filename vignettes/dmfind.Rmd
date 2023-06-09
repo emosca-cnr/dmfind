@@ -68,22 +68,20 @@ The typical steps are the followings:
 
 # Definition of the input matrices;
 
-## Required input
-
 The analysis requires the following inputs:
 
-- $\mathbf{W}$, an $N \times N$ *normalized adjacency matrix*, which represents the interactions between genes; 
+- $\mathbf{W}$, an $N \times N$ *normalized adjacency matrix*, which represents the interactions between genes, e.g.: 
 ```{r W, echo=FALSE}
 head(dmfind_demo$W[1:5, 1:5])
 ```
 
-- $\mathbf{X}_0$, a $N \times m$ matrix with $m$ column vectors $\mathbf{x_0}$  of gene-related quantities; in the example below it is a 10 columns matrix with binary inputs
+- $\mathbf{X}_0$, a $N \times m$ matrix with column vectors $\mathbf{x_0}$ that contain gene-related quantities; in the example below it is a 10 columns matrix with binary inputs
 
 ```{r X0, echo=FALSE}
 dmfind_demo$X0ds[1:5, ]
 ```
 
-- a vector to assign each column of $\mathbf{X}_0$ to any of two classes (only for differential NSI).
+- a vector to assign each column of $\mathbf{X}_0$ to any of two classes (only for differential NSI, see below).
 
 **IMPORTANT**:
 
@@ -91,14 +89,14 @@ dmfind_demo$X0ds[1:5, ]
 * the normalization of the adjacency matrix must be done by means of the function `normalize_adj_mat()`, which requires a symmetric binary adjacency matrix;
 * the definition of $\mathbf{X}_0$ follows two scenarios:
   1. each column carries sample-level information (e.g., mutation profiles of patients) to be analysed by means of the differential NSI between two classes;
-  2. each column incorporates any type of gene weights (e.g., $-log10(p)$) that will be analysed by means of the permutation-based NSI.
-* in any case, the relevance of the rows of $\mathbf{X}_0$ is proportional to its values, that is, the higher the better; negative values are not allowed.
+  2. each column incorporates any type of gene weights (e.g., $-\text{log}_{10}$ of $p$ values from statistical tests) that will be analysed by means of the permutation-based NSI.
+* in any case, the relevance of the genes corresponding to the rows of $\mathbf{X}_0$ is proportional to its values, that is, the higher the better; negative values are not allowed.
 
 # Calculation of the network-smoothing index;
 
 ## Parameter selection
 
-The networks smoothing index (NSI) compares the initial state $x_0$ with the steady-state $x_s$ reached after network diffusion:
+The networks smoothing index (NSI) compares the initial state $\mathbf{x}_0$ with the steady-state $\mathbf{x}_s$ reached after network diffusion:
 
 $$ \mathbf{S} = \frac{\mathbf{x_s}}{\mathbf{x_0}+\epsilon} $$
 where the parameter $\epsilon$ tunes the relevance of the initial state. The impact of $\epsilon$ can be assessed by means of the function `eval_eps()`, which scores the network proximity of $\mathbf{x_0}$ values in the networks composed by the top $k$ genes ranked by $S$. The scoring uses the $\Omega$ function [@Bersanelli2016]. Given the set $R_r$ defined by the top $r$ genes ranked by decreasing $S(\epsilon)$, we calculate:
