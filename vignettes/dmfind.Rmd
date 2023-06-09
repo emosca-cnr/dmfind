@@ -98,7 +98,7 @@ dmfind_demo$X0ds[1:5, ]
 
 The networks smoothing index (NSI) compares the initial state $\mathbf{x}_0$ with the steady-state $\mathbf{x}_s$ reached after network diffusion:
 
-$$ \mathbf{S} = \frac{\mathbf{x_s}}{\mathbf{x_0}+\epsilon} $$
+$$S(j) = \frac{x_s(j)}{x_0(j)+\epsilon}$$
 where the parameter $\epsilon$ tunes the relevance of the initial state. The impact of $\epsilon$ can be assessed by means of the function `eval_eps()`, which scores the network proximity of $\mathbf{x_0}$ values in the networks composed by the top $k$ genes ranked by $S$. The scoring uses the $\Omega$ function [@Bersanelli2016]. Given the set $R_r$ defined by the top $r$ genes ranked by decreasing $S(\epsilon)$, we calculate:
 
 $$\Omega_0 (R_r;\epsilon)=\mathbf{x}_0^T (R_r;\epsilon) \cdot \mathbf{A}(R_r;\epsilon) \cdot \mathbf{x}_0(R_r;\epsilon)$$
