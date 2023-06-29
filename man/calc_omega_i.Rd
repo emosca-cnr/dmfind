@@ -4,7 +4,7 @@
 \alias{calc_omega_i}
 \title{Calculation of omega i (internal)}
 \usage{
-calc_omega_i(idx, Ai, dSprod, norm = c("n", "l", "v"))
+calc_omega_i(idx = NULL, Ai = NULL, dSprod = NULL, norm = c("n", "l", "v"))
 }
 \arguments{
 \item{idx}{index}

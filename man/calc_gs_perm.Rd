@@ -4,7 +4,7 @@
 \alias{calc_gs_perm}
 \title{Internal function of pathtools}
 \usage{
-calc_gs_perm(rll, perm, gs)
+calc_gs_perm(rll = NULL, perm = NULL, gs = NULL)
 }
 \arguments{
 \item{rll}{numeric matrix of genes-by-ranking criteria; each column contains

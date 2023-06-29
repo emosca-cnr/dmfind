@@ -8,7 +8,7 @@
 #' vertices (v) or do not normalize (n)
 #' @return n
 
-calc_omega_i <- function(idx, Ai, dSprod, norm=c("n", "l", "v")){
+calc_omega_i <- function(idx=NULL, Ai=NULL, dSprod=NULL, norm=c("n", "l", "v")){
 
     norm <- match.arg(norm, c("n", "l", "v"))
 

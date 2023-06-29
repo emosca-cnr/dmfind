@@ -204,103 +204,140 @@ These analysis are applied over a number of top genes by $S_p$ or $\Delta S$. In
 
 ## Network resampling
 
-Network resampling can be used to asses the presence of significantly connected modules. 
+Network resampling can be used to asses the presence of significantly connected modules
 ```{r include=TRUE, eval=FALSE, message=FALSE, warning=FALSE, results='hide'}
-nr_res <- NR(g, sort(resS$Sp[, 1], decreasing = T), k = 99,
-          mc.cores = 2)
-sigcomp <- find_sign_conn_comp(NR_summary = nr_res$NR_summary, NR_p_thr = 0.2)
-plot_NR(nr_res, sign_comp_table = sigcomp$sign_comp_table)
+nr_res <- NR(g, sort(resSp$Sp[, 1], decreasing = T), k = 99, mc.cores = 2)
+plot_NR(nr_res)
 ```
-```{r fig.width=4, eval=FALSE, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
-knitr::include_graphics("imgs_2/NR.jpg")
-```
-The variation of the empirical $p$-value with gene rank suggests modules with high scores in network proximity. Note that this procedure is designed to focus on the top of a gene list, in this small example the top 30 genes out of a network of 61.
+In the example below, we observe that the real $\Omega$ vlaues begins to be clearly higher than permuted values after approximately the top 120 genes. This patterns indicate the presence of high scoring connected networks when considering the top 120 genes. Adding further genes neither improve nor worsens the situation.
+
+![](imgs/NR_res.jpg){width=90%} 
 
 ## Enrichment analysis
-Sorting the genes by the initial score $X0$ we can see the enrichment level in the first $N$-ordered genes.
+
+The enrichment analysis assess to which extent the top networks are enriched in high $\mathbf{x}_0$ values. Depending on how $\mathbf{x}_0$ is defined, this task can be done by means of Over Representation Analysis (ORA) or Gene Set Enrichment Analysis (GSEA). In the following example, we explore the enrichment of the networks formed by the top 200 genes by $S_p$, using GSEA:
+
 ```{r include=TRUE, eval=FALSE, message=FALSE, warning=FALSE, results='hide'}
-scores <- scores[order(-scores$X0), ]
-compare_X0_ND(g, X0_ranked_by_ND = setNames(scores$X0, rownames(scores)),
-              X0_ranked_by_X0 = sort(setNames(scores$X0, rownames(scores)), 
-              decreasing = T), do.plot = T, file = "cmp_X0_ND.jpg", norm = "n")
-
-ae_res <- assess_enrichment(G=g, top_list = rownames(scores), 
-          ranked_vector_X0 = sort(setNames(scores$X0, rownames(scores)), 
-          decreasing = T), do.plot = T, critical = sigcomp$critical,
-          file="top_net_enrichment.jpg")
-```
-```{r, out.width="50%", eval=FALSE, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
-knitr::include_graphics("imgs_2/cmp_X0_ND.jpg")
-```
-```{r, out.width="50%", eval=FALSE, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
-knitr::include_graphics("imgs_2/top_net_enrichment.jpg")
+ae_res_gsea <- assess_enrichment(G=G, topList = rownames(resSp$Sp)[order(-resSp$Sp[, 1])[1:200]], X0Vector = sort(X0[, 1], decreasing = T), type = "gsea", k = 499) 
+plot_net_enrich(ae_res_gsea)
 ```
 
-## Percentage of significant nodes
+![](imgs/top_net_enrichment_gsea.jpg){width=90%}
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
+head(dmfind_demo$ae_gsea$en_summary)
+```
+and using ORA:
+
+```{r include=TRUE, eval=FALSE, message=FALSE, warning=FALSE, results='hide'}
+ae_res_ora <- assess_enrichment(G=G, topList = rownames(resSp$Sp)[order(-resSp$Sp[, 1])[1:200]], X0Vector = sort(X0[, 1], decreasing = T), type = "ora")
+plot_net_enrich(ae_res_ora)
+```
+
+![](imgs/top_net_enrichment_ora.jpg){width=90%} 
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
+head(dmfind_demo$ae_gsea$en_summary)
+```
+
+## Comparison of NR and NE
+
+It's possible to compare the results of network resampling and network enrichment and obtain the rank that correpond to the most significant pairs of p-values:
+
+```{r eval=FALSE}
+top_net_sig <- cmp_top_net_scores(NRRes = nr_res, netEnrRes = ae_res)
+head(top_net_sig)
+```
+
+```{r echo=FALSE}
+dmfind_demo$top_net_sig
+```
+
+where `score` is equal to the product between the two $-\text{log}_{10}(p)$.
+
+![](imgs/top_net_sig.jpg){width=90%} 
+
+## Modularity assessment
+
+The function `assess_modularity()` quantifies the community structure and the modularity of between the top $k$ genes. This is another piece of information that can be useful to select the top networks. In this example, we study the modularity between tthe top 200 genes sorted by $S_p$:
+
+```{r eval=FALSE}
+assess_mod_res <- assess_modularity(G = G, vertices = rownames(resSp$Sp)[order(-resSp$Sp[, 1])[1:200]])
+```
+The output is a table with the trend of the modularity and number of communities at various ranks between the top genes considered.
+```{r echo=FALSE}
+head(dmfind_demo$am_res)
+```
+These results can be plotted through `plot_modu_trend()`.
+
+![](imgs/mod_trend.jpg){width=90%} 
+
 
 ## Top networks definition
-Based on the enrichment score, we define a subnetwork (top network) composed by the first $N$-ordered enriched genes.
-```{r include=TRUE, eval=FALSE, message=FALSE, warning=FALSE, results='hide'}
-top_network <- extract_module(graph = g, selected_vertices =
-               nr_res$NR_summary$id, X0 = X0, 
-               min_subnet_size = 2)
+Once the rank that is associated to the top networks that one considers optimal, these can be extracted by means of `extract_module()`. Here we consider the top 120 genes by $S_p$:
+
+```{r eval=FALSE}
+top_networks <- extract_module(graph = G, selectedVertices = rownames(resSp$Sp)[order(-resSp$Sp[, 1])[1:180]], NSIRes = resSp, minSubnetSize = 2)
 ```
 
-# Topological analysis
+```{r echo=FALSE}
+summary(dmfind_demo$top_nets)
+```
+
+# Topological charcaterization of top networks
+
+## Community structure
+
+The function `find_communities()` run a series of algorithms from igraph to detect the presence of communities
 
 We can also assess a topological analysis of our network.
-```{r include=TRUE, eval=FALSE, message=FALSE, warning=FALSE}
+```{r eval=FALSE}
 res_comm <- find_communities(top_network)
 ```
-
-```{r fig.width=4, eval=FALSE, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
-knitr::include_graphics("imgs_2/comm_network.png")
+```{r echo=FALSE}
+dmfind_demo$res_comm$info
 ```
 
-## Visualization - network of communities
-```{r eval=FALSE, include=TRUE}
-commNet <- comm_net(top_network)
-plot_network(commNet[[1]], color_by = "comm_id", pal=pal, comm_w_in = 0.1, comm_w_b = 10,
-             plot_outfile = "comm_net.jpg", legend.off = T, min_subnet_size = 2)
+After having decided which the best partition (e.g. the one that maximes the modularity), this can be added to the top networks:
+```{r eval=FALSE}
+top_networks <- assign_communities(top_networks, res_comm$comm$multilev)
 ```
-```{r, out.width="50%", eval=FALSE, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
-knitr::include_graphics("imgs_2/comm_net.jpg")
+```{r echo=FALSE}
+summary(dmfind_demo$top_nets)
 ```
 
+## Functional cartography
 
-## Define nodes roles based on partecipation coefficient and z-score
-Each gene can be spatial represented. To define the role of each node we need to calculate the participation coefficient (pc) and the within module z-score (wmz). Then, based on those two parameters, we can define regions (and roles).
+The function `functional_cartography()` performs the functional cartography analysis [@Guimera2005], where each gene is scored by its participation coefficient $P$ and the within module degree score, which is a z-score [@Guimera2005] or a probability of interaction [@Joyce2010]. These values are used to classify genes in 7 classes:
 
-With this definition the space is divided in two categories: hubs and non-hubs.
-To define who is a hub we cut the space on the y-axis, proportionally to the maximum value of z-score.
-Then, we define regions accordingly to participation coefficient.
+* ultra peripheral nodes (R1): nodes with all their links within their module;
 
-*For “non-hub” nodes:*
+* peripheral nodes (R2): nodes with most links within their module;
 
-R1 – ultra peripheral nodes: nodes with all their links within their module (pc <= 0.05);
+* non-hubs connector nodes (R3): nodes with many links to other modules;
 
-R2 – peripheral nodes: nodes with most links within their module (0.05 < pc <= 0.62);
+* non-hubs kinless nodes (R4): nodes with links homogeneously distributed among all modules.
 
-R3 – non-hubs connector nodes: nodes with many links to other modules (0.62 < pc <= 0.8);
+* provincial nodes (R5): hub nodes with the vast majority of links within their module (pc <= 0.3);
 
-R4 – non-hubs kinless nodes: nodes with links homogeneously distributed among all modules (pc > 0.8).
+* connector hubs (R6): hubs with many links to most of the other modules (0.30 < pc <= 0.75);
 
-*For the “hub” nodes:*
-
-R5 – provincial nodes: hub nodes with the vast majority of links within their module (pc <= 0.3);
-
-R6 – connector hubs: hubs with many links to most of the other modules (0.30 < pc <= 0.75);
-
-R7 – kinless hubs: hubs with links homogeneously distributed among all modules (pc > 0.75).
+* kinless hubs (R7): hubs with links homogeneously distributed among all modules (pc > 0.75).
 
 ```{r eval=FALSE, include=TRUE}
-pc_wmz(top_network, do_plot=T, all_names = T)
+top_networks <- functional_cartography(top_networks)
 ```
-```{r fig.width=4, eval=FALSE, echo=FALSE, warning=FALSE, message=F, results='show', eval=TRUE} 
-knitr::include_graphics("imgs_2/pc_wmz.jpg")
-```
+The output will contain the vertex attributes `R`, `P`, and `wmd_score`. A dedicated function exist to obtain the functional cartography:
 
-## Network comparison
+```{r eval=FALSE, include=TRUE}
+plot_fc(dmfind_demo$top_nets)
+```
+![](imgs/fc.jpg){width=90%} 
+
+## Network comparison - TO DO
+
+This section is a draft.
+
 There are several ways to compare networks: with the function "net_comparison" we could perform some analysis, such as union, intersection, Jaccard index & Overlap coefficient calculation
 
 The input data must be a list of n interactomes
@@ -312,6 +349,47 @@ NetComp(NetList, union=T, intersection=T, centrMeas=T, ji=T, oc=T)
 
 This function return a list containing the occurrences matrix where every column are the input networks
 Optionally you can choose to perform the union, the intersection (both vertices and edges), the calculation of the Jaccard index, the Overlap coefficient and the centrality measures for every input interactome.
+
+
+# Visualization
+
+The function `plot_network()` provides a means to produce network visualizations. For example, here we plot the network producing a layout that takes into account the community structure and color the genes by $\mathbf{x}_0$ (a $\{0,1\}-$vector)
+
+```{r eval=FALSE}
+lo <- plot_network(top_networks, colorBy = "X0", colorQuant = F, pal = c("gray", "purple"), labelBy = "", community = res_comm$comm$multilev, vertex.size=5)
+```
+![](imgs/top_nets_X0.jpg){width=90%} 
+
+In this other example, we color by community, using the layout obtained from the previous plot:
+```{r eval=FALSE}
+plot_network(top_networks, colorBy = "comm_id", colorQuant = F, pal = pals::brewer.pastel1(length(unique(V(top_networks)$comm_id))), labelBy = "", community = res_comm$comm$multilev, vertex.size=5, lo=lo)
+```
+![](imgs/top_nets_comm.jpg){width=90%} 
+The package provides a means to reconstruct the network of communities:
+
+```{r eval=FALSE, include=TRUE}
+commNet <- comm_net(top_networks)
+plot_network(commNet, colorBy = "name", colorQuant = F, pal = pals::brewer.pastel1(vcount(commNet)), labelBy = "name")
+```
+The number of genes of every community is stored in the vertex attribute `w`:
+
+```{r echo=FALSE}
+V(dmfind_demo$commNet)$w
+```
+
+![](imgs/comm_net.jpg){width=90%} 
+Throught the argument `remove.multiple = T` the network will have just one link for every pairs of community. In this case, the number of links between genes of two communities is stored in the  edge attribute `w`:
+
+```{r eval=FALSE, include=TRUE}
+commNet <- comm_net(dmfind_demo$top_nets, remove.multiple = T)
+plot_network(commNet, colorBy = "name", colorQuant = F, pal = pals::brewer.pastel1(vcount(commNet)), labelBy = "name")
+```
+```{r echo=FALSE}
+E(dmfind_demo$commNet)$w
+```
+
+![](imgs/comm_net_simp.jpg){width=90%} 
+
 
 # Session Info {- .smaller}
 ```{r sessioninfo}

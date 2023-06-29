@@ -19,8 +19,8 @@
 #' @export
 #'
 
-NetComp <- function(NetList, union=FALSE, intersection=FALSE,
-                    centrMeas=FALSE, ji=FALSE, oc=FALSE) {
+network_comparison <- function(NetList=NULL, union=TRUE, intersection=TRUE,
+                    centrMeas=TRUE, ji=TRUE, oc=TRUE) {
     ### 1) create occurrences matrix (DEFAULT)
     genes <- data.frame(V(NetList[[1]])$name)
     for (i in 2:length(NetList)) {

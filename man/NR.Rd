@@ -9,16 +9,16 @@ NR(G, rankedVector, k=99, mc.cores=1, nullModel="A", norm="n")
 \arguments{
 \item{G}{gene x gene undirected interaction graph}
 
-\item{rankedVector}{scores vector; it must have the same 
+\item{rankedVector}{scores vector; it must have the same
 names and size of the vertices of G}
 
 \item{k}{number of permutations}
 
-\item{mc.cores}{number of cores}
-
 \item{nullModel}{null model type}
 
 \item{norm}{type of normalization}
+
+\item{BPPARAM}{An optional BiocParallelParam instance determining the parallel back-end to be used during evaluation. If NULL, parallel evaluation is disabled using SerialParam(). See ?bplapply.}
 }
 \value{
 list of values

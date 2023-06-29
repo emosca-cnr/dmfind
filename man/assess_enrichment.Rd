@@ -6,38 +6,29 @@
 \usage{
 assess_enrichment(
   G = NULL,
-  top_list = NULL,
+  topList = NULL,
   ranks = NULL,
-  X0_vector = NULL,
+  X0Vector = NULL,
   type = c("gsea", "ora"),
   k = 99,
-  do.plot = FALSE,
   critical = NULL,
-  show_top_sig = 10,
-  file = "top_net_enrichment.jpg",
-  min_component_size = 2,
-  min_net_size = 10,
-  min.k.nes = 10
+  minComponentSize = 2,
+  minNetSize = 10,
+  minKNes = 10,
+  BPPARAMGsl = NULL,
+  BPPARAMK = NULL
 )
 }
 \arguments{
 \item{G}{igraph object}
 
-\item{top_list}{ranked list of vertex names that will be used to define top networks}
+\item{topList}{ranked list of vertex names that will be used to define top networks}
 
-\item{ranks}{ranks of top_list that will be assessed}
+\item{ranks}{ranks of topList that will be assessed}
 
-\item{X0_vector}{named numeric vector that will be tested with GSEA or ORA. In case of GSEA it will be ranked by decreasing orderg, while in the case of ORA the names of the X0 values grater than 0 will be tested for enrichment, while all X0 names will be the universe.}
+\item{X0Vector}{named numeric vector that will be tested with GSEA or ORA. In case of GSEA it will be ranked by decreasing orderg, while in the case of ORA the names of the X0 values grater than 0 will be tested for enrichment, while all X0 names will be the universe.}
 
 \item{k}{number of permutations}
-
-\item{do.plot}{whether to plot or not}
-
-\item{critical}{a possible rank to draw in the plot}
-
-\item{show_top_sig}{if not NULL, an integer that indicatesd the number of top significant ranks to display}
-
-\item{file}{output file name}
 }
 \description{
 assess enrichment of the top networks

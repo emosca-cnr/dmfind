@@ -31,6 +31,11 @@ plot_NSI <-
             y_data <- -log10(nsiRes[[y]][, column])
             y <- "-log10(p)"
         }
+        if (y == "eFDR") {
+            y_data <- -log10(nsiRes[[y]][, column])
+            y <- "-log10(q)"
+        }
+        
         
         if (!is.null(file)) {
             jpeg(

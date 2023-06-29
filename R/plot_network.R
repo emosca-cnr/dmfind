@@ -74,7 +74,7 @@ plot_network <- function(graph, colorBy=NULL, colorQuant=TRUE,
         plot.new()
         legend("bottomright", levels(factor(colorValues, 
               levels=sort(unique(colorValues)))), 
-              col=pal, pch=16, bty="n", cex=0.6)
+              col=pal, pch=16, bty="n", cex=0.8)
     }
 
     if(!is.null(plotOutfile)){

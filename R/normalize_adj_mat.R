@@ -8,14 +8,14 @@
 #' @examples 
 #' \dontrun{normalize_adj_mat(A)}
 #' 
-normalize_adj_mat <- function(A){
+normalize_adj_mat <- function(A=NULL){
 
   #dii = degree(i)
   #aij' = aij / sqrt(dii * dij)
 
-  ArowSums <- sqrt(rowSums(A))
-  ArowSumsMat <- matrix(rep(ArowSums, dim(A)[1]), dim(A)[1], dim(A)[2])
-  AcolSumsMat <- matrix(rep(ArowSums, dim(A)[1]), dim(A)[1], dim(A)[2], 
+  ArowSums <- sqrt(Matrix::rowSums(A))
+  ArowSumsMat <- Matrix::Matrix(rep(ArowSums, dim(A)[1]), dim(A)[1], dim(A)[2])
+  AcolSumsMat <- Matrix::Matrix(rep(ArowSums, dim(A)[1]), dim(A)[1], dim(A)[2], 
                         byrow=TRUE)
   Anorm <- A / ArowSumsMat / AcolSumsMat
   rownames(Anorm) <- rownames(A)

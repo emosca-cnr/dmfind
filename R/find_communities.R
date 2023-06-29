@@ -17,13 +17,11 @@
 #'   "multilev", "infomap"))}
 #' @import igraph
 #' @export
-find_communities <- function(g, eWeights=NULL, vWeights=NULL, 
-                             verbose=TRUE, methods=c("fastgreedy", 
-                             "labprop", "walktrap", "eigen", 
-                             "multilev", "infomap")){
+find_communities <- function(g=NULL, eWeights=NULL, vWeights=NULL, 
+                             verbose=TRUE, methods=c("fastgreedy", "multilev")){
 
-    commList <- vector('list', 6)
-    names(commList) <- methods
+    commList <- setNames(vector('list', length = length(methods)), methods)
+    
     commInfo <- data.frame(algorithm=methods,
                             modularity=NA,
                             n=NA,

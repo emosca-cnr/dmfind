@@ -6,7 +6,7 @@
 #' @param perm vector of permuted names
 #' @param gs gene set
 #' @return n
-calc_gs_perm <- function(rll, perm, gs){
+calc_gs_perm <- function(rll=NULL, perm=NULL, gs=NULL){
 
     #out <- es(which(perm %in% gs), array(rl, dimnames=list(perm)))
     out <- unlist(lapply(rll, function(x) es(which(perm %in% gs), 

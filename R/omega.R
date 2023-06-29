@@ -12,7 +12,7 @@
 #' @import igraph
 #' @export
 
-omega <- function(G, u, norm=c("n", "l", "v")) {
+omega <- function(G=NULL, u=NULL, norm=c("n", "l", "v")) {
 
     norm <- match.arg(norm, c("n", "l", "v"))
 

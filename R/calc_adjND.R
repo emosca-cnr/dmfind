@@ -18,8 +18,8 @@
 #' @export
 #'
 calc_adjND <-
-  function(X0=NULL,
-           W=NULL,
+  function(X0 = NULL,
+           W = NULL,
            eps = NULL,
            k = 99,
            mode = c("S", "Xs"),
@@ -86,6 +86,17 @@ calc_adjND <-
     estP <- calc_p(all_S)
     S <- all_S[[1]]
     
+    e_fdr <- X0
+    for (i in 1:ncol(e_fdr)) {
+      all_values <-
+        unlist(lapply(all_S, function(S_perm)
+          S_perm[, i])) #the ith-column of every permutation
+      e_fdr[, i] <-
+        eFDR(realValues = S[, i],
+             allValues = all_values,
+             BPPARAM = BPPARAM)
+    }
+    
     if (mode == "S") {
       if (returnPerm) {
         out <- list(
@@ -95,8 +106,10 @@ calc_adjND <-
           S = S,
           p = estP,
           Sp = S * -log10(estP),
+          eFDR = e_fdr,
           allX0 = allX0,
-          allXS = allXS
+          allXS = allXS,
+          all_S = all_S
         )
       } else{
         out <- list(
@@ -105,7 +118,8 @@ calc_adjND <-
           eps = eps,
           S = S,
           p = estP,
-          Sp = S * -log10(estP)
+          Sp = S * -log10(estP),
+          eFDR = e_fdr
         )
       }
     } else{
@@ -116,6 +130,7 @@ calc_adjND <-
           eps = eps,
           p = estP,
           Xsp = S * -log10(estP),
+          eFDR = e_fdr,
           allX0 = allX0,
           allXS = allXS
         )
@@ -125,7 +140,8 @@ calc_adjND <-
           Xs = S,
           eps = eps,
           p = estP,
-          Xsp = S * -log10(estP)
+          Xsp = S * -log10(estP),
+          eFDR = e_fdr
         )
       }
     }

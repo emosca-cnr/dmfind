@@ -11,8 +11,6 @@ extract_module(graph, selectedVertices, X0=NULL, minSubnetSize=2)
 
 \item{selectedVertices}{subset of vertices}
 
-\item{X0}{X0 matrix}
-
 \item{minSubnetSize}{minimum size of subnetwork}
 }
 \value{
