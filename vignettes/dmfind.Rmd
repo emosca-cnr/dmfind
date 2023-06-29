@@ -250,12 +250,12 @@ head(top_net_sig)
 ```
 
 ```{r echo=FALSE}
-dmfind_demo$top_net_sig
+head(dmfind_demo$top_net_sig)
 ```
 
 where `score` is equal to the product between the two $-\text{log}_{10}(p)$.
 
-![](imgs/top_net_sig.jpg){width=90%} 
+![](imgs/top_net_sig.jpg){width=100%} 
 
 ## Modularity assessment
 
