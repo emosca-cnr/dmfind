@@ -4,25 +4,18 @@
 \alias{omega_perm}
 \title{Calculation of permuted omega function}
 \usage{
-omega_perm(idx, G, dS, null_model="A", norm="n")
+omega_perm(idx = NULL, dS = NULL, Ai = NULL)
 }
 \arguments{
 \item{idx}{vector of randomly resampled dS scores;
 the names must be the same as dS's}
 
-\item{G}{gene x gene undirected interaction graph}
-
 \item{dS}{scores vector; it must have the same names
 and size of the vertices of G}
-
-\item{norm}{type of normalization}
 }
 \value{
 vector of permuted omega
 }
 \description{
 Calculation of permuted omega function
-}
-\examples{
-\dontrun{omega_perm(idx, G, dS, null_model="A", norm="n")}
 }

@@ -14,7 +14,7 @@
 #' @examples
 #' \dontrun{calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), returnPerm=FALSE)}
 #' @return \code{data.frame} with X0, Xs, S, p and Sp
-#' @import BiocParallel
+#' @import BiocParallel NPATools
 #' @export
 #'
 calc_adjND <-
@@ -25,6 +25,9 @@ calc_adjND <-
            mode = c("S", "Xs"),
            BPPARAM = NULL,
            returnPerm = FALSE,
+           bin_type = "number",
+           method = "simple",
+           cut_par = 20,
            ...) {
     mode <- match.arg(mode)
     
@@ -48,22 +51,24 @@ calc_adjND <-
       stop("eps must have the same number of columns of X0\n")
     }
     
-    allX0 <-
-      c(list(X0), lapply(1:k, function(x)
-        matrix(
-          as.numeric(X0),
-          ncol = ncol(X0),
-          dimnames =
-            list(sample(rownames(X0), nrow(X0)))
-        )))
+    # allX0 <-
+    #   c(list(X0), lapply(1:k, function(x)
+    #     matrix(
+    #       as.numeric(X0),
+    #       ncol = ncol(X0),
+    #       dimnames =
+    #         list(sample(rownames(X0), nrow(X0)))
+    #     )))
     
-    allX0 <- BiocParallel::bplapply(allX0, function(x)
+    allX0 <- perm_X0(X0 = X0, A=W, k=k, cut_par = cut_par, bin_type = bin_type, method = method)
+    
+    allX0 <- bplapply(allX0, function(x)
       x[match(rownames(W), rownames(x)), , drop = FALSE], BPPARAM = BPPARAM)
     
     cat("network propagation\n")
     
     allXS <- BiocParallel::bplapply(allX0, function(x)
-      ND(x, W, ...)$Xs, BPPARAM = BPPARAM)
+      ND(X0 = x, W = W, ...), BPPARAM = BPPARAM)
     
     
     if (mode == "S") {
@@ -92,8 +97,8 @@ calc_adjND <-
         unlist(lapply(all_S, function(S_perm)
           S_perm[, i])) #the ith-column of every permutation
       e_fdr[, i] <-
-        eFDR(realValues = S[, i],
-             allValues = all_values,
+        eFDR(real_values = S[, i],
+             all_values = all_values,
              BPPARAM = BPPARAM)
     }
     

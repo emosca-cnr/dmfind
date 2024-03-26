@@ -1,8 +1,8 @@
 Package: dmfind
 Type: Package
 Title: Network diffusion-based analysis of omics data
-Version: 1.3.1
-Date: 2023-06-29
+Version: 1.3.3
+Date: 2024-03-26
 Authors@R: c(person("Ettore", "Mosca", role = c("aut", "cre"),
 		     email = "ettore.mosca@itb.cnr.it"),
 		     person("Valentina", "Nale", role = "aut"),
@@ -22,12 +22,13 @@ Imports:
   graphics,
   grDevices,
   utils,
-  htmltools
+  htmltools,
+  NPATools,
+  qvalue
 Depends: R (>= 4.1.0)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 Suggests: knitr, rmarkdown, BiocStyle
 VignetteBuilder: knitr
 NeedsCompilation: no
 Maintainer: Ettore Mosca <ettore.mosca@itb.cnr.it>
 Encoding: UTF-8
-

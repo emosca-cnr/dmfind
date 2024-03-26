@@ -4,7 +4,13 @@
 \alias{extract_module}
 \title{Extraction and plotting of connected subnetworks from a graph and a set of selected vertices}
 \usage{
-extract_module(graph, selectedVertices, X0=NULL, minSubnetSize=2)
+extract_module(
+  graph = NULL,
+  selectedVertices = NULL,
+  NSIRes = NULL,
+  column = 1,
+  minSubnetSize = 2
+)
 }
 \arguments{
 \item{graph}{igraph object}
@@ -19,7 +25,4 @@ subnetwork
 \description{
 Extraction and plotting of connected subnetworks from a 
 graph and a set of selected vertices
-}
-\examples{
-\dontrun{extract_module(graph, selectedVertices, X0=NULL, minSubnetSize=2)}
 }

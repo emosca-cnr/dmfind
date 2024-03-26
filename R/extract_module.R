@@ -6,16 +6,14 @@
 #' @param selectedVertices subset of vertices
 #' @param minSubnetSize minimum size of subnetwork
 #' @return subnetwork 
-#' @usage extract_module(graph, selectedVertices, X0=NULL, minSubnetSize=2)
-#' @examples 
-#' \dontrun{extract_module(graph, selectedVertices, X0=NULL, minSubnetSize=2)}
 #' @export
 #' @import igraph
+#' @importFrom NPATools get_nconn_comp
 
 extract_module <- function(graph=NULL, selectedVertices=NULL, NSIRes=NULL, column=1, minSubnetSize=2){
 
     #network between the selected gene
-    dm <- igraph::induced_subgraph(graph, 
+    dm <- induced_subgraph(graph, 
           V(graph)$name[match(selectedVertices, V(graph)$name)])
 
   
@@ -36,12 +34,12 @@ extract_module <- function(graph=NULL, selectedVertices=NULL, NSIRes=NULL, colum
     
 
     #get components and plot the graphs
-    dmClusters <- igraph::clusters(dm)
+    dmClusters <- clusters(dm)
     V(dm)$subnetId <- dmClusters$membership
     V(dm)$subnetSize <- dmClusters$csize[dmClusters$membership]
 
     #plot
-    dmComponents <- get_nconn_comp(dm, n = minSubnetSize)
+    dmComponents <- get_nconn_comp(x = dm, n = minSubnetSize)
 
     return(dmComponents)
 

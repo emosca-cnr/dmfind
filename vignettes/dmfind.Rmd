@@ -58,10 +58,11 @@ If you use this package please cite:
 To install this package, start R and enter:
 
 ```{r install, eval=FALSE}
-if (!requireNamespace("BiocManager", quietly = TRUE)){
-  install.packages("BiocManager")
+if (!requireNamespace("devtools", quietly = TRUE)){
+  install.packages(devtools)
 }
-BiocManager::install("dmfind")
+devtools::install_github("emosca-cnr/NPATools", build_vignettes=T)
+devtools::install_github("emosca-cnr/dmfind", build_vignettes=T)
 ```
 
 ## Overview of the workflow

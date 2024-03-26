@@ -7,9 +7,9 @@
 cmp_pc_wmz(PcWmz_A, PcWmz_B)
 }
 \arguments{
-\item{resSp}{dataframe resulting from resSp}
+\item{netEnrRes}{dataframe resulting from 'assess_enrichment'}
 
-\item{ae_res_full}{dataframe resulting from 'assess_enrichment'}
+\item{resSp}{dataframe resulting from resSp}
 
 \item{start}{start}
 

@@ -13,13 +13,12 @@
 #' @import utils
 #' @export
 
-plot_NR <- function(nrRes=NULL, signCompTable=NULL, file="NR.jpg"){
+plot_NR <- function(nrRes=NULL, signCompTable=NULL){
 
     if(!is.null(signCompTable)){
         selectedRanks <- max(signCompTable$rank[signCompTable$selected==1])
     }
 
-    jpeg(file, width = 180, height = 90, units="mm", res=300)
 
     par(mfrow=c(1, 2))
     par(mar=c(4, 4, 1, 1))
@@ -45,6 +44,5 @@ plot_NR <- function(nrRes=NULL, signCompTable=NULL, file="NR.jpg"){
         abline(v=selectedRanks, col="purple", lty=2, lwd=1)
     }
 
-    dev.off()
 
 }

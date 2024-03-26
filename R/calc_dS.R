@@ -12,7 +12,7 @@
 #' \dontrun{calc_dS(X0, A, classes, eps=1)}
 #' @return \code{data.frame} with delta gene network smoothing indexes
 #' @export
-#'
+#' @import NPATools
 calc_dS <- function(X0=NULL, W=NULL, classes=NULL, eps=NULL, ...){
 
     if(is.null(classes)){
@@ -32,7 +32,7 @@ calc_dS <- function(X0=NULL, W=NULL, classes=NULL, eps=NULL, ...){
     }
     
     cat("network propagation\n")
-    Xs <- ND(X0, W, ...)$Xs
+    Xs <- ND(X0 = X0, W = W, ...)
 
     cat("calculation of dS\n")
 

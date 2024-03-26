@@ -1,7 +1,7 @@
 #' enrichment_significance Define significance for enriched genes
 #'
 #' @description Define significance for enriched genes
-#' @param ae_res_full dataframe resulting from 'assess_enrichment'
+#' @param netEnrRes dataframe resulting from 'assess_enrichment'
 #' @param resSp dataframe resulting from resSp
 #' @param start start
 #' @param end end
@@ -21,7 +21,7 @@ plot_NSIsig_vs_enrich <- function(netEnrRes=NULL, resSp=NULL, column=1, sigThr=0
   p_sorted <- resSp$p[order(-resSp$Sp[, column]), column]
   
   xx <- -log10(netEnrRes$en_summary[, sigStat])
-  yy <- sapply(as.numeric(netEnrRes$en_summary$id), function(x) sum(p_sorted[1:x] < sigThr) / x)
+  yy <- sapply(as.numeric(netEnrRes$en_summary$rank), function(x) sum(p_sorted[1:x] < sigThr) / x)
 
   xx_norm <- 1 + (xx - min(xx)) / ( max(xx) - min(xx))
   yy_norm <- 1 + (yy - min(yy)) / ( max(yy) - min(yy))
@@ -49,13 +49,13 @@ plot_NSIsig_vs_enrich <- function(netEnrRes=NULL, resSp=NULL, column=1, sigThr=0
   
   text_col <- rep("black", length(xx))
   text_col[idx_max] <- "red"
-  thigmophobe.labels(xx, yy, netEnrRes$en_summary$id, cex = 0.7, col=text_col)
+  thigmophobe.labels(xx, yy, netEnrRes$en_summary$rank, cex = 0.7, col=text_col)
   
   if (!is.null(file)) {
     dev.off()
   }
   
-  ans <- data.frame(id=netEnrRes$en_summary$id, mlog10p=xx, fp=yy, mlog10p_norm=xx_norm, fp_norm=yy_norm, s=xyarea)
+  ans <- data.frame(id=netEnrRes$en_summary$rank, mlog10p=xx, fp=yy, mlog10p_norm=xx_norm, fp_norm=yy_norm, s=xyarea)
   
   return(ans)
 

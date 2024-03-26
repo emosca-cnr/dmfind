@@ -3,16 +3,16 @@
 \docType{data}
 \name{PPI}
 \alias{PPI}
-\title{Gene-gene interactions from STRING db
-Data frame with high confidence (>=700) gene-gene interactions. For every gene, also the top 3 interactions in the range [400, 699] are considered. Genes are identified with Entrez Gene identifiers.}
+\title{Gene-gene interactions from STRING db v12.0
+Data frame with high confidence (>=700) gene-gene interactions, without text mining. For every gene, the top 3 interactions in the range [400, 699] are also considered. Genes are represented by their Entrez Gene identifier.}
 \format{
-An object of class \code{data.frame} with 205055 rows and 14 columns.
+An object of class \code{data.frame} with 174962 rows and 14 columns.
 }
 \usage{
 PPI
 }
 \description{
-Gene-gene interactions from STRING db
-Data frame with high confidence (>=700) gene-gene interactions. For every gene, also the top 3 interactions in the range [400, 699] are considered. Genes are identified with Entrez Gene identifiers.
+Gene-gene interactions from STRING db v12.0
+Data frame with high confidence (>=700) gene-gene interactions, without text mining. For every gene, the top 3 interactions in the range [400, 699] are also considered. Genes are represented by their Entrez Gene identifier.
 }
 \keyword{datasets}

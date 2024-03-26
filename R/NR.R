@@ -4,27 +4,19 @@
 #' names and size of the vertices of G
 #' @param k number of permutations
 #' @param BPPARAM An optional BiocParallelParam instance determining the parallel back-end to be used during evaluation. If NULL, parallel evaluation is disabled using SerialParam(). See ?bplapply.
-#' @param nullModel null model type
-#' @param norm type of normalization
 #' @return list of values
-#' @usage NR(G, rankedVector, k=99, mc.cores=1, nullModel="A", norm="n")
-#' @examples
-#' \dontrun{
-#' NR(G, rankedVector, k=99, mc.cores=1, nullModel="A", norm="n") }
 #' @export
 #' @import BiocParallel
 #' @import igraph
-
+#' @importFrom stats setNames
 
 NR <-
   function(G = NULL,
            rankedVector = NULL,
            k = 99,
-           nullModel = "A",
-           norm = "n",
            BPPARAM = NULL) {
-    nullModel <- match.arg(nullModel)
     
+
     if (is.null(BPPARAM)) {
       BPPARAM <- SerialParam()
     }
@@ -36,23 +28,14 @@ NR <-
     #real values
     rankedVectorNorm <- rankedVector / max(rankedVector)
     
-    omegaVect <- omega(G, rankedVectorNorm, norm = norm)
+    omegaVect <- omega(G, rankedVectorNorm)
     
     #permutations of rankedVectorNorm: named vector of indices
-    idxPerm <-
-      lapply(1:k, function(x)
-        array(sample(1:length(rankedVectorNorm)),
-              dimnames = list(names(rankedVectorNorm))))
+    idxPerm <- lapply(1:k, function(x)  setNames(sample(1:length(rankedVectorNorm)), names(rankedVectorNorm)))
     
-    res <-
-      BiocParallel::bplapply(
-        idxPerm,
-        omega_perm,
-        G = G,
-        dS = rankedVectorNorm,
-        BPPARAM = BPPARAM,
-        norm = norm
-      )
+    Gi <- induced.subgraph(G, V(G)$name[match(names(rankedVectorNorm), V(G)$name)])
+    Ai <- as.matrix(get.adjacency(Gi))
+    res <- bplapply(idxPerm, omega_perm, dS = rankedVectorNorm, Ai = Ai, BPPARAM = BPPARAM)
     
     #n-by-k matrix
     res <- t(do.call(rbind, res))
@@ -62,6 +45,9 @@ NR <-
       sign(x >= omegaVect))
     out <- rowSums(out)
     out <- (out + 1) / (k + 1)
+    
+    #p_adj <- p.adjust(out, method = "fdr")
+    #q_val <- eFDR(real_values = omegaVect, all_values = c(omegaVect, as.numeric(res)), BPPARAM = BPPARAM)
     
     return(list(
       NRsummary = data.frame(
