@@ -4,7 +4,20 @@
 \alias{calc_adjND}
 \title{Calculation of permutation-adjusted network smoothing index}
 \usage{
-calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), returnPerm=FALSE, ...)
+calc_adjND(
+  X0 = NULL,
+  W = NULL,
+  eps = NULL,
+  k = 99,
+  mode = c("S", "Xs"),
+  BPPARAM = NULL,
+  returnPerm = FALSE,
+  bin_type = "number",
+  method = "simple",
+  cut_par = 20,
+  vertex_sets = NULL,
+  ...
+)
 }
 \arguments{
 \item{X0}{input matrix}
@@ -18,18 +31,23 @@ calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), returnPerm=FALSE, ...)
 \item{mode}{whether to use network smoothing index (S) (default) or
 network smoothing values (Xs)}
 
-\item{BPPARAM}{An optional BiocParallelParam instance determining the parallel back-end to be used during evaluation. If NULL, parallel evaluation is disabled using SerialParam(). See ?bplapply.}
+\item{BPPARAM}{An optional BiocParallelParam instance determining the parallel back-end to be used during evaluation. If NULL, parallel evaluation is disabled using SerialParam(); See BiocParallel::bplapply()}
 
 \item{returnPerm}{return permutations}
 
-\item{...}{additional parameters of ND}
+\item{bin_type}{see NPATools::perm_vertices()}
+
+\item{method}{see NPATools::perm_vertices()}
+
+\item{cut_par}{see NPATools::perm_vertices()}
+
+\item{vertex_sets}{see NPATools::perm_vertices()}
+
+\item{...}{additional arguments passed to NPATools::ND()}
 }
 \value{
-\code{data.frame} with X0, Xs, S, p and Sp
+list of data frames
 }
 \description{
 Calculation of permutation-adjusted network smoothing index
-}
-\examples{
-\dontrun{calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), returnPerm=FALSE)}
 }

@@ -4,17 +4,19 @@
 #' @param W symmetrically normalized adjacency matrix W = D^-1 A D^-1, see normalize_adj_mat function
 #' @param k number of permutations
 #' @param eps numeric value
-#' @param BPPARAM An optional BiocParallelParam instance determining the parallel back-end to be used during evaluation. If NULL, parallel evaluation is disabled using SerialParam(). See ?bplapply.
+#' @param BPPARAM An optional BiocParallelParam instance determining the parallel back-end to be used during evaluation. If NULL, parallel evaluation is disabled using SerialParam(); See BiocParallel::bplapply()
+#' @param bin_type see NPATools::perm_vertices()
+#' @param method see NPATools::perm_vertices()
+#' @param cut_par see NPATools::perm_vertices()
 #' @param returnPerm return permutations
+#' @param vertex_sets see NPATools::perm_vertices()
 #' @param mode whether to use network smoothing index (S) (default) or
 #' network smoothing values (Xs)
-#' @param ... additional parameters of ND
-#' @description Calculation of permutation-adjusted network smoothing index
-#' @usage calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), returnPerm=FALSE, ...)
-#' @examples
-#' \dontrun{calc_adjND(X0, W, eps, k=99, mode=c("S", "Xs"), returnPerm=FALSE)}
-#' @return \code{data.frame} with X0, Xs, S, p and Sp
-#' @import BiocParallel NPATools
+#' @param ... additional arguments passed to NPATools::ND()
+#' @return list of data frames 
+#' @importFrom BiocParallel bplapply SerialParam
+#' @importFrom  NPATools perm_vertices perm_X0 ND calc_p eFDR
+#' @importFrom  igraph degree graph_from_adjacency_matrix
 #' @export
 #'
 calc_adjND <-
@@ -28,6 +30,7 @@ calc_adjND <-
            bin_type = "number",
            method = "simple",
            cut_par = 20,
+           vertex_sets = NULL,
            ...) {
     mode <- match.arg(mode)
     
@@ -51,16 +54,10 @@ calc_adjND <-
       stop("eps must have the same number of columns of X0\n")
     }
     
-    # allX0 <-
-    #   c(list(X0), lapply(1:k, function(x)
-    #     matrix(
-    #       as.numeric(X0),
-    #       ncol = ncol(X0),
-    #       dimnames =
-    #         list(sample(rownames(X0), nrow(X0)))
-    #     )))
+    vert_deg <- degree(graph_from_adjacency_matrix(W))
+    vert_perms <- perm_vertices(vert_deg = vert_deg, k=k, method = method, cut_par = cut_par, bin_type = bin_type, vertex_sets = vertex_sets)
     
-    allX0 <- perm_X0(X0 = X0, A=W, k=k, cut_par = cut_par, bin_type = bin_type, method = method)
+    allX0 <- perm_X0(X0 = X0, perms = vert_perms)
     
     allX0 <- bplapply(allX0, function(x)
       x[match(rownames(W), rownames(x)), , drop = FALSE], BPPARAM = BPPARAM)

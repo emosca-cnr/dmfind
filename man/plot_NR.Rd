@@ -4,21 +4,13 @@
 \alias{plot_NR}
 \title{Plot the results of eval_eps}
 \usage{
-plot_NR(nrRes=NULL, signCompTable=NULL, file="NR.jpg")
+plot_NR(nrRes = NULL, signCompTable = NULL)
 }
 \arguments{
-\item{nrRes}{network resampling result}
+\item{nrRes}{result of NR()}
 
-\item{signCompTable}{?}
-
-\item{file}{filename}
-}
-\value{
-plot
+\item{signCompTable}{optional result of find_sign_conn_comp()}
 }
 \description{
 Plot the results of eval_eps
-}
-\examples{
-\dontrun{plot_NR(nrRes=NULL, signCompTable=NULL, file="NR.jpg")}
 }

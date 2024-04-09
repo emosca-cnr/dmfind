@@ -4,7 +4,12 @@
 \alias{find_sign_conn_comp}
 \title{Finding significant connected components}
 \usage{
-find_sign_conn_comp(NRsummary, NRpThr=0.05, minRank=50, maxRank=300)
+find_sign_conn_comp(
+  NRsummary = NULL,
+  NRpThr = 0.05,
+  minRank = 50,
+  maxRank = 300
+)
 }
 \arguments{
 \item{NRsummary}{data.frame with NRsummary}
@@ -20,8 +25,4 @@ significant connected component
 }
 \description{
 Finding significant connected components
-}
-\examples{
-\dontrun{find_sign_conn_comp(NRsummary, NRpThr=0.05, minRank=50, 
-maxRank=300)}
 }

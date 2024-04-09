@@ -4,21 +4,13 @@
 \alias{plot_omega_eps}
 \title{Plot the results of eval_eps}
 \usage{
-plot_omega_eps(evalEpsRes, file="eval_eps_X0_omega.jpg")
+plot_omega_eps(evalEpsRes = NULL, column = 1)
 }
 \arguments{
 \item{evalEpsRes}{Epsilon evaluation}
 
-\item{column}{which columm of evalEpsRes$csX0 and evalEpsRes$csXs}
-
-\item{file}{filename}
-}
-\value{
-plot
+\item{column}{which columm of evalEpsRes$csX0 and evalEpsRes$csXs will be used}
 }
 \description{
 Plot the results of eval_eps
-}
-\examples{
-\dontrun{plot_omega_eps(evalEpsRes, file="eval_eps_X0_omega.jpg")}
 }

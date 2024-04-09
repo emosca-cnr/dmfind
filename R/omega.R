@@ -4,7 +4,7 @@
 #' @param G igraph object; only the vertices in names(u) will be considered
 #' @param u ranked named list; names must correspond to V(G)$name
 #' @return omega 
-#' @import igraph
+#' @importFrom igraph induced.subgraph get.adjacency V
 #' @export
 
 omega <- function(G=NULL, u=NULL) {

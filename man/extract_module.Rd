@@ -17,6 +17,10 @@ extract_module(
 
 \item{selectedVertices}{subset of vertices}
 
+\item{NSIRes}{result of calc_adjND() or calc_dS()}
+
+\item{column}{which column to consider among those available in the elements of calc_adjND()}
+
 \item{minSubnetSize}{minimum size of subnetwork}
 }
 \value{

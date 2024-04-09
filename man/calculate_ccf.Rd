@@ -2,21 +2,20 @@
 % Please edit documentation in R/calculate_ccf.R
 \name{calculate_ccf}
 \alias{calculate_ccf}
-\title{Calculate ccf}
+\title{Calculate the connected component fraction}
 \usage{
-calculate_ccf(G, rankedVectorNames)
+calculate_ccf(G = NULL, rankedVectorNames = NULL, min_size = 2)
 }
 \arguments{
 \item{G}{igraph object}
 
 \item{rankedVectorNames}{ranked vector of names}
+
+\item{min_size}{min size of a connected component}
 }
 \value{
 cff
 }
 \description{
-Calculate ccf
-}
-\examples{
-\dontrun{calculate_ccf(G, rankedVectorNames)}
+Calculate the connected component fraction
 }

@@ -6,9 +6,7 @@
 #' @param classes vector of classes, values must be equal to 1 or 2
 #' @param eps numeric value
 #' @return named vector of delta smoothing indexes
-#' @usage dS(X0, Xs, classes, eps=1)
-#' @examples
-#' \dontrun{dS(X0, Xs, classes, eps=1)}
+#' @importFrom Matrix Matrix rowMeans
 #'
 dS <- function(X0 = NULL,
                Xs = NULL,
@@ -30,15 +28,11 @@ dS <- function(X0 = NULL,
         stop("eps must have 2 columns\n")
     }
     
-    X01 <-
-        Matrix::Matrix(Matrix::rowMeans(X0[, classes == 1, drop = FALSE]), sparse = T, dimnames = list(rownames(X0), "X01"))
-    X02 <-
-        Matrix::Matrix(Matrix::rowMeans(X0[, classes == 2, drop = FALSE]), sparse = T, dimnames = list(rownames(X0), "X02"))
+    X01 <- Matrix(rowMeans(X0[, classes == 1, drop = FALSE]), sparse = T, dimnames = list(rownames(X0), "X01"))
+    X02 <- Matrix(rowMeans(X0[, classes == 2, drop = FALSE]), sparse = T, dimnames = list(rownames(X0), "X02"))
     
-    Xs1 <-
-        Matrix::Matrix(Matrix::rowMeans(Xs[, classes == 1, drop = FALSE]), sparse = T, dimnames = list(rownames(Xs), "Xs1"))
-    Xs2 <-
-        Matrix::Matrix(Matrix::rowMeans(Xs[, classes == 2, drop = FALSE]), sparse = T, dimnames = list(rownames(X0), "Xs2"))
+    Xs1 <- Matrix(rowMeans(Xs[, classes == 1, drop = FALSE]), sparse = T, dimnames = list(rownames(Xs), "Xs1"))
+    Xs2 <- Matrix(rowMeans(Xs[, classes == 2, drop = FALSE]), sparse = T, dimnames = list(rownames(X0), "Xs2"))
     
     nsi1 <- nsi(X01, Xs1, eps = eps[, 1, drop = F])
     nsi2 <- nsi(X02, Xs2, eps = eps[, 2, drop = F])

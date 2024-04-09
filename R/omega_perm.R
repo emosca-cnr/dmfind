@@ -2,9 +2,9 @@
 #' @param dS scores vector; it must have the same names
 #' and size of the vertices of G
 #' @param idx vector of randomly resampled dS scores;
+#' @param Ai adjacency matrix relative to the elements of dS
 #' the names must be the same as dS's
 #' @return vector of permuted omega
-#' @import igraph
 
 
 omega_perm <- function(idx = NULL, dS = NULL, Ai=NULL) {

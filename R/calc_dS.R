@@ -2,17 +2,13 @@
 #' 
 #' @description Calculation of delta network smoothing indexes
 #' @param X0 input matrix
-#' @param A adjancency matrix
+#' @param W normalized adjancency matrix
 #' @param classes numeric vector of \{1,2\}
 #' @param eps 1-row matrix with two columns for the eps values of class 1 and 2
 #' respectively
-#' @param ... additional parameteres of ND
-#' @usage calc_dS(X0, A, classes, eps=1, ...)
-#' @examples 
-#' \dontrun{calc_dS(X0, A, classes, eps=1)}
-#' @return \code{data.frame} with delta gene network smoothing indexes
+#' @param ... additional parameteres of NPATools::ND()
 #' @export
-#' @import NPATools
+#' @importFrom NPATools ND
 calc_dS <- function(X0=NULL, W=NULL, classes=NULL, eps=NULL, ...){
 
     if(is.null(classes)){

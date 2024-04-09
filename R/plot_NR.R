@@ -1,16 +1,9 @@
 #' Plot the results of eval_eps
 #' 
 #' @description Plot the results of eval_eps
-#' @param nrRes network resampling result
-#' @param signCompTable ?
-#' @param file filename
-#' @return plot
-#' @examples 
-#' \dontrun{plot_NR(nrRes=NULL, signCompTable=NULL, file="NR.jpg")}
-#' @usage plot_NR(nrRes=NULL, signCompTable=NULL, file="NR.jpg")
-#' @import grDevices
-#' @import graphics
-#' @import utils
+#' @param nrRes result of NR()
+#' @param signCompTable optional result of find_sign_conn_comp()
+#' @importFrom graphics par lines abline points
 #' @export
 
 plot_NR <- function(nrRes=NULL, signCompTable=NULL){

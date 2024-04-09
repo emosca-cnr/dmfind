@@ -2,23 +2,22 @@
 % Please edit documentation in R/NR.R
 \name{NR}
 \alias{NR}
-\title{Local Monte Carlo p values}
+\title{Network Resampling}
 \usage{
 NR(G = NULL, rankedVector = NULL, k = 99, BPPARAM = NULL)
 }
 \arguments{
-\item{G}{gene x gene undirected interaction graph}
+\item{G}{igraph object}
 
-\item{rankedVector}{scores vector; it must have the same
-names and size of the vertices of G}
+\item{rankedVector}{ranked named vector with vertex scores; only `names(rankedVector)` in `V(G)$name` will be considered}
 
 \item{k}{number of permutations}
 
-\item{BPPARAM}{An optional BiocParallelParam instance determining the parallel back-end to be used during evaluation. If NULL, parallel evaluation is disabled using SerialParam(). See ?bplapply.}
+\item{BPPARAM}{An optional BiocParallelParam instance determining the parallel back-end to be used during evaluation. If NULL, parallel evaluation is disabled using `SerialParam()`. See ?bplapply.}
 }
 \value{
 list of values
 }
 \description{
-Local Monte Carlo p values
+Network Resampling
 }

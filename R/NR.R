@@ -1,22 +1,16 @@
-#' Local Monte Carlo p values
-#' @param G gene x gene undirected interaction graph
-#' @param rankedVector scores vector; it must have the same
-#' names and size of the vertices of G
+#' Network Resampling
+#' @param G igraph object
+#' @param rankedVector ranked named vector with vertex scores; only `names(rankedVector)` in `V(G)$name` will be considered
 #' @param k number of permutations
-#' @param BPPARAM An optional BiocParallelParam instance determining the parallel back-end to be used during evaluation. If NULL, parallel evaluation is disabled using SerialParam(). See ?bplapply.
+#' @param BPPARAM An optional BiocParallelParam instance determining the parallel back-end to be used during evaluation. If NULL, parallel evaluation is disabled using `SerialParam()`. See ?bplapply.
 #' @return list of values
 #' @export
-#' @import BiocParallel
-#' @import igraph
+#' @importFrom BiocParallel SerialParam bplapply
+#' @importFrom igraph induced.subgraph get.adjacency V
 #' @importFrom stats setNames
 
-NR <-
-  function(G = NULL,
-           rankedVector = NULL,
-           k = 99,
-           BPPARAM = NULL) {
+NR <- function(G = NULL, rankedVector = NULL, k = 99, BPPARAM = NULL) {
     
-
     if (is.null(BPPARAM)) {
       BPPARAM <- SerialParam()
     }
@@ -24,11 +18,13 @@ NR <-
     cat("BPPARAM\n")
     print(BPPARAM)
     
+    stopifnot(all(names(rankedVector) %in% V(G)$name))
     
     #real values
     rankedVectorNorm <- rankedVector / max(rankedVector)
     
-    omegaVect <- omega(G, rankedVectorNorm)
+    G <- induced.subgraph(G, V(G)$name[match(names(rankedVectorNorm), V(G)$name)])
+    omegaVect <- omega(G = G, u = rankedVectorNorm)
     
     #permutations of rankedVectorNorm: named vector of indices
     idxPerm <- lapply(1:k, function(x)  setNames(sample(1:length(rankedVectorNorm)), names(rankedVectorNorm)))
@@ -41,8 +37,7 @@ NR <-
     res <- t(do.call(rbind, res))
     
     #LMC p values
-    out <- apply(res, 2, function(x)
-      sign(x >= omegaVect))
+    out <- apply(res, 2, function(x) sign(x >= omegaVect))
     out <- rowSums(out)
     out <- (out + 1) / (k + 1)
     

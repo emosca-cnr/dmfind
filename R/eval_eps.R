@@ -6,10 +6,7 @@
 #' @param eps matrix with epsilon values (rows) for each column of X0, Xs
 #' @param G igraph object
 #' @param top top genes to consider
-#' @return list with sn_g and sn_summary elements
-#' @usage eval_eps(X0, Xs, eps=NULL, G, top)
-#' @examples
-#' \dontrun{eval_eps(X0, Xs, eps=NULL, G, top)}
+#' @return list of data frames
 #' @importFrom Bolstad2 sintegral
 #' @export
 #'
@@ -63,11 +60,11 @@ eval_eps <- function(X0 = NULL,
     aucX0 <-
         do.call(rbind, lapply(csX0, function(i_mat)
             apply(i_mat, 2, function(i_col)
-                Bolstad2::sintegral(x = 1:top, fx = i_col)$int)))
+                sintegral(x = 1:top, fx = i_col)$int)))
     aucXs <-
         do.call(rbind, lapply(csXs, function(i_mat)
             apply(i_mat, 2, function(i_col)
-                Bolstad2::sintegral(x = 1:top, fx = i_col)$int)))
+                sintegral(x = 1:top, fx = i_col)$int)))
     out <-
         list(
             S = nsiEps,

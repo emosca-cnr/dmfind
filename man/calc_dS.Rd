@@ -4,26 +4,20 @@
 \alias{calc_dS}
 \title{Calculation of delta network smoothing indexes}
 \usage{
-calc_dS(X0, A, classes, eps=1, ...)
+calc_dS(X0 = NULL, W = NULL, classes = NULL, eps = NULL, ...)
 }
 \arguments{
 \item{X0}{input matrix}
+
+\item{W}{normalized adjancency matrix}
 
 \item{classes}{numeric vector of \{1,2\}}
 
 \item{eps}{1-row matrix with two columns for the eps values of class 1 and 2
 respectively}
 
-\item{...}{additional parameteres of ND}
-
-\item{A}{adjancency matrix}
-}
-\value{
-\code{data.frame} with delta gene network smoothing indexes
+\item{...}{additional parameteres of NPATools::ND()}
 }
 \description{
 Calculation of delta network smoothing indexes
-}
-\examples{
-\dontrun{calc_dS(X0, A, classes, eps=1)}
 }

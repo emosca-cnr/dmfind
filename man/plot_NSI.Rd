@@ -4,21 +4,19 @@
 \alias{plot_NSI}
 \title{Scatter Plot of NSI values}
 \usage{
-plot_S(nsiRes=NULL, X0, initSigGenes=NULL, file="S.jpg")
+plot_NSI(nsiRes = NULL, x = "X0", y = NULL, column = 1, initSigGenes = NULL)
 }
 \arguments{
 \item{nsiRes}{result of calc_dS() or cal_adjND()}
 
-\item{initSigGenes}{NULL}
+\item{x}{what to put on the horizontal axis}
 
-\item{file}{filename}
-}
-\value{
-plot
+\item{y}{what to put on the vertical axis}
+
+\item{column}{column to consider}
+
+\item{initSigGenes}{optional vector of initial sifnigicant genes}
 }
 \description{
-Plot S
-}
-\examples{
-\dontrun{plot_S(nsiRes=NULL, X0, initSigGenes=NULL, file="S.jpg")}
+Plot NSI
 }

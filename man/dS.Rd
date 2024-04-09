@@ -4,7 +4,7 @@
 \alias{dS}
 \title{Delta Network Smoothing Index}
 \usage{
-dS(X0, Xs, classes, eps=1)
+dS(X0 = NULL, Xs = NULL, classes = NULL, eps = NULL)
 }
 \arguments{
 \item{X0}{input matrix}
@@ -20,8 +20,4 @@ named vector of delta smoothing indexes
 }
 \description{
 Delta Network Smoothing Index
-}
-\examples{
-\dontrun{dS(X0, Xs, classes, eps=1)}
-
 }

@@ -1,25 +1,21 @@
-#' Calculate ccf
+#' Calculate the connected component fraction
 #' 
-#' @description Calculate ccf
+#' @description Calculate the connected component fraction
 #' @param G igraph object
 #' @param rankedVectorNames ranked vector of names
+#' @param min_size min size of a connected component
 #' @return cff
-#' @usage calculate_ccf(G, rankedVectorNames)
-#' @examples 
-#' \dontrun{calculate_ccf(G, rankedVectorNames)}
-#' @import igraph
+#' @importFrom igraph V induced_subgraph
 #' @export
 
-calculate_ccf <- function(G=NULL, rankedVectorNames=NULL){
+calculate_ccf <- function(G=NULL, rankedVectorNames=NULL, min_size=2){
 
     n <- length(rankedVectorNames)
     rankedVectorNames <- 
         rankedVectorNames[1:min(length(rankedVectorNames), 1000)]
     n <- length(rankedVectorNames)
 
-    ans <- sapply(1:n, function(i) 
-        CCF(igraph::induced_subgraph(G, 
-        V(G)$name[V(G)$name %in% rankedVectorNames[1:i]])))
+    ans <- sapply(1:n, function(i) CCF(induced_subgraph(G, V(G)$name[V(G)$name %in% rankedVectorNames[1:i]]), min_size=min_size))
 
     return(ans)
 

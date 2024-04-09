@@ -4,7 +4,7 @@
 \alias{eval_eps}
 \title{Evaluate the effect of epsilon on NSI}
 \usage{
-eval_eps(X0, Xs, eps=NULL, G, top)
+eval_eps(X0 = NULL, Xs = NULL, eps = NULL, G = NULL, top = NULL)
 }
 \arguments{
 \item{X0}{initial condition matrix}
@@ -18,11 +18,8 @@ eval_eps(X0, Xs, eps=NULL, G, top)
 \item{top}{top genes to consider}
 }
 \value{
-list with sn_g and sn_summary elements
+list of data frames
 }
 \description{
 Evaluate the effect of epsilon on NSI
-}
-\examples{
-\dontrun{eval_eps(X0, Xs, eps=NULL, G, top)}
 }

@@ -7,11 +7,13 @@
 omega_perm(idx = NULL, dS = NULL, Ai = NULL)
 }
 \arguments{
-\item{idx}{vector of randomly resampled dS scores;
-the names must be the same as dS's}
+\item{idx}{vector of randomly resampled dS scores;}
 
 \item{dS}{scores vector; it must have the same names
 and size of the vertices of G}
+
+\item{Ai}{adjacency matrix relative to the elements of dS
+the names must be the same as dS's}
 }
 \value{
 vector of permuted omega

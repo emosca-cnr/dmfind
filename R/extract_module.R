@@ -3,11 +3,13 @@
 #' @description Extraction and plotting of connected subnetworks from a 
 #' graph and a set of selected vertices
 #' @param graph igraph object
+#' @param NSIRes result of calc_adjND() or calc_dS()
+#' @param column which column to consider among those available in the elements of calc_adjND()
 #' @param selectedVertices subset of vertices
 #' @param minSubnetSize minimum size of subnetwork
 #' @return subnetwork 
 #' @export
-#' @import igraph
+#' @importFrom igraph induced_subgraph V V<- clusters
 #' @importFrom NPATools get_nconn_comp
 
 extract_module <- function(graph=NULL, selectedVertices=NULL, NSIRes=NULL, column=1, minSubnetSize=2){
