@@ -28,3 +28,13 @@ if (!requireNamespace("devtools", quietly = TRUE)){
 devtools::install_github("emosca-cnr/NPATools", build_vignettes=T)
 devtools::install_github("emosca-cnr/dmfind", build_vignettes=T)
 ```
+
+## Documentation
+
+Package vignettes are available at the URL: https://emosca-cnr.github.io/dmfind or can be visualized within R as follows:
+
+```{r, eval=FALSE}
+library(dmfind)
+browseVignettes("dmfind")
+```
+
