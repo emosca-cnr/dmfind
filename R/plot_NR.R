@@ -27,12 +27,12 @@ plot_NR <- function(nrRes=NULL, signCompTable=NULL){
         abline(v=selectedRanks, col="purple", lty=2, lwd=1)
     }
 
-    plot(log10(nrRes$NRsummary$p), xlab="rank", ylab="log10(p)", type="l")
-    points(log10(nrRes$NRsummary$p), pch=16, cex=0.5)
+    plot(log10(nrRes$NRsummary$p_val), xlab="rank", ylab="log10(p)", type="l")
+    points(log10(nrRes$NRsummary$p_val), pch=16, cex=0.5)
     if(!is.null(signCompTable)){
         idxCritical <- which(signCompTable$critical==1)
         points(nrRes$NRsummary$rank[idxCritical], 
-               log10(nrRes$NRsummary$p[idxCritical]), pch=16, 
+               log10(nrRes$NRsummary$p_val[idxCritical]), pch=16, 
                cex=0.5, col="purple")
         abline(v=selectedRanks, col="purple", lty=2, lwd=1)
     }

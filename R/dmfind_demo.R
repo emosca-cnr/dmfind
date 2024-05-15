@@ -1,2 +1,2 @@
-#' Demo data of dmfind
+#' Demo data
 "dmfind_demo"

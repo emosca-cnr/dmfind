@@ -4,12 +4,14 @@
 \alias{plot_omega_eps}
 \title{Plot the results of eval_eps}
 \usage{
-plot_omega_eps(evalEpsRes = NULL, column = 1)
+plot_omega_eps(evalEpsRes = NULL, column = 1, out_dir = NULL)
 }
 \arguments{
 \item{evalEpsRes}{Epsilon evaluation}
 
 \item{column}{which columm of evalEpsRes$csX0 and evalEpsRes$csXs will be used}
+
+\item{out_dir}{output directory}
 }
 \description{
 Plot the results of eval_eps

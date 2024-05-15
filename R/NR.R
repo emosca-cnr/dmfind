@@ -50,7 +50,7 @@ NR <- function(G = NULL, rankedVector = NULL, k = 99, BPPARAM = NULL) {
         rank = 1:length(rankedVectorNorm),
         rankingScore = rankedVectorNorm,
         omega = omegaVect,
-        p = out,
+        p_val = out,
         stringsAsFactors = FALSE
       ),
       omegaPerm = res

@@ -3,14 +3,14 @@
 \docType{data}
 \name{dmfind_demo}
 \alias{dmfind_demo}
-\title{Demo data of dmfind}
+\title{Demo data}
 \format{
-An object of class \code{list} of length 15.
+An object of class \code{list} of length 14.
 }
 \usage{
 dmfind_demo
 }
 \description{
-Demo data of dmfind
+Demo data
 }
 \keyword{datasets}

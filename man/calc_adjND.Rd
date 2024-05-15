@@ -9,9 +9,7 @@ calc_adjND(
   W = NULL,
   eps = NULL,
   k = 99,
-  mode = c("S", "Xs"),
   BPPARAM = NULL,
-  returnPerm = FALSE,
   bin_type = "number",
   method = "simple",
   cut_par = 20,
@@ -24,16 +22,11 @@ calc_adjND(
 
 \item{W}{symmetrically normalized adjacency matrix W = D^-1 A D^-1, see normalize_adj_mat function}
 
-\item{eps}{numeric value}
+\item{eps}{matrix of eps values; same columns of X0; see eval_eps().}
 
 \item{k}{number of permutations}
 
-\item{mode}{whether to use network smoothing index (S) (default) or
-network smoothing values (Xs)}
-
 \item{BPPARAM}{An optional BiocParallelParam instance determining the parallel back-end to be used during evaluation. If NULL, parallel evaluation is disabled using SerialParam(); See BiocParallel::bplapply()}
-
-\item{returnPerm}{return permutations}
 
 \item{bin_type}{see NPATools::perm_vertices()}
 
@@ -41,7 +34,8 @@ network smoothing values (Xs)}
 
 \item{cut_par}{see NPATools::perm_vertices()}
 
-\item{vertex_sets}{see NPATools::perm_vertices()}
+\item{vertex_sets}{see NPATools::perm_vertices()
+network smoothing values (Xs)}
 
 \item{...}{additional arguments passed to NPATools::ND()}
 }

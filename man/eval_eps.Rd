@@ -4,18 +4,36 @@
 \alias{eval_eps}
 \title{Evaluate the effect of epsilon on NSI}
 \usage{
-eval_eps(X0 = NULL, Xs = NULL, eps = NULL, G = NULL, top = NULL)
+eval_eps(
+  X0 = NULL,
+  Xs = NULL,
+  W = NULL,
+  eps = NULL,
+  G = NULL,
+  top = NULL,
+  eps.n = 4,
+  na = 2,
+  nb = 2
+)
 }
 \arguments{
 \item{X0}{initial condition matrix}
 
-\item{Xs}{network smoothing result}
+\item{Xs}{network diffusion steady state; required if W not provided}
 
-\item{eps}{matrix with epsilon values (rows) for each column of X0, Xs}
+\item{W}{symmetrically normalized adjacency matrix W = D^-1 A D^-1, see normalize_adj_mat() function; required if Xs is not provided}
+
+\item{eps}{optional vector with epsilon values}
 
 \item{G}{igraph object}
 
 \item{top}{top genes to consider}
+
+\item{eps.n}{number of eps points for every order of magnitude}
+
+\item{na}{number of orders of magnitudes above the one detected in X0 to set max eps}
+
+\item{nb}{number of orders of magnitudes below the one detected in X0 to set min eps}
 }
 \value{
 list of data frames

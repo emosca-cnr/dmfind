@@ -28,6 +28,8 @@ dS <- function(X0 = NULL,
         stop("eps must have 2 columns\n")
     }
     
+    classes <- as.numeric(as.factor(classes))
+    
     X01 <- Matrix(rowMeans(X0[, classes == 1, drop = FALSE]), sparse = T, dimnames = list(rownames(X0), "X01"))
     X02 <- Matrix(rowMeans(X0[, classes == 2, drop = FALSE]), sparse = T, dimnames = list(rownames(X0), "X02"))
     

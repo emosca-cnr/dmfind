@@ -27,7 +27,7 @@ calc_dS <- function(X0=NULL, W=NULL, classes=NULL, eps=NULL, ...){
         stop("eps must have 2 columns\n")
     }
     
-    cat("network propagation\n")
+    cat("network diffusion\n")
     Xs <- ND(X0 = X0, W = W, ...)
 
     cat("calculation of dS\n")

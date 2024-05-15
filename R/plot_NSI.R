@@ -18,15 +18,10 @@ plot_NSI <-
         x_data <- nsiRes[[x]][, min(column, ncol(nsiRes[[x]]))]
         y_data <- nsiRes[[y]][, min(column, ncol(nsiRes[[y]]))]
         
-        if (y == "p") {
+        if (y %in% c("p", "pX0", "pW")) {
             y_data <- -log10(nsiRes[[y]][, column])
-            y <- "-log10(p)"
+            y <- paste0("-log10(", y, ")")
         }
-        if (y == "eFDR") {
-            y_data <- -log10(nsiRes[[y]][, column])
-            y <- "-log10(q)"
-        }
-        
         
         plot(
             x_data,
