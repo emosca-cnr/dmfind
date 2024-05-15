@@ -1,3 +1,5 @@
+<img src="vignettes/imgs/dmfindLogo.jpg" width="200">
+
 # dmfind - Network diffusion-based analysis of "omics" data for the identification of differentially enriched modules.
 
 This tool implements functions for:
